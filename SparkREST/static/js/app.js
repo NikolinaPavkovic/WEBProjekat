@@ -1,15 +1,14 @@
-const Product = { template: '<edit-product></edit-product>' }
-const Products = { template: '<products></products>' }
+const Restaurant = { template: '<edit-restaurant> </edit-restaurant>' }
+const Restaurants = { template: '<restaurants> </restaurants>' }
 
 const router = new VueRouter({
 	mode: 'hash',
-	  routes: [
-		{ path: '/', name: 'home', component: Products},
-	    { path: '/products/:id', component: Product}
-	  ]
+		routes : [
+			{ path: '/', name: 'home', component: Restaurants}
+		]	
 });
 
 var app = new Vue({
 	router,
-	el: '#products'
+	el: '#restaurants'
 });
