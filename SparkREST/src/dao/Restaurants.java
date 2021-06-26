@@ -43,7 +43,7 @@ public class Restaurants {
 	
 	public void save(Restaurant restaurant) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Restaurant> restaurants = load();
+		ArrayList<Restaurant> restaurants = load();
 		restaurants.add(restaurant);
 		mapper.writeValue(new File("restaurants.json"), restaurants);
 	}
@@ -51,7 +51,7 @@ public class Restaurants {
 	public ArrayList<Restaurant> load() throws JsonParseException, JsonMappingException, IOException {
 		final ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Restaurant> restaurantsFromFile = new ArrayList<Restaurant>();
-		List<Restaurant> restaurants = mapper.readValue(new File("restaurants.json"), new TypeReference<List<Restaurant>>(){});
+		ArrayList<Restaurant> restaurants = mapper.readValue(new File("restaurants.json"), new TypeReference<List<Restaurant>>(){});
 		restaurants.forEach(r -> restaurantsFromFile.add(r));
 		
 		return restaurantsFromFile;

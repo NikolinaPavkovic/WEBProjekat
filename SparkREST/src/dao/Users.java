@@ -1,0 +1,47 @@
+package dao;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import beans.User;
+
+public class Users {
+	private HashMap<String, User> users = new HashMap<String, User>();
+	
+	public Users() {
+		
+	}
+
+	public HashMap<String, User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(HashMap<String, User> users) {
+		this.users = users;
+	}
+	
+	public void save(User user) throws JsonMappingException, JsonGenerationException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayList<User> users = load();
+		users.add(user);
+		mapper.writeValue(new File("users.json"), users);
+	}
+	
+	public ArrayList<User> load() throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<User> usersFromFile = new ArrayList<User>();
+		final ObjectMapper mapper = new ObjectMapper();
+		ArrayList<User> users = mapper.readValue(new File("users.json"), new TypeReference<List<User>>(){});
+		users.forEach(u -> usersFromFile.add(u));
+		
+		return usersFromFile;
+	}
+
+}
