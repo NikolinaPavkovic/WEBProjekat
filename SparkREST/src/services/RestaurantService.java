@@ -3,7 +3,7 @@ package services;
 import java.util.Collection;
 
 import beans.Restaurant;
-import beans.Restaurants;
+import dao.Restaurants;
 
 public class RestaurantService {
 	private Restaurants restaurants = new Restaurants();
