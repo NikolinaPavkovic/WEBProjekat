@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class Restaurants {
 	private HashMap<String, Restaurant> restaurants = new HashMap<String, Restaurant>();
@@ -45,6 +46,7 @@ public class Restaurants {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Restaurant> restaurants = load();
 		restaurants.add(restaurant);
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		mapper.writeValue(new File("restaurants.json"), restaurants);
 	}
 	

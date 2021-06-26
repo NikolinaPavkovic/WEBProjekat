@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.*;
 
@@ -32,6 +33,7 @@ public class Deliverers {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Deliverer> deliverers = load();
 		deliverers.add(deliverer);
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		mapper.writeValue(new File("deliverers.json"), deliverers);
 	}
 	
