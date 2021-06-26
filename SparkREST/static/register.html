@@ -1,0 +1,32 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Log In</title>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/toast.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<img alt="" src="logo1.png">
+<h1 style="color: #99CCFF; text-align: center; font-size: 50"></h1>
+	<form action="post">
+		<label>Ime:</label>
+		<input type="text" name="name"/>
+		<label>Prezime:</label>
+		<input type="text" name="surname"/>
+		<label>Pol:</label>
+		<select>
+			<option value="male">Muško</option>
+			<option value="female">Žensko</option>
+		</select>
+		<label>Datum rođenja:</label>
+		<vuejs-datepicker format="dd.MM.yyyy."></vuejs-datepicker></br>
+		<label>Korisničko ime:</label>
+		<input type="text" name="username" required/>
+		<label>Lozinka:</label>
+		<input type="password" name="password" required/>
+		<input type="submit" value="Log In"/>
+	</form>
+	<script src="js/vuejs-datepicker.min.js"></script>
+</body>
+</html>

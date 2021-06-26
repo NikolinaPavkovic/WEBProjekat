@@ -6,12 +6,15 @@
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    
 }
 
 .styled-table thead tr {
     background-color: #99CCFF;
     color: #ffffff;
     text-align: left;
+    border-radius: 10px;
 }
 
 .styled-table th,
@@ -24,28 +27,59 @@
 
 .styled-table tbody tr {
     border-bottom: 1px solid #dddddd;
+    border-radius: 10px;
 }
 
 .styled-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
 
-
-tr.selected {
-    background: #99CCFF;
+form {
+	max-width: 420px;
+	margin: 30px auto;
+	background: white;
+	text-align: left;
+	padding: 40px;
+	border-radius: 10px;
 }
 
-tr{
+label {
+	color: #aaa;
+	display: inline-block;
+	margin: 25px 0 15px;
+	font-size: 0.6em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+input, select {
+	display: block;
+	padding: 10px 6px;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	color: #555;
+}
+
+input[type="submit"] {
+	background: #99CCFF;
+	border: 0;
+	padding: 10px 20px;
+	margin-top: 20px;
+	color: white;
+	border-radius: 20px;
+	text-align: center;
 	cursor: pointer;
 }
 
-.center {
-    text-align: center;
-    position: relative;
-    font-size: 50;
+img {
+	height: 270px;
+    width: 280px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
 }
 
-.picture {
-    height: 100px;
-    width: 120px;
-  }
+

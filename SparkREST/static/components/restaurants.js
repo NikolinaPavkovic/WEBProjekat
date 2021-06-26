@@ -7,7 +7,7 @@ Vue.component("restaurants", {
 	template: `
 	<div>
 		<h3>Restorani:</h3>
-		<table class="styled-table" border="1">
+		<table class="styled-table">
 			<thead>
 				<tr bgcolor="lightgrey">
 					<th>Logo</th>
