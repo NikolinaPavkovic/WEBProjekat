@@ -1,7 +1,8 @@
 Vue.component("restaurants", {
 	data: function() {
 		return {
-			restaurants: null
+			restaurants: null,
+			mode: "BROWSE"
 		}
 	},
 	template: `
