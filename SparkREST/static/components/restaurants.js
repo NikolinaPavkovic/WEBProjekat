@@ -15,6 +15,13 @@ Vue.component("restaurants", {
 				<th>Status</th>
 				<th>Lokacija</th>
 			</tr>
+			<tr v-for="r in restaurants">
+				<td></td>
+				<td>{{r.name}}</td>
+				<td>{{r.type}}</td>
+				<td>{{r.status}}</td>
+				<td>{{r.location}}</td>
+			</tr>
 		</table>
 	</div>
 	`,
