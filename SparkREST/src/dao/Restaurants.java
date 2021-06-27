@@ -20,8 +20,6 @@ public class Restaurants {
 	private ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
 	
 	public Restaurants() {
-		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location());
-		restaurants.put(rest.getName(), rest);
 	}
 
 	public HashMap<String, Restaurant> getRestaurants() {

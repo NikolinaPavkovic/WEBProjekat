@@ -16,6 +16,7 @@ import beans.User;
 
 public class Users {
 	private HashMap<String, User> users = new HashMap<String, User>();
+	private ArrayList<User> userList = new ArrayList<User>();
 	
 	public Users() {
 		

@@ -7,8 +7,8 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a href="http://localhost:8080/login.html">Prijavi se</a>
-<a href="http://localhost:8080/register.html">Registruj se</a>
+<a href="http://localhost:8080/login.html" v-bind:disabled="mode=='LoggedIn'">Prijavi se</a>
+<a href="http://localhost:8080/register.html" v-bind:disabled="mode=='LoggedIn'">Registruj se</a>
 <div id="restaurants">
 		<router-view></router-view>
 </div>
