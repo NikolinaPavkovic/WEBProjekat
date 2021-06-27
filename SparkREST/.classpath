@@ -29,8 +29,8 @@
 	<classpathentry kind="lib" path="lib/jjwt-api-0.11.1.jar"/>
 	<classpathentry kind="lib" path="lib/jjwt-gson-0.11.1.jar"/>
 	<classpathentry kind="lib" path="lib/jjwt-impl-0.11.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/com.fasterxml.jackson.core.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/com.fasterxml.jackson.databind.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/jackson-annotations-2.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/com.fasterxml.jackson.core.jar"/>
+	<classpathentry kind="lib" path="lib/com.fasterxml.jackson.databind.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
