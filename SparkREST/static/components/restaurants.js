@@ -28,11 +28,21 @@ Vue.component("restaurants", {
 				</tr>
 			</tbody>
 		</table>
+		<button v-if="mode!='LoggedIn'" v-on:click="login">Prijavi se</button>
+		<button v-if="mode!='LoggedIn'" v-on:click="register">Registruj se</button>
 	</div>
 	`,
 	mounted() {
 		axios
 			.get('rest/restaurants/')
 			.then(response => (this.restaurants = response.data))
+	},
+	methods: {
+		login: function() {
+			router.push(`/login`);
+		},
+		register: function() {
+			router.push(`/registration`);
+		}
 	}
 });

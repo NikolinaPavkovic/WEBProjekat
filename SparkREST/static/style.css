@@ -63,7 +63,7 @@ input, select {
 	color: #555;
 }
 
-input[type="submit"] {
+input[type="submit"], button {
 	background: #99CCFF;
 	border: 0;
 	padding: 10px 20px;
