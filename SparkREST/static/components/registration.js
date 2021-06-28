@@ -13,7 +13,7 @@ Vue.component("registration", {
 	},
 	template: `
 		<div>
-			<img src="logo1.png">
+			<img src="./images/logo1.png">
 			<form >
 				<label>Ime:</label>
 				<input type="text" v-model="nameInput" name="name"/>
