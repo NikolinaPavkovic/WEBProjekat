@@ -6,11 +6,15 @@ import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.google.gson.Gson;
 
+import beans.Gender;
 import beans.Role;
 import beans.User;
+import dto.UserDTO;
 import services.RestaurantService;
 import services.UserService;
 
@@ -30,10 +34,19 @@ public class SparkAppMain {
 			return g.toJson(restaurantService.getRestaurants());
 		});
 		
-		post("rest/register/", (req, res) -> {
+		post("/rest/register", (req, res) -> {
 			res.type("application/json");
-			User user = g.fromJson(req.body(), User.class);
-			user.setRole(Role.customer);
+			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
+			Gender gender;
+			Date date;
+			if(userDTO.getGender().equals("male")) {
+				gender = Gender.male;
+			} else {
+				gender = Gender.female;
+			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			date = (Date) format.parse(userDTO.getDateOfBirth());
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer);
 			userService.addUser(user);
 			return "SUCCESS";
 		});

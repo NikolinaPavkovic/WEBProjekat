@@ -1,1 +1,17 @@
-[]
+[ {
+  "username" : "nina",
+  "password" : "1111",
+  "name" : "Nina",
+  "surname" : "Pavkovic",
+  "gender" : "male",
+  "dateOfBirth" : 1622844000000,
+  "role" : "customer"
+}, {
+  "username" : "putniksvetski",
+  "password" : "12345",
+  "name" : "Nina",
+  "surname" : "Pavkovic",
+  "gender" : "female",
+  "dateOfBirth" : 1622584800000,
+  "role" : "customer"
+} ]

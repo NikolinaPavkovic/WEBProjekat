@@ -9,20 +9,21 @@ public class Restaurant {
 	private ArrayList<Item> items;
 	private RestaurantStatus status;
 	private Location location;
-	//slika
+	private String imgPath;
 	
 	public Restaurant() {
 		super();
 	}
 	
 	public Restaurant(String name, RestaurantType type, ArrayList<Item> items, RestaurantStatus status,
-			Location location) {
+			Location location, String imgPath) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.items = items;
 		this.status = status;
 		this.location = location;
+		this.imgPath = imgPath;
 	}
 
 	public String getName() {
@@ -64,6 +65,15 @@ public class Restaurant {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	
 	
 	
 }

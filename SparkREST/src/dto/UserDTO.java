@@ -1,23 +1,21 @@
-package beans;
+package dto;
 
-import java.util.Date;
-
-public class User {
+public class UserDTO {
 	private String username;
 	private String password;
 	private String name;
 	private String surname;
-	private Gender gender;
-	private Date dateOfBirth;
-	private Role role;
-	//private CustomerType customerType;
+	private String gender;
+	private String dateOfBirth;
+	private String role;
 	
-	public User() {
+	public UserDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public User(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
-			Role role) {
+
+	public UserDTO(String username, String password, String name, String surname, String gender, String dateOfBirth,
+			String role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -60,31 +58,29 @@ public class User {
 		this.surname = surname;
 	}
 
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
 	
 	
 }

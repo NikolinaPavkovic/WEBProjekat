@@ -30,18 +30,28 @@ public class Users {
 		this.users = users;
 	}
 	
+	public User findByUsername(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		userList = load();
+		for (User user : userList) {
+			if(user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	public void save(User user) throws JsonMappingException, JsonGenerationException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<User> users = load();
 		users.add(user);
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-		mapper.writeValue(new File("users.json"), users);
+		mapper.writeValue(new File("./static/files/users.json"), users);
 	}
 	
 	public ArrayList<User> load() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<User> usersFromFile = new ArrayList<User>();
 		final ObjectMapper mapper = new ObjectMapper();
-		ArrayList<User> users = mapper.readValue(new File("users.json"), new TypeReference<List<User>>(){});
+		ArrayList<User> users = mapper.readValue(new File("./static/files/users.json"), new TypeReference<List<User>>(){});
 		users.forEach(u -> usersFromFile.add(u));
 		
 		return usersFromFile;
