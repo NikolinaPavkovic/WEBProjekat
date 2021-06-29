@@ -20,7 +20,7 @@ Vue.component("restaurants", {
 			</thead>
 			<tbody>
 				<tr v-for="r in restaurants">
-					<td></td>
+					<td><img src="{{r.imgPath}}"></td>
 					<td>{{r.name}}</td>
 					<td>{{r.type}}</td>
 					<td>{{r.status}}</td>

@@ -31,7 +31,7 @@ public class Restaurants {
 	}
 
 	public ArrayList<Restaurant> getRestaurantList() {
-		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "");
+		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "./images/petrus.png");
 		restaurantList.add(rest);
 		return restaurantList;
 	}
