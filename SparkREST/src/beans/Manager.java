@@ -10,7 +10,7 @@ public class Manager extends User{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Manager(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
+	public Manager(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
 			Role role,Restaurant restaurant) {
 		super(username, password, name, surname, gender, dateOfBirth, role);
 		this.restaurant = restaurant;

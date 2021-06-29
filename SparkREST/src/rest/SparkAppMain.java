@@ -13,14 +13,14 @@ import com.google.gson.Gson;
 
 import beans.Gender;
 import beans.Restaurant;
-import beans.RestaurantStatus;
-import beans.RestaurantType;
 import beans.Role;
 import beans.User;
+import dto.LoginDTO;
 import dto.RestaurantDTO;
 import dto.UserDTO;
 import services.RestaurantService;
 import services.UserService;
+import spark.Session;
 
 public class SparkAppMain {
 
@@ -94,6 +94,29 @@ public class SparkAppMain {
 				e.printStackTrace();
 				return "";
 			}
+		});
+		
+		post("/rest/login", (req, res) -> {
+			res.type("application/json");
+			LoginDTO loginDTO = g.fromJson(req.body(), LoginDTO.class);
+			User user = userService.login(loginDTO);
+			if(user != null) {
+				Session session = req.session(true);
+				User isLoggedIn = session.attribute("user");
+				if(isLoggedIn == null) {
+					session.attribute("user", user);
+				}
+			} else {
+				return "";
+			}
+			return g.toJson(user);
+		});
+		
+		get("/rest/isLogged", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(user);
 		});
 
 

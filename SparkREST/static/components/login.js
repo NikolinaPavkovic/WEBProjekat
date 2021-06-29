@@ -1,20 +1,47 @@
 Vue.component("login", {
 	data: function() {
 		return {
-			mode: "BROWSE"
+			mode: "BROWSE",
+			usernameInput: '',
+			passwordInput: '',
+			errorMessage: ''
 		}
 	},
 	template: `
 		<div>
-			<img alt="" src="logo1.png">
+			<img alt="" src="./images/logo1.png">
 			<h1 style="color: #99CCFF; text-align: center; font-size: 50"></h1>
-			<form action="post" @submit="">
+			<form>
 				<label>Korisničko ime:</label>
-				<input type="text" name="username" required/>
+				<input type="text" v-model="usernameInput" name="username" required/>
+				
 				<label>Lozinka:</label>
-				<input type="password" name="password" required/>
-				<input type="submit" value="Log In"/>
+				<input type="password" v-model="passwordInput" name="password" required/>
+				
+				<input type="submit" v-on:click="tryLogin" value="Log In"/>
+				
+				<p style="color:red;text-transform:none;">{{errorMessage}}</p>
 			</form>
 		</div>
-	`
+	`,
+	methods: {
+		tryLogin : function() {
+			event.preventDefault();
+			let loginParameters = {
+				username: this.usernameInput,
+				password: this.passwordInput
+			};
+			
+			axios
+				.post('/rest/login', JSON.stringify(loginParameters))
+				.then(response => {
+					if(response.data == "") {
+						this.errorMessage = "Uneli ste pogrešno korisničko ime ili lozinku!";	
+					} else {
+						this.mode = "LoggedIn";
+						router.push(`/`);
+					}
+				});
+		}
+	}
 });

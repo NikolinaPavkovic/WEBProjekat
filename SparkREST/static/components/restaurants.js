@@ -2,7 +2,7 @@ Vue.component("restaurants", {
 	data: function() {
 		return {
 			restaurants: null,
-			mode: "BROWSE"
+			mode: "notLogged"
 		}
 	},
 	template: `
@@ -20,7 +20,7 @@ Vue.component("restaurants", {
 			</thead>
 			<tbody>
 				<tr v-for="r in restaurants">
-					<td><img src="{{r.imgPath}}"></td>
+					<td><img :src="r.imgPath"></td>
 					<td>{{r.name}}</td>
 					<td>{{r.type}}</td>
 					<td>{{r.status}}</td>
@@ -28,10 +28,9 @@ Vue.component("restaurants", {
 				</tr>
 			</tbody>
 		</table>
-		<button v-if="mode!='LoggedIn'" v-on:click="login">Prijavi se</button>
-
-		<button v-if="mode!='LoggedIn'" v-on:click="register">Registruj se</button></br>
-		<button v-on:click="addEmployee">Dodaj zaposlenog</button>
+		<button v-if="mode=='notLogged'" v-on:click="login">Prijavi se</button>
+		<button v-if="mode=='notLogged'" v-on:click="register">Registruj se</button></br>
+		<button v-if="mode=='admin'" v-on:click="addEmployee">Dodaj zaposlenog</button>
 		<button v-on:click="addRestaurant"> Dodaj restoran </button>
 
 	</div>
@@ -39,7 +38,18 @@ Vue.component("restaurants", {
 	mounted() {
 		axios
 			.get('rest/restaurants/')
-			.then(response => (this.restaurants = response.data))
+			.then(response => (this.restaurants = response.data));
+			
+	
+		axios
+			.get('/rest/isLogged')
+			.then(response => {
+				if(response.data != null) {
+					this.mode = response.data.role;
+				} else {
+					this.mode = "notLogged";
+				}
+			});
 	},
 	methods: {
 		login: function() {

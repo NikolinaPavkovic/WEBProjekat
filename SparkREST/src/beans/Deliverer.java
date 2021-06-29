@@ -10,7 +10,7 @@ public class Deliverer extends User{
 		super();
 	}
 	
-	public Deliverer(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
+	public Deliverer(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
 			Role role, ArrayList<Order> orders) {
 		super(username, password, name, surname, gender, dateOfBirth, role);
 		this.orders = orders;

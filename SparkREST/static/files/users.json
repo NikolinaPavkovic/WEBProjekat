@@ -15,11 +15,11 @@
   "dateOfBirth" : 1622584800000,
   "role" : "customer"
 }, {
-  "username" : "mare",
-  "password" : "mare",
-  "name" : "Marko",
-  "surname" : "Markovic",
-  "gender" : "male",
-  "dateOfBirth" : 1623103200000,
+  "username" : "marija",
+  "password" : "marija",
+  "name" : "Marija",
+  "surname" : "Petrovic",
+  "gender" : "female",
+  "dateOfBirth" : 1622498400000,
   "role" : "manager"
 } ]

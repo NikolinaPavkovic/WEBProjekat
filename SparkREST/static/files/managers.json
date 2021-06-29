@@ -1,0 +1,17 @@
+[ {
+  "username" : "marija",
+  "password" : "marija",
+  "name" : "Marija",
+  "surname" : "Petrovic",
+  "gender" : "female",
+  "dateOfBirth" : 1622498400000,
+  "role" : "manager",
+  "restaurant" : {
+    "name" : null,
+    "type" : null,
+    "items" : null,
+    "status" : null,
+    "location" : null,
+    "imgPath" : null
+  }
+} ]

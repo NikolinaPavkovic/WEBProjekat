@@ -34,13 +34,13 @@ public class Orders {
 		ArrayList<Order> orders = load();
 		orders.add(order);
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-		mapper.writeValue(new File("orders.json"), orders);
+		mapper.writeValue(new File("./static/files/orders.json"), orders);
 	}
 	
 	public ArrayList<Order> load() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> ordersFromFile = new ArrayList<Order>();
 		final ObjectMapper mapper = new ObjectMapper();
-		ArrayList<Order> orders = mapper.readValue(new File("orders.json"), new TypeReference<List<Order>>(){});
+		ArrayList<Order> orders = mapper.readValue(new File("./static/files/orders.json"), new TypeReference<List<Order>>(){});
 		orders.forEach(o -> ordersFromFile.add(o));
 		
 		return ordersFromFile;

@@ -1,7 +1,7 @@
 package beans;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Customer extends User{
 	private ArrayList<Order> orders;
@@ -13,9 +13,9 @@ public class Customer extends User{
 		super();
 	}
 
-	public Customer(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
+	public Customer(String username, String password, String name, String surname, Gender gender, Date date,
 			Role role, ArrayList<Order> orders, ShoppingCart shoppingCart, int points, CustomerType customerType) {
-		super(username, password, name, surname, gender, dateOfBirth, role);
+		super(username, password, name, surname, gender, date, role);
 		this.orders = orders;
 		this.shoppingCart = shoppingCart;
 		this.points = points;
