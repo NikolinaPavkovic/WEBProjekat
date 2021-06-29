@@ -51,5 +51,28 @@ public class SparkAppMain {
 			return "SUCCESS";
 		});
 		
+		post("/rest/addEmployee", (req, res) -> {
+			res.type("aplication/json");
+			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
+			Gender gender;
+			Date date;
+			Role role;
+			if(userDTO.getGender().equals("male")) {
+				gender = Gender.male;
+			} else {
+				gender = Gender.female;
+			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			date = (Date) format.parse(userDTO.getDateOfBirth());
+			if(userDTO.getRole().equals("manager")) {
+				role = Role.manager;
+			} else {
+				role = Role.deliverer;
+			}
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role);
+			userService.addUser(user);
+			return "SUCCESS";
+		}); 
+		
 	}
 }

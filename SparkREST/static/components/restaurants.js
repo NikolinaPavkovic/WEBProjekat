@@ -29,7 +29,8 @@ Vue.component("restaurants", {
 			</tbody>
 		</table>
 		<button v-if="mode!='LoggedIn'" v-on:click="login">Prijavi se</button>
-		<button v-if="mode!='LoggedIn'" v-on:click="register">Registruj se</button>
+		<button v-if="mode!='LoggedIn'" v-on:click="register">Registruj se</button></br>
+		<button v-on:click="addEmployee">Dodaj zaposlenog</button>
 	</div>
 	`,
 	mounted() {
@@ -43,6 +44,9 @@ Vue.component("restaurants", {
 		},
 		register: function() {
 			router.push(`/registration`);
+		},
+		addEmployee: function() {
+			router.push('/addEmployee');
 		}
 	}
 });
