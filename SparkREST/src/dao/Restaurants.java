@@ -30,11 +30,11 @@ public class Restaurants {
 		this.restaurants = restaurants;
 	}
 
-	/* public ArrayList<Restaurant> getRestaurantList() {
+    public ArrayList<Restaurant> getRestaurantList() {
 		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "");
 		restaurantList.add(rest);
 		return restaurantList;
-	} */
+	} 
 
 	public void setRestaurantList(ArrayList<Restaurant> restaurantList) {
 		this.restaurantList = restaurantList;
