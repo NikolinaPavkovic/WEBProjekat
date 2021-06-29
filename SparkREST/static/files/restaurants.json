@@ -1,1 +1,23 @@
-[]
+[ {
+  "name" : "Petrus",
+  "type" : "chinese",
+  "items" : null,
+  "status" : "open",
+  "location" : {
+    "latitude" : 45.2544,
+    "longitude" : 19.8471,
+    "address" : {
+      "address" : "Modene",
+      "number" : 0,
+      "city" : {
+        "city" : "Novi Sad",
+        "state" : {
+          "state" : "Serbia",
+          "id" : 0
+        },
+        "zipCode" : 21000.0
+      }
+    }
+  },
+  "imgPath" : ""
+} ]

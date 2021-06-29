@@ -12,8 +12,12 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import beans.Gender;
+import beans.Restaurant;
+import beans.RestaurantStatus;
+import beans.RestaurantType;
 import beans.Role;
 import beans.User;
+import dto.RestaurantDTO;
 import dto.UserDTO;
 import services.RestaurantService;
 import services.UserService;
@@ -23,17 +27,17 @@ public class SparkAppMain {
 	private static Gson g = new Gson();
 	private static RestaurantService restaurantService = new RestaurantService();
 	private static UserService userService = new UserService();
-	
+
 	public static void main(String[] args) throws Exception {
 		port(8080);
 
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
-		
+
 		get("rest/restaurants/", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(restaurantService.getRestaurants());
 		});
-		
+
 		post("/rest/register", (req, res) -> {
 			res.type("application/json");
 			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
@@ -50,7 +54,8 @@ public class SparkAppMain {
 			userService.addUser(user);
 			return "SUCCESS";
 		});
-		
+
+
 		post("/rest/addEmployee", (req, res) -> {
 			res.type("aplication/json");
 			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
@@ -72,7 +77,25 @@ public class SparkAppMain {
 			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role);
 			userService.addUser(user);
 			return "SUCCESS";
-		}); 
-		
+		});
+
+
+
+		post("/rest/addRestaurant", (req, res) -> {
+			try {
+				res.type("application/json");
+				RestaurantDTO restaurantDTO = g.fromJson(req.body(), RestaurantDTO.class);
+				Restaurant restaurant = new Restaurant(restaurantDTO.getName(), restaurantDTO.getType(), restaurantDTO.getItems(), restaurantDTO.getStatus(),
+						restaurantDTO.getLocation(), restaurantDTO.getImgPath());
+				restaurantService.addRestaurant(restaurant);
+				return "SUCCESS";
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "";
+			}
+		});
+
+
 	}
 }

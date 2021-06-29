@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class Restaurants {
 	private HashMap<String, Restaurant> restaurants = new HashMap<String, Restaurant>();
 	private ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
-	
+
 	public Restaurants() {
 	}
 
@@ -30,31 +30,31 @@ public class Restaurants {
 		this.restaurants = restaurants;
 	}
 
-	public ArrayList<Restaurant> getRestaurantList() {
-		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "./images/petrus.png");
+	/* public ArrayList<Restaurant> getRestaurantList() {
+		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "");
 		restaurantList.add(rest);
 		return restaurantList;
-	}
+	} */
 
 	public void setRestaurantList(ArrayList<Restaurant> restaurantList) {
 		this.restaurantList = restaurantList;
 	}
-	
+
 	public void save(Restaurant restaurant) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Restaurant> restaurants = load();
 		restaurants.add(restaurant);
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-		mapper.writeValue(new File("restaurants.json"), restaurants);
+		mapper.writeValue(new File("./static/files/restaurants.json"), restaurants);
 	}
-	
+
 	public ArrayList<Restaurant> load() throws JsonParseException, JsonMappingException, IOException {
 		final ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Restaurant> restaurantsFromFile = new ArrayList<Restaurant>();
-		ArrayList<Restaurant> restaurants = mapper.readValue(new File("restaurants.json"), new TypeReference<List<Restaurant>>(){});
+		ArrayList<Restaurant> restaurants = mapper.readValue(new File("./static/files/restaurants.json"), new TypeReference<List<Restaurant>>(){});
 		restaurants.forEach(r -> restaurantsFromFile.add(r));
-		
+
 		return restaurantsFromFile;
 	}
-	
+
 }

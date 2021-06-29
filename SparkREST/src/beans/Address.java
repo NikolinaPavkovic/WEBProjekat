@@ -1,30 +1,28 @@
 package beans;
 
 public class Address {
-	private String street;
+	private String address;
 	private int number;
-	private String city;
-	private int postalCode;
+	private City city;
 	
 	public Address() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Address(String street, int number, String city, int postalCode) {
+	public Address(String address, int number, City city) {
 		super();
-		this.street = street;
+		this.address = address;
 		this.number = number;
 		this.city = city;
-		this.postalCode = postalCode;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getNumber() {
@@ -35,21 +33,12 @@ public class Address {
 		this.number = number;
 	}
 
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
-
-	public int getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(int postalCode) {
-		this.postalCode = postalCode;
-	}
-	
 	
 }

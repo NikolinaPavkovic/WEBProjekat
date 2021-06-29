@@ -24,13 +24,16 @@ Vue.component("restaurants", {
 					<td>{{r.name}}</td>
 					<td>{{r.type}}</td>
 					<td>{{r.status}}</td>
-					<td>{{r.location}}</td>
+					<td>{{r.location.address.address + ", " + r.location.address.city.city}}</td>
 				</tr>
 			</tbody>
 		</table>
 		<button v-if="mode!='LoggedIn'" v-on:click="login">Prijavi se</button>
+
 		<button v-if="mode!='LoggedIn'" v-on:click="register">Registruj se</button></br>
 		<button v-on:click="addEmployee">Dodaj zaposlenog</button>
+		<button v-on:click="addRestaurant"> Dodaj restoran </button>
+
 	</div>
 	`,
 	mounted() {
@@ -45,8 +48,13 @@ Vue.component("restaurants", {
 		register: function() {
 			router.push(`/registration`);
 		},
+
 		addEmployee: function() {
 			router.push('/addEmployee');
+		},	
+		addRestaurant: function() {
+			router.push(`/add_restaurant`);
+
 		}
 	}
 });
