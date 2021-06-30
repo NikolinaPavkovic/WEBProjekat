@@ -7,7 +7,7 @@
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    
+
 }
 
 .styled-table thead tr {
@@ -63,6 +63,10 @@ input, select {
 	color: #555;
 }
 
+input[class="hidden"] {
+  display: none;
+}
+
 input[type="submit"], button {
 	background: #99CCFF;
 	border: 0;
@@ -81,5 +85,3 @@ img {
     margin-right: auto;
     margin-left: auto;
 }
-
-

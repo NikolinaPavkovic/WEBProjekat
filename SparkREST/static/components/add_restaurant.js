@@ -32,7 +32,9 @@ Vue.component("add_restaurant", {
       errorStatus: "",
       errorType: "",
       errorAddress: "",
-      formErrorMessage: ""
+      formErrorMessage: "",
+      restaurantImage: "",
+      restImageForBackend: ""
     }
   },
 
@@ -74,12 +76,22 @@ Vue.component("add_restaurant", {
       <label> Država: </label>
       <input type="text" id="country" class="input-apt" disabled/>
 
+      <div class="restaurant-picture">
+        <div>
+          <img :src="restaurantImage" class="restaurant-image" alt="Restaurant Image">
+          <input type="button" id="loadFileXml" class="UploadRestaurantImage" value="Dodaj sliku restorana" onclick="document.getElementById('file').click();" />
+          <input type="file" style="display: none; border: none;" @change="imageAdded" id="file" name="file"/>
+
+        </div>
+
+      </div>
+
       <input type="submit" v-on:click="addRestaurant" value="Dodaj restoran"/>
     </form>
 
-	  <input id="latitude" hidden/>
-    <input id="longitude" hidden/>
-    <input id="zipcode" hidden/>
+	  <input class="hidden" id="latitude" hidden/>
+    <input class="hidden" id="longitude" hidden/>
+    <input class="hidden" id="zipcode" hidden/>
   </div>
   `,
 
@@ -108,6 +120,22 @@ Vue.component("add_restaurant", {
   },
 
   methods: {
+
+    imageAdded(e) {
+      const file = e.target.files[0];
+      this.createBase64Image(file);
+      this.restaurantImage = URL.createObjectURL(file);
+    },
+
+    createBase64Image(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        let img = e.target.result;
+        console.log(img);
+        this.restImageForBackend = img;
+      }
+      reader.readAsDataURL(file);
+    },
 
     checkValidForm: function() {
       this.address = document.querySelector('#address').value;
@@ -218,7 +246,7 @@ Vue.component("add_restaurant", {
           items: this.items,
   		    status: this.restaurantStatus,
           location: locationCurr,
-  		    imgPath: this.imagePath
+  		    imgPath: this.restaurantImage
         };
 
         axios
