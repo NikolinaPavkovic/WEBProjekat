@@ -7,29 +7,29 @@ Vue.component("restaurants", {
 	},
 	template: `
 	<div>
-		<h3>Restorani:</h3>
-		<table class="styled-table">
-			<thead>
-				<tr bgcolor="lightgrey">
-					<th>Logo</th>
-					<th>Naziv</th>
-					<th>Tip</th>
-					<th>Status</th>
-					<th>Lokacija</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="r in restaurants">
-					<td><img :src="r.imgPath"></td>
-					<td>{{r.name}}</td>
-					<td>{{r.type}}</td>
-					<td>{{r.status}}</td>
-					<td>{{r.location.address.address + ", " + r.location.address.city.city}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<button v-if="mode=='notLogged'" v-on:click="login">Prijavi se</button>
-		<button v-if="mode=='notLogged'" v-on:click="register">Registruj se</button></br>
+		</br> </br> </br>
+		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode=='notLogged'" v-on:click="login">Prijavi se</button>
+		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode=='notLogged'" v-on:click="register">Registruj se</button></br> </br>
+
+		<div class="row-restaurants" v-for="r in restaurants">
+
+			<div class="col-with-pic"> </br>
+				<div class="col-picture">
+					<div>
+						<img :src="r.imgPath" class="restaurant-image" alt="r.name"> </br> </br>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-information">
+			  <h1 class="restaurant-name"> {{r.name}} </h1>
+				<h1 class="info"> Adresa: {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
+				<h1 class="info"> Tip restorana: {{r.type}} </h1>
+				<h1 class="info"> {{r.status}} </h1>
+			</div>
+
+		</div>
+
 		<button v-if="mode=='admin'" v-on:click="addEmployee">Dodaj zaposlenog</button>
 		<button v-on:click="addRestaurant"> Dodaj restoran </button>
 
@@ -39,8 +39,8 @@ Vue.component("restaurants", {
 		axios
 			.get('rest/restaurants/')
 			.then(response => (this.restaurants = response.data));
-			
-	
+
+
 		axios
 			.get('/rest/isLogged')
 			.then(response => {
@@ -58,10 +58,9 @@ Vue.component("restaurants", {
 		register: function() {
 			router.push(`/registration`);
 		},
-
 		addEmployee: function() {
 			router.push('/addEmployee');
-		},	
+		},
 		addRestaurant: function() {
 			router.push(`/add_restaurant`);
 

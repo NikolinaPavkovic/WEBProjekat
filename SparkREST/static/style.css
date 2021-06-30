@@ -76,12 +76,79 @@ input[type="submit"], button {
 	border-radius: 20px;
 	text-align: center;
 	cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="button"] {
+  background: #99CCFF;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
 img {
-	height: 270px;
-    width: 280px;
+	  height: 260px;
+    width: 270px;
     display: block;
     margin-right: auto;
     margin-left: auto;
+}
+
+.info {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  margin: 10px;
+  margin-left: 20px;
+  font-family: serif;
+}
+
+.restaurant-name {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: 20px;
+  font-family: "Georgia", serif;
+}
+
+.row-restaurants {
+  background: #cce6ff;
+  display: flex;
+  margin-left: 440px;
+  margin-bottom: 20px;
+  margin-right: 440px;
+  background-blend-mode: lighten;
+}
+
+.restaurant-image {
+  align: left;
+  margin-left: 20px;
+}
+
+.col-information {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  margin-left: 40px;
+}
+
+.col-picture {
+  margin-left: 20px;
+}
+
+img:hover {
+  opacity: 0.5;
+}
+
+.see-more {
+  background: #ffffe0;
+  color: #db7070;
+  margin-left: 400px;
+}
+
+button:hover {
+  opacity: 0.6;
 }

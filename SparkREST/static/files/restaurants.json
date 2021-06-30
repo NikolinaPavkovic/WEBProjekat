@@ -1,6 +1,28 @@
 [ {
+  "name" : "Kalem",
+  "type" : "italian",
+  "items" : null,
+  "status" : "open",
+  "location" : {
+    "latitude" : 45.2539,
+    "longitude" : 19.8489,
+    "address" : {
+      "address" : "Bulevar Mihajla Pupina",
+      "number" : 0,
+      "city" : {
+        "city" : "Novi Sad",
+        "state" : {
+          "state" : "Serbia",
+          "id" : 0
+        },
+        "zipCode" : 21000.0
+      }
+    }
+  },
+  "imgPath" : "./images/kalem.png"
+}, {
   "name" : "Petrus",
-  "type" : "chinese",
+  "type" : "italian",
   "items" : null,
   "status" : "open",
   "location" : {
@@ -19,18 +41,17 @@
       }
     }
   },
-  "imgPath" : ""
-},
- {
-  "name" : "Toster",
-  "type" : "american",
+  "imgPath" : "./images/petrus.png"
+}, {
+  "name" : "Maša",
+  "type" : "italian",
   "items" : null,
   "status" : "open",
   "location" : {
-    "latitude" : 45.4079,
-    "longitude" : 19.7054,
+    "latitude" : 45.2406,
+    "longitude" : 19.624,
     "address" : {
-      "address" : "Njegoseva",
+      "address" : "Zmaj Jovina 4",
       "number" : 0,
       "city" : {
         "city" : "Novi Sad",
@@ -42,5 +63,5 @@
       }
     }
   },
-  "imgPath" : "blob:http://localhost:8080/1035b224-41fe-4c7a-88cc-9d81d717c141"
+  "imgPath" : "./images/masa.png"
 } ]

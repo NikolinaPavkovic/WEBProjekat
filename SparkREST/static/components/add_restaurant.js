@@ -74,11 +74,11 @@ Vue.component("add_restaurant", {
       <input type="text" id="city" class="input-apt" disabled/>
 
       <label> Država: </label>
-      <input type="text" id="country" class="input-apt" disabled/>
+      <input type="text" id="country" class="input-apt" disabled/> </br>
 
       <div class="restaurant-picture">
         <div>
-          <img :src="restaurantImage" class="restaurant-image" alt="Restaurant Image">
+          <img :src="restaurantImage" class="restaurant-image" alt="Restaurant Image"> </br>
           <input type="button" id="loadFileXml" class="UploadRestaurantImage" value="Dodaj sliku restorana" onclick="document.getElementById('file').click();" />
           <input type="file" style="display: none; border: none;" @change="imageAdded" id="file" name="file"/>
 
