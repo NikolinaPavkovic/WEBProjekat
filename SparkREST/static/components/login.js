@@ -14,12 +14,12 @@ Vue.component("login", {
 			<form>
 				<label>Korisničko ime:</label>
 				<input type="text" v-model="usernameInput" name="username" required/>
-				
+
 				<label>Lozinka:</label>
 				<input type="password" v-model="passwordInput" name="password" required/>
-				
+
 				<input type="submit" v-on:click="tryLogin" value="Log In"/>
-				
+
 				<p style="color:red;text-transform:none;">{{errorMessage}}</p>
 			</form>
 		</div>
@@ -31,12 +31,12 @@ Vue.component("login", {
 				username: this.usernameInput,
 				password: this.passwordInput
 			};
-			
+
 			axios
 				.post('/rest/login', JSON.stringify(loginParameters))
 				.then(response => {
 					if(response.data == "") {
-						this.errorMessage = "Uneli ste pogrešno korisničko ime ili lozinku!";	
+						this.errorMessage = "Uneli ste pogrešno korisničko ime ili lozinku!";
 					} else {
 						this.mode = "LoggedIn";
 						router.push(`/`);

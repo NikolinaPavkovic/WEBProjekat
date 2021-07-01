@@ -3,35 +3,37 @@ Vue.component("restaurants", {
 		return {
 			restaurants: null,
 			mode: "notLogged",
-			user: null
+
+			user: null,
+			hover: false
 		}
 	},
 	template: `
 	<div>
 		</br> </br> </br>
+		<img class="logo" alt="" src="./images/logo1.png">
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode=='notLogged'" v-on:click="login">Prijavi se</button>
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode=='notLogged'" v-on:click="register">Registruj se</button>
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode!='notLogged'" v-on:click="profileInfo">Profil</button>
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
-		
 
-		<div class="row-restaurants" v-for="r in restaurants">
 
+		<div class="row-restaurants" v-for="(r, index) in restaurants" @mouseover="hover = true" @mouseleave="hover = false">
 			<div class="col-with-pic"> </br>
 				<div class="col-picture">
 					<div>
 						<img :src="r.imgPath" class="restaurant-image" alt="r.name"> </br> </br>
 					</div>
+					<button class="see-more"> <a :href="'#/restaurantInfo?name=' + r.name" class="link"> Pogledajte detaljnije </a> </button>
 				</div>
 			</div>
 
 			<div class="col-information">
 			  <h1 class="restaurant-name"> {{r.name}} </h1>
-				<h1 class="info"> Adresa: {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
+				<h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
 				<h1 class="info"> Tip restorana: {{r.type}} </h1>
 				<h1 class="info"> {{r.status}} </h1>
 			</div>
-
 		</div>
 
 		<button v-if="mode=='admin'" v-on:click="addEmployee">Dodaj zaposlenog</button>
@@ -68,6 +70,7 @@ Vue.component("restaurants", {
 		},
 		addRestaurant: function() {
 			router.push(`/add_restaurant`);
+
 		},
 		profileInfo: function() {
 			router.push(`/profile/`+ this.user.username);
@@ -79,7 +82,8 @@ Vue.component("restaurants", {
 					router.push(`/`);
 				});
 			event.preventDefault();
-			
+
+
 		}
 	}
 });

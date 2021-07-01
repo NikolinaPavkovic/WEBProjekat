@@ -7,9 +7,12 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="bg-image">
+	</div>
 <div id="restaurants">
 		<router-view :key="$route.fullPath"></router-view>
 </div>
+
 
 	<script src="js/vue.js"></script>
 	<script src="js/vue-router.js"></script>
@@ -21,6 +24,7 @@
 	<script src="components/profile.js"></script>
 	<script src="js/app.js"></script>
 	<script src="components/add_restaurant.js"> </script>
+	<script src="components/restaurantInfo.js"> </script>
 
 	<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.js"></script>
