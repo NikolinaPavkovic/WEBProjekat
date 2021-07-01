@@ -15,12 +15,10 @@ import beans.Order;
 import beans.Restaurant;
 import beans.Role;
 import beans.ShoppingCart;
-import beans.TypeName;
 import beans.User;
 import dao.Customers;
 import dao.Deliverers;
 import dao.Managers;
-import dao.Orders;
 import dao.Users;
 import dto.LoginDTO;
 

@@ -118,6 +118,15 @@ public class SparkAppMain {
 			User user = session.attribute("user");
 			return g.toJson(user);
 		});
+		
+		get("/rest/logout", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			if (session.attribute("user") != null) {
+				session.invalidate();
+			}
+			return "SUCCESS";
+		});
 
 
 	}

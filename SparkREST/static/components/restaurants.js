@@ -2,14 +2,18 @@ Vue.component("restaurants", {
 	data: function() {
 		return {
 			restaurants: null,
-			mode: "notLogged"
+			mode: "notLogged",
+			user: null
 		}
 	},
 	template: `
 	<div>
 		</br> </br> </br>
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode=='notLogged'" v-on:click="login">Prijavi se</button>
-		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode=='notLogged'" v-on:click="register">Registruj se</button></br> </br>
+		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode=='notLogged'" v-on:click="register">Registruj se</button>
+		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode!='notLogged'" v-on:click="profileInfo">Profil</button>
+		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
+		
 
 		<div class="row-restaurants" v-for="r in restaurants">
 
@@ -31,7 +35,7 @@ Vue.component("restaurants", {
 		</div>
 
 		<button v-if="mode=='admin'" v-on:click="addEmployee">Dodaj zaposlenog</button>
-		<button v-on:click="addRestaurant"> Dodaj restoran </button>
+		<button v-if="mode=='admin'" v-on:click="addRestaurant"> Dodaj restoran </button>
 
 	</div>
 	`,
@@ -46,6 +50,7 @@ Vue.component("restaurants", {
 			.then(response => {
 				if(response.data != null) {
 					this.mode = response.data.role;
+					this.user = response.data;
 				} else {
 					this.mode = "notLogged";
 				}
@@ -63,7 +68,18 @@ Vue.component("restaurants", {
 		},
 		addRestaurant: function() {
 			router.push(`/add_restaurant`);
-
+		},
+		profileInfo: function() {
+			router.push(`/profile/`+ this.user.username);
+		},
+		logout: function() {
+			axios
+				.get('/rest/logout')
+				.then(response => {
+					router.push(`/`);
+				});
+			event.preventDefault();
+			
 		}
 	}
 });
