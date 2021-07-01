@@ -64,4 +64,26 @@
     }
   },
   "imgPath" : "./images/masa.png"
+}, {
+  "name" : "Piatto",
+  "type" : "italian",
+  "items" : null,
+  "status" : "open",
+  "location" : {
+    "latitude" : 45.2495,
+    "longitude" : 20.0191,
+    "address" : {
+      "address" : "Branka Bajica 9",
+      "number" : 0,
+      "city" : {
+        "city" : "Novi Sad",
+        "state" : {
+          "state" : "Serbia",
+          "id" : 0
+        },
+        "zipCode" : 21000.0
+      }
+    }
+  },
+  "imgPath" : "./images/piatto.png"
 } ]

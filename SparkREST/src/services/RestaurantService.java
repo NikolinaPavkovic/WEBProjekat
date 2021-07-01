@@ -20,4 +20,25 @@ public class RestaurantService {
 		restaurants.save(restaurant);
 		return restaurant;
 	}
+	
+	public Restaurant getRestaurantByName(String name) {
+		Restaurant restaurant = new Restaurant();
+		
+		try {
+			for (Restaurant r : restaurants.load()) {
+				if (r.getName().equals(name)) {
+					restaurant = r;
+				}
+			}
+			return restaurant;
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch(JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return restaurant;
+	}
 }

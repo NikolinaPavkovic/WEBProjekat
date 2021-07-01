@@ -56,5 +56,25 @@ public class Restaurants {
 
 		return restaurantsFromFile;
 	}
+	
+	public Restaurant getRestaurantByName(String name) {
+		Restaurant restaurant = new Restaurant();
+		
+		try {
+			for (Restaurant r : load()) {
+				if (r.getName().equals(name)) {
+					restaurant = r;
+				}
+			}
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch(JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return restaurant;
+	}
 
 }

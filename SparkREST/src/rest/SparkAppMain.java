@@ -128,6 +128,13 @@ public class SparkAppMain {
 			return "SUCCESS";
 		});
 
-
+		get("/rest/restaurants/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			System.out.println(name);
+			Restaurant restaurant = restaurantService.getRestaurantByName(name);
+			return g.toJson(restaurant);
+		});
+		
 	}
 }

@@ -128,6 +128,9 @@ img {
 .restaurant-image {
   align: left;
   margin-left: 20px;
+  height: 200px;
+  width: 200px;
+  margin-top: 10px;
 }
 
 .col-information {
@@ -147,7 +150,7 @@ img {
 
 .see-more {
   margin-bottom: 15px;
-  margin-left: 60px;
+  margin-left: 35px;
   background: #fbfbd0;
   color: #f291b2;
   font-weight: bold;
@@ -172,14 +175,14 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 450px;
+	width: 700px;
 	display: flex;
 	box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
 	font-family: 'Josefin Sans', sans-serif;
 }
 
 .wrapper .left{
-	width: 35%;
+	width: 25%;
 	background: linear-gradient(to right, #99CCFF, #99CCFF);
 	padding: 30px 25px;
 	border-top-left-radius: 5px;
@@ -202,7 +205,7 @@ button:hover {
 }
 
 .wrapper .right {
-	width: 65%;
+	width: 75%;
 	background: #fff;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
@@ -254,5 +257,89 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
+}
 
+.rest-image {
+  align: left;
+  margin-left: 20px;
+  height: 200px;
+  width: 200px;
+  margin-top:40px;
+}
+
+.wrapper-restaurant {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 900px;
+	display: flex;
+	box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper-restaurant .left{
+	width: 25%;
+	background: linear-gradient(to right, #99CCFF, #99CCFF);
+	padding: 30px 25px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	text-align: center;
+	color: #fff;
+}
+
+.wrapper-restaurant .left img{
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.wrapper-restaurant .left h4{
+	margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.wrapper-restaurant .left p{
+	font-size: 18px;
+}
+
+.wrapper-restaurant .right {
+	width: 75%;
+	background: #fff;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 30px 25px;
+}
+
+.wrapper-restaurant .right .info{
+	margin-bottom: 25px
+}
+
+.wrapper-restaurant .right .info h3 {
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #e0e0e0;
+	color: #353c4e;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+}
+
+.wrapper-restaurant .right .info_data{
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrapper-restaurant .right .info_data .data {
+	width: 45%;
+}
+
+.wrapper-restaurant .right .info_data .data h4{
+	color: #353c4e;
+	margin-bottom: 5px;
+}
+
+.wrapper-restaurant .right .info_data .data p{
+	font-size: 13px;
+	margin-bottom: 10px;
+	color: #919aa3;
 }

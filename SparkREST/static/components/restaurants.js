@@ -3,7 +3,6 @@ Vue.component("restaurants", {
 		return {
 			restaurants: null,
 			mode: "notLogged",
-
 			user: null,
 			hover: false
 		}
@@ -24,7 +23,9 @@ Vue.component("restaurants", {
 					<div>
 						<img :src="r.imgPath" class="restaurant-image" alt="r.name"> </br> </br>
 					</div>
-					<button class="see-more"> <a :href="'#/restaurantInfo?name=' + r.name" class="link"> Pogledajte detaljnije </a> </button>
+					<button class="see-more"><a :href="'#/details?name=' + r.name" class="link" > Pregledaj restoran </a> </button>
+
+
 				</div>
 			</div>
 
@@ -58,6 +59,13 @@ Vue.component("restaurants", {
 				}
 			});
 	},
+
+	watch: {
+		restaurants(value) {
+			this.restaurants = value;
+		}
+	},
+
 	methods: {
 		login: function() {
 			router.push(`/login`);
@@ -70,7 +78,6 @@ Vue.component("restaurants", {
 		},
 		addRestaurant: function() {
 			router.push(`/add_restaurant`);
-
 		},
 		profileInfo: function() {
 			router.push(`/profile/`+ this.user.username);
@@ -82,8 +89,6 @@ Vue.component("restaurants", {
 					router.push(`/`);
 				});
 			event.preventDefault();
-
-
 		}
 	}
 });
