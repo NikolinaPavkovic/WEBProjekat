@@ -25,13 +25,11 @@ const router = new VueRouter({
 			{ path: '/add_restaurant', component: add_restaurant },
 			{ path: '/profile/:username', component: userProfile },
 			{ path: "/details", component: restaurant_info },
-
 			{ path: '/restaurantInfo', component: restaurant_info },
 			{ path: '/edit_profile/:username', component: editProfile},
 			{ path: '/customers', component: customers},
 			{ path: '/managers', component: managers },
 			{ path: '/deliverers', component: deliverers },
-
 			{ path: "/add_item", component: add_item}
 
 

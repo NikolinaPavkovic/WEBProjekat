@@ -3,6 +3,8 @@ package rest;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.put;
+import static spark.Spark.delete;
 import static spark.Spark.staticFiles;
 
 import java.io.File;
@@ -181,9 +183,15 @@ public class SparkAppMain {
 			}
 		});
 
-		post("/rest/editProfile", (req, res) ->{
+		put("/rest/editProfile", (req, res) ->{
 			res.type("application/json");
-			User user = g.fromJson(req.body(), User.class);
+			User newUser = g.fromJson(req.body(), User.class);
+			Session session = req.session(true);
+			User oldUser = session.attribute("user");
+			userService.editUser(oldUser, newUser);
+			session.invalidate();
+			Session sessionNew = req.session(true);
+			sessionNew.attribute("user", newUser);
 			return "";
 
 		});

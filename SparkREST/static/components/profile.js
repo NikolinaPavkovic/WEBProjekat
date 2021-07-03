@@ -16,8 +16,8 @@ Vue.component("profile", {
 			<button style="position: absolute; top: 10px; right: 170px;" v-on:click="changeMode">Izmeni profil</button>
 			<div class="wrapper">
 				<div class="left">
-					<h4>{{user.name}} {{user.surname}}</h4>
-					<p>{{user.role}}</p>
+					<h4 key="user.name">{{user.name}} {{user.surname}}</h4>
+					<p key="user.role">{{user.role}}</p>
 				</div>
 				<div class="right">
 					<div class="info">
@@ -25,15 +25,15 @@ Vue.component("profile", {
 						<div class="info_data">
 							<div class="data">
 								<h4>Korisničko ime</h4>
-								<p>{{user.username}}</p>
+								<p key="user.username">{{user.username}}</p>
 							</div>
 							<div class="data">
 								<h4>Pol</h4>
-								<p>{{user.gender}}</p>
+								<p key="user.gender">{{user.gender}}</p>
 							</div>
 							<div class="data">
 								<h4>Datum rođenja</h4>
-								<p>{{user.dateOfBirth}}</p>
+								<p key="user.dateOfBirth">{{user.dateOfBirth}}</p>
 							</div>
 						</div>
 					</div>
@@ -77,6 +77,10 @@ Vue.component("profile", {
 	methods: {
 		changeMode: function() {
 			this.editMode = true;
+			this.nameInput= this.user.name;
+			this.surnameInput= this.user.surname;
+			this.usernameInput= this.user.username;
+			this.passwordInput= this.user.password;
 		},
 		editProfile: function() {
 			event.preventDefault();
@@ -91,12 +95,19 @@ Vue.component("profile", {
 			};
 			
 			axios
-				.post('/rest/editProfile', JSON.stringify(editUserParameters));
+				.put('/rest/editProfile', JSON.stringify(editUserParameters));
+			
+			axios
+			.get('/rest/isLogged')
+			.then(response => {
+				this.user = response.data;
+			});
 			
 			this.editMode = false;
+			
 		},
 		cancel: function() {
-			editMode = false;
+			this.editMode = false;
 		}
 	}
 });

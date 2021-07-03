@@ -61,7 +61,18 @@ public class UserService {
 		return null;
 	}
 	
-	public User editUser(User oldUser, User newUser) {
+	public User editUser(User oldUser, User newUser) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<User> userList = users.load();
+		for (int i = 0; i < userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(oldUser.getUsername())) {
+				userList.remove(i);
+			}
+		}
+		userList.add(newUser);
+		users.emptyFile();
+		for (User user : userList) {
+			users.save(user);
+		}
 		return null;
 	}
 }
