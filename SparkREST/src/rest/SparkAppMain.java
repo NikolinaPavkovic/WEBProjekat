@@ -12,14 +12,17 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import beans.Gender;
+import beans.Item;
 import beans.Restaurant;
 import beans.Role;
 import beans.User;
+import dto.ItemDTO;
 import dto.LoginDTO;
 import dto.RestaurantDTO;
 import dto.UserDTO;
 import services.CustomerService;
 import services.DelivererService;
+import services.ItemService;
 import services.ManagerService;
 import services.RestaurantService;
 import services.UserService;
@@ -33,6 +36,7 @@ public class SparkAppMain {
 	private static CustomerService customerService = new CustomerService();
 	private static ManagerService managerService = new ManagerService();
 	private static DelivererService delivererService = new DelivererService();
+	private static ItemService itemService = new ItemService();
 
 	public static void main(String[] args) throws Exception {
 		port(8080);
@@ -142,8 +146,8 @@ public class SparkAppMain {
 		get("/rest/restaurants/:name", (req, res) -> {
 			res.type("application/json");
 			String name = req.params("name");
-			System.out.println(name);
 			Restaurant restaurant = restaurantService.getRestaurantByName(name);
+			restaurant.setItems(itemService.getItemsForRestaurant(name));
 			return g.toJson(restaurant);
 		});
 		
@@ -160,6 +164,20 @@ public class SparkAppMain {
 		get("/rest/deliverers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(delivererService.getDeliverers());
+		});
+		
+		post ("/rest/addItem", (req, res) -> {
+			try {
+				res.type("application/json");
+				ItemDTO itemDTO = g.fromJson(req.body(), ItemDTO.class);
+				Item item = new Item(itemDTO.getName(), itemDTO.getPrice(), itemDTO.getType(), restaurantService.getRestaurantByName(itemDTO.getRestaurant().getName()),
+						itemDTO.getAmount(), itemDTO.getDescription(), itemDTO.getImagePath());
+				itemService.addItem(item);
+				return "SUCCESS";
+			} catch (Exception e) {
+				 e.printStackTrace();
+				 return "";
+			}
 		});
 		
 	}

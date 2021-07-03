@@ -77,7 +77,7 @@ Vue.component("restaurant_info", {
       .get('/rest/restaurants/' + this.$route.query.name)
       .then(response => {
         this.restaurant = response.data;
-		    this.name = response.data.name;
+		this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
         this.items = response.data.items;
       });

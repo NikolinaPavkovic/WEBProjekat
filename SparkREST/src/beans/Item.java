@@ -7,13 +7,13 @@ public class Item {
 	private Restaurant restaurant;
 	private double amount;
 	private String description;
-	//slika
+	private String imagePath;
 	
 	public Item() {
 		super();
 	}
 	
-	public Item(String name, double price, ItemType type, Restaurant restaurant, double amount, String description) {
+	public Item(String name, double price, ItemType type, Restaurant restaurant, double amount, String description, String imagePath) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -21,6 +21,7 @@ public class Item {
 		this.restaurant = restaurant;
 		this.amount = amount;
 		this.description = description;
+		this.imagePath = imagePath;
 	}
 
 	public String getName() {
@@ -70,4 +71,14 @@ public class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
+	
 }

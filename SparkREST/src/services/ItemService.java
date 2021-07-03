@@ -22,15 +22,7 @@ public class ItemService {
 	}
 	
 	public Item addItem(Item item) throws JsonMappingException, JsonGenerationException, IOException {
-		items.save(item);
-		
-	/*	for (Restaurant restaurant : restaurants.load()) {
-			if (item.getRestaurant().getName().equals(restaurant.getName())) {
-				restaurantService.addItemToRestaurant(restaurant, item);
-				restaurants.save(restaurant);
-			}
-		} */
-		
+		items.save(item);	
 		return item;
 	}
 	
