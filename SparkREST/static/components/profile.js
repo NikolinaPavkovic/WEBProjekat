@@ -103,8 +103,14 @@ Vue.component("profile", {
 				this.user = response.data;
 			});
 			
-			this.editMode = false;
+			axios
+			.get('/rest/isLogged')
+			.then(response => {
+				this.user = response.data;
+				
+			});
 			
+			this.editMode = false;
 		},
 		cancel: function() {
 			this.editMode = false;
