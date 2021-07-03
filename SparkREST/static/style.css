@@ -344,6 +344,7 @@ body {
 	color: #919aa3;
 }
 
+
 .table-body {
     font-family: Lato, sans-serif;
     height: 100vh;
@@ -376,4 +377,42 @@ body {
 
 .table-all tr:nth-child(even) {
     background-color: #eaf5fb;
+}
+
+.row-items {
+  background: white;
+  display: flex;
+  margin-left: 285px;
+  margin-bottom: 20px;
+  margin-right: 285px;
+  background-blend-mode: lighten;
+  border-radius: 5px;
+}
+
+.item-name {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 20px;
+  font-family: "Georgia", serif;
+}
+
+.description {
+  color: #999999;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  margin: 10px;
+  margin-left: 20px;
+  font-family: Georgia, Serif;
+}
+
+.price {
+  color: #99CCFF;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  margin: 10px;
+  margin-left: 20px;
+  font-family: Georgia, Serif;
 }

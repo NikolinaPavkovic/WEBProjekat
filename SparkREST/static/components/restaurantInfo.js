@@ -9,7 +9,9 @@ Vue.component("restaurant_info", {
       city: "",
       state: "",
       restaurantName: "",
-	  name: ''
+	    name: '',
+	    mode: "",
+      items: null
     }
   },
 
@@ -47,8 +49,26 @@ Vue.component("restaurant_info", {
     </div>
   </div>
 
+  </br> </br> </br> </br> </br> </br> </br> </br> </br>
+  <button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
+
+  <div class="row-items" v-for="(i, index) in items">
+    <div class="col-with-pic"> </br>
+      <div class="col-picture">
+        <div>
+          <img :src="i.imagePath" class="restaurant-image" alt="i.name"> </br> </br>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-information">
+      <h1 class="item-name"> {{i.name}} </h1>
+      <h1 class="description"> {{i.description}} </h1>
+      <h1 class="price"> {{i.price}},00 RSD </h1>
+    </div>
   </div>
 
+  </div>
   `,
 
   mounted() {
@@ -59,8 +79,27 @@ Vue.component("restaurant_info", {
         this.restaurant = response.data;
 		    this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
+        this.items = response.data.items;
       });
 
+	  axios
+			.get('/rest/isLogged')
+			.then(response => {
+				if(response.data != null) {
+					this.mode = response.data.role;
+					this.user = response.data;
+				} else {
+					this.mode = "notLogged";
+				}
+			});
+
+  },
+
+  methods: {
+
+		addItem: function() {
+			router.push(`/add_item`);
+		}
   }
 
 });
