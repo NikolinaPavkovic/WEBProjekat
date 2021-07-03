@@ -343,3 +343,37 @@ body {
 	margin-bottom: 10px;
 	color: #919aa3;
 }
+
+.table-body {
+    font-family: Lato, sans-serif;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: #cce6ff;
+    font-size: 0.9rem;
+}
+
+.table-all {
+    border-collapse: collapse;
+    box-shadow: 20px 10px 20px 0px;
+    background-color: white;
+    text-align: left;
+}
+
+.table-all th {
+    background-color: #cce6ff;
+    padding: 0.75rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+.table-all td {
+    padding: 1rem 2rem;
+}
+
+.table-all tr:nth-child(even) {
+    background-color: #eaf5fb;
+}

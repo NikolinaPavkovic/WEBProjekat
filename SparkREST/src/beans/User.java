@@ -10,14 +10,16 @@ public class User {
 	private Gender gender;
 	private Date dateOfBirth;
 	private Role role;
+	private boolean isBlocked;
 	//private CustomerType customerType;
 	
 	public User() {
 		super();
 	}
 	
+
 	public User(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
-			Role role) {
+			Role role, boolean isBlocked) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -26,7 +28,10 @@ public class User {
 		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.role = role;
+		this.isBlocked = isBlocked;
 	}
+
+
 
 	public String getUsername() {
 		return username;
@@ -83,6 +88,16 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	public boolean getIsBlocked() {
+		return isBlocked;
+	}
+
+	public void setIsBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+	
+	
 	
 	
 	

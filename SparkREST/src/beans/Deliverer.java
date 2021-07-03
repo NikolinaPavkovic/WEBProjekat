@@ -1,6 +1,5 @@
 package beans;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class Deliverer extends User{
@@ -11,8 +10,8 @@ public class Deliverer extends User{
 	}
 	
 	public Deliverer(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
-			Role role, ArrayList<Order> orders) {
-		super(username, password, name, surname, gender, dateOfBirth, role);
+			Role role, boolean isBlocked, ArrayList<Order> orders) {
+		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked);
 		this.orders = orders;
 		// TODO Auto-generated constructor stub
 	}

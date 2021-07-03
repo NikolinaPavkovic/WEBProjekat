@@ -18,6 +18,9 @@ import beans.User;
 import dto.LoginDTO;
 import dto.RestaurantDTO;
 import dto.UserDTO;
+import services.CustomerService;
+import services.DelivererService;
+import services.ManagerService;
 import services.RestaurantService;
 import services.UserService;
 import spark.Session;
@@ -27,6 +30,9 @@ public class SparkAppMain {
 	private static Gson g = new Gson();
 	private static RestaurantService restaurantService = new RestaurantService();
 	private static UserService userService = new UserService();
+	private static CustomerService customerService = new CustomerService();
+	private static ManagerService managerService = new ManagerService();
+	private static DelivererService delivererService = new DelivererService();
 
 	public static void main(String[] args) throws Exception {
 		port(8080);
@@ -50,14 +56,19 @@ public class SparkAppMain {
 			}
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			date = (Date) format.parse(userDTO.getDateOfBirth());
-			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer);
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer, false);
 			userService.addUser(user);
+			Session session = req.session(true);
+			User isLoggedIn = session.attribute("user");
+			if(isLoggedIn == null) {
+				session.attribute("user", user);
+			}
 			return "SUCCESS";
 		});
 
 
 		post("/rest/addEmployee", (req, res) -> {
-			res.type("aplication/json");
+			res.type("application/json");
 			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
 			Gender gender;
 			Date date;
@@ -74,7 +85,7 @@ public class SparkAppMain {
 			} else {
 				role = Role.deliverer;
 			}
-			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role);
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role, false);
 			userService.addUser(user);
 			return "SUCCESS";
 		});
@@ -134,6 +145,21 @@ public class SparkAppMain {
 			System.out.println(name);
 			Restaurant restaurant = restaurantService.getRestaurantByName(name);
 			return g.toJson(restaurant);
+		});
+		
+		get("/rest/customers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(customerService.getCustomers());
+		});
+		
+		get("/rest/managers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(managerService.getManagers());
+		});
+		
+		get("/rest/deliverers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(delivererService.getDeliverers());
 		});
 		
 	}

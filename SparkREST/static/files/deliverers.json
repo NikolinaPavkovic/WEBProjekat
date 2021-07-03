@@ -1,1 +1,11 @@
-[]
+[ {
+  "username" : "aleksandar",
+  "password" : "aleksandar",
+  "name" : "Aleksandar",
+  "surname" : "Aleksic",
+  "gender" : "male",
+  "dateOfBirth" : 810338400000,
+  "role" : "deliverer",
+  "isBlocked" : false,
+  "orders" : [ ]
+} ]

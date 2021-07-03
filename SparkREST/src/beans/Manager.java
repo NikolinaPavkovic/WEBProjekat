@@ -1,6 +1,5 @@
 package beans;
 
-import java.sql.Date;
 
 public class Manager extends User{
 	private Restaurant restaurant;
@@ -11,8 +10,8 @@ public class Manager extends User{
 	}
 
 	public Manager(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
-			Role role,Restaurant restaurant) {
-		super(username, password, name, surname, gender, dateOfBirth, role);
+			Role role, boolean isBlocked,Restaurant restaurant) {
+		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked);
 		this.restaurant = restaurant;
 		// TODO Auto-generated constructor stub
 	}

@@ -38,8 +38,10 @@ Vue.component("restaurants", {
 		</div>
 
 		<button v-if="mode=='admin'" v-on:click="addEmployee">Dodaj zaposlenog</button>
-		<button v-if="mode=='admin'" v-on:click="addRestaurant"> Dodaj restoran </button>
-
+		<button v-if="mode=='admin'" v-on:click="addRestaurant"> Dodaj restoran </button></br>
+		<button v-if="mode=='admin'" v-on:click="getCustomers"> Pregled kupaca </button>
+		<button v-if="mode=='admin'" v-on:click="getManagers"> Pregled menadžera </button>
+		<button v-if="mode=='admin'" v-on:click="getDeliverers"> Pregled dostavljača </button>
 	</div>
 	`,
 	mounted() {
@@ -85,10 +87,16 @@ Vue.component("restaurants", {
 		logout: function() {
 			axios
 				.get('/rest/logout')
-				.then(response => {
-					router.push(`/`);
-				});
-			event.preventDefault();
+				.then(response => (this.$router.go()));
+		},
+		getCustomers: function() {
+			router.push(`/customers`);
+		},
+		getManagers: function() {
+			router.push(`/managers`);
+		},
+		getDeliverers: function() {
+			router.push(`/deliverers`);
 		}
 	}
 });

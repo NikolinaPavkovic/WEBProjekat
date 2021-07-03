@@ -16,22 +16,22 @@ Vue.component("addEmployee", {
 			<img src="./images/logo1.png">
 			<form >
 				<label>Ime:</label>
-				<input type="text" v-model="nameInput" name="name"/>
+				<input type="text" v-model="nameInput" name="name" required/>
 				
 				<label>Prezime:</label>
-				<input type="text" v-model="surnameInput" name="surname"/>
+				<input type="text" v-model="surnameInput" name="surname" required/>
 				
 				<label>Datum rođenja:</label>
-				<input type="date" v-model="dateOfBirthInput" name="dateOfBirth"/>
+				<input type="date" v-model="dateOfBirthInput" name="dateOfBirth" required/>
 				
 				<label>Pol:</label>
-				<select v-model="genderInput">
+				<select v-model="genderInput" required>
 					<option value="male">Muško</option>
 					<option value="female">Žensko</option>
 				</select>
 				
 				<label>Uloga:</label>
-				<select v-model="roleInput">
+				<select v-model="roleInput" required>
 					<option value="manager">Menadžer</option>
 					<option value="deliverer">Dostavljač</option>
 				</select>

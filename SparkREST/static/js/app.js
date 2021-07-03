@@ -5,7 +5,10 @@ const addEmployee = { template: '<addEmployee> </addEmployee>'}
 const add_restaurant = { template: '<add_restaurant> </add_restaurant>' }
 const userProfile = { template: '<profile></profile>' }
 const restaurant_info = { template: '<restaurant_info> </restaurant_info>' }
-const editProfile = { template: <edit_profile> </edit_profile>}
+const editProfile = { template: '<edit_profile> </edit_profile>'}
+const customers = { template: '<customers> </customers>'}
+const managers = { template: '<managers> </managers>'}
+const deliverers = { template: '<deliverers> </deliverers>' }
 
 
 const router = new VueRouter({
@@ -19,7 +22,10 @@ const router = new VueRouter({
 			{ path: '/profile/:username', component: userProfile },
 			{ path: "/details", component: restaurant_info },
 			{ path: '/restaurantInfo', component: restaurant_info },
-			{ path: '/edit_profile/:username', component: editProfile}
+			{ path: '/edit_profile/:username', component: editProfile},
+			{ path: '/customers', component: customers},
+			{ path: '/managers', component: managers },
+			{ path: '/deliverers', component: deliverers }
 		]
 });
 

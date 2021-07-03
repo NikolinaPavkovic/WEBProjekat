@@ -1,11 +1,12 @@
 [ {
-  "username" : "marija",
-  "password" : "marija",
-  "name" : "Marija",
-  "surname" : "Petrovic",
-  "gender" : "female",
-  "dateOfBirth" : 1622498400000,
+  "username" : "ljuba",
+  "password" : "ljuba",
+  "name" : "Ljubomir",
+  "surname" : "Ljubic",
+  "gender" : "male",
+  "dateOfBirth" : 925941600000,
   "role" : "manager",
+  "isBlocked" : false,
   "restaurant" : {
     "name" : null,
     "type" : null,
