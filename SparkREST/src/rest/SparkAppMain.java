@@ -162,5 +162,11 @@ public class SparkAppMain {
 			return g.toJson(delivererService.getDeliverers());
 		});
 		
+		post("/rest/editProfile", (req, res) ->{
+			res.type("application/json");
+			User user = g.fromJson(req.body(), User.class);
+			return "";
+		});
+		
 	}
 }
