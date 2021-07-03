@@ -53,15 +53,6 @@
   "role" : "customer",
   "isBlocked" : false
 }, {
-  "username" : "",
-  "password" : "",
-  "name" : "Zarko",
-  "surname" : "Zarkovic",
-  "gender" : "male",
-  "dateOfBirth" : 1007766000000,
-  "role" : "customer",
-  "isBlocked" : false
-}, {
   "username" : "jovan",
   "password" : "jovan",
   "name" : "Jovan",
@@ -100,7 +91,7 @@
 }, {
   "username" : "nina",
   "password" : "nina",
-  "name" : "Nikolina",
+  "name" : "Nina",
   "surname" : "Pavkovic",
   "gender" : "male",
   "dateOfBirth" : 1622844000000,
