@@ -60,4 +60,8 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	public User editUser(User oldUser, User newUser) {
+		return null;
+	}
 }

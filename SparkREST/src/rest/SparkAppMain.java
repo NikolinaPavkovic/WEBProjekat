@@ -110,7 +110,7 @@ public class SparkAppMain {
 				return "";
 			}
 		});
-		
+
 		post("/rest/login", (req, res) -> {
 			res.type("application/json");
 			LoginDTO loginDTO = g.fromJson(req.body(), LoginDTO.class);
@@ -126,14 +126,14 @@ public class SparkAppMain {
 			}
 			return g.toJson(user);
 		});
-		
+
 		get("/rest/isLogged", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(user);
 		});
-		
+
 		get("/rest/logout", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -150,22 +150,23 @@ public class SparkAppMain {
 			restaurant.setItems(itemService.getItemsForRestaurant(name));
 			return g.toJson(restaurant);
 		});
-		
+
 		get("/rest/customers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(customerService.getCustomers());
 		});
-		
+
 		get("/rest/managers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(managerService.getManagers());
 		});
-		
+
 		get("/rest/deliverers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(delivererService.getDeliverers());
 		});
-		
+
+
 		post ("/rest/addItem", (req, res) -> {
 			try {
 				res.type("application/json");
@@ -179,6 +180,13 @@ public class SparkAppMain {
 				 return "";
 			}
 		});
-		
+
+		post("/rest/editProfile", (req, res) ->{
+			res.type("application/json");
+			User user = g.fromJson(req.body(), User.class);
+			return "";
+
+		});
+
 	}
 }
