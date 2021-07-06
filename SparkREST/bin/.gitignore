@@ -1,9 +1,5 @@
-
-
-/dto/
 /beans/
 /dao/
+/dto/
 /rest/
 /services/
-/beans/
-/dao/

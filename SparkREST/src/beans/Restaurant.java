@@ -10,6 +10,7 @@ public class Restaurant {
 	private RestaurantStatus status;
 	private Location location;
 	private String imgPath;
+	private double averageGrade;
 	
 	public Restaurant() {
 		super();

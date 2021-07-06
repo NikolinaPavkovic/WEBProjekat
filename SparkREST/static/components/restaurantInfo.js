@@ -11,7 +11,9 @@ Vue.component("restaurant_info", {
       restaurantName: "",
 	    name: '',
 	    mode: "",
-      items: null
+      items: null,
+      comments: null,
+      avgGrade: ""
     }
   },
 
@@ -24,7 +26,7 @@ Vue.component("restaurant_info", {
     <div class="wrapper-restaurant">
       <div class="left">
         <h4> {{restaurant.name}} </h4>
-        <p> Ocena: </p>
+        <p> Ocena: {{avgGrade}} </p>
       </div>
 
       <div class ="right">
@@ -77,7 +79,7 @@ Vue.component("restaurant_info", {
       .get('/rest/restaurants/' + this.$route.query.name)
       .then(response => {
         this.restaurant = response.data;
-		this.name = response.data.name;
+		    this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
         this.items = response.data.items;
       });
@@ -92,6 +94,23 @@ Vue.component("restaurant_info", {
 					this.mode = "notLogged";
 				}
 			});
+
+    axios
+      .get('/rest/getComments')
+      .then(response => {
+        this.comments = response.data;
+        let cnt = 0;
+        let avg = 0;
+        let sum = 0;
+        for (let comment of this.comments) {
+          if (comment.restaurant.name == this.name) {
+            sum += comment.grade;
+            cnt ++;
+          }
+        }
+        avg = sum/cnt;
+        this.avgGrade = avg;
+      });
 
   },
 

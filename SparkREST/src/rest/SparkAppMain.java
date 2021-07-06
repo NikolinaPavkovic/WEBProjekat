@@ -9,19 +9,23 @@ import static spark.Spark.staticFiles;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gson.Gson;
 
+import beans.Comment;
 import beans.Gender;
 import beans.Item;
 import beans.Restaurant;
 import beans.Role;
 import beans.User;
+import dao.Comments;
 import dto.ItemDTO;
 import dto.LoginDTO;
 import dto.RestaurantDTO;
 import dto.UserDTO;
+import services.CommentService;
 import services.CustomerService;
 import services.DelivererService;
 import services.ItemService;
@@ -39,6 +43,8 @@ public class SparkAppMain {
 	private static ManagerService managerService = new ManagerService();
 	private static DelivererService delivererService = new DelivererService();
 	private static ItemService itemService = new ItemService();
+	private static CommentService commentService = new CommentService();
+	private static Comments comments = new Comments();
 
 	public static void main(String[] args) throws Exception {
 		port(8080);
@@ -148,6 +154,7 @@ public class SparkAppMain {
 		get("/rest/restaurants/:name", (req, res) -> {
 			res.type("application/json");
 			String name = req.params("name");
+			System.out.println(name);
 			Restaurant restaurant = restaurantService.getRestaurantByName(name);
 			restaurant.setItems(itemService.getItemsForRestaurant(name));
 			return g.toJson(restaurant);
@@ -194,6 +201,12 @@ public class SparkAppMain {
 			sessionNew.attribute("user", newUser);
 			return "";
 
+		});
+		
+		get("/rest/getComments", (req, res) -> {
+			res.type("application/json");
+			ArrayList<Comment> commentsFromFile = comments.load();
+			return g.toJson(commentsFromFile);
 		});
 
 	}
