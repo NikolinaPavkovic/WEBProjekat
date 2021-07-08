@@ -26,15 +26,6 @@
   "role" : "admin",
   "isBlocked" : false
 }, {
-  "username" : "goran",
-  "password" : "goran",
-  "name" : "Goran",
-  "surname" : "Goranovic",
-  "gender" : "male",
-  "dateOfBirth" : 955749600000,
-  "role" : "customer",
-  "isBlocked" : false
-}, {
   "username" : "vanja",
   "password" : "vanja",
   "name" : "Vanja",
@@ -96,5 +87,14 @@
   "gender" : "male",
   "dateOfBirth" : 1622844000000,
   "role" : "admin",
+  "isBlocked" : false
+}, {
+  "username" : "goran",
+  "password" : "goran",
+  "name" : "GoranGoran",
+  "surname" : "Goranovic",
+  "gender" : "male",
+  "dateOfBirth" : 955749600000,
+  "role" : "customer",
   "isBlocked" : false
 } ]

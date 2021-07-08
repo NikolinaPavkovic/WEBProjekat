@@ -10,10 +10,13 @@ Vue.component("restaurant_info", {
       state: "",
       restaurantName: "",
 	    name: '',
-	    mode: "",
+	    mode: "notLogged",
       items: null,
       comments: null,
-      avgGrade: ""
+      avgGrade: "",
+      selectedItem: null,
+      amount: 0,
+      inputList: null
     }
   },
 
@@ -68,6 +71,15 @@ Vue.component("restaurant_info", {
       <h1 class="description"> {{i.description}} </h1>
       <h1 class="price"> {{i.price}},00 RSD </h1>
     </div>
+    <div>
+    	</br></br></br></br></br>
+    	<span>
+	    	<button v-on:click="increment(index)" >+</button>
+	    	<label id="index">0</label>
+	    	<button v-on:click="decrement(index)">-</button>
+	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, index)"> Dodaj u korpu </button>
+    	</span>
+    </div>
   </div>
 
   </div>
@@ -111,13 +123,42 @@ Vue.component("restaurant_info", {
         avg = sum/cnt;
         this.avgGrade = avg;
       });
-
+      
   },
 
   methods: {
 
 		addItem: function() {
 			router.push(`/add_item`);
+		},
+		addToCart: function(item, index) {
+			var amountInput = document.getElementById("index").innerHTML;
+			let itemParameters = {
+				name : item.name,
+				price : item.price,
+				type : item.type,
+				restaurant : item.restaurant,
+				amount : amountInput,
+				description : item.description,
+				imagePath : item.imagePath
+			};
+			axios
+				.post('/rest/addToCart', JSON.stringify(itemParameters));
+			document.getElementById("index").innerHTML = '0';
+		},
+		increment: function(index) {
+			var amount = 0;
+			amount = parseFloat(document.getElementById("index").innerHTML);
+			amount += 1;
+			document.getElementById("index").innerHTML = amount;
+		},
+		decrement: function(index) {
+			var amount = 0;
+			amount = parseFloat(document.getElementById("index").innerHTML);
+			if(amount > 0) {
+				amount -= 1;
+				document.getElementById("index").innerHTML = amount;
+			}
 		}
   }
 

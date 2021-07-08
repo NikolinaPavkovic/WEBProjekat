@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import beans.Customer;
 import beans.CustomerType;
 import beans.Deliverer;
+import beans.Item;
 import beans.Manager;
 import beans.Order;
 import beans.Restaurant;
@@ -27,6 +28,10 @@ public class UserService {
 	private Customers customers = new Customers();
 	private Managers managers = new Managers();
 	private Deliverers deliverers = new Deliverers();
+	private CustomerService customerService = new CustomerService();
+	private ManagerService managerService = new ManagerService();
+	private DelivererService delivererService = new DelivererService();
+	
 	
 	public Collection<User> getUsers() throws JsonGenerationException, JsonMappingException, IOException {
 		return this.users.load();
@@ -73,6 +78,14 @@ public class UserService {
 		for (User user : userList) {
 			users.save(user);
 		}
+		if(oldUser.getRole() == Role.customer) {
+			customerService.editProfile(oldUser, newUser);
+		} else if(oldUser.getRole() == Role.deliverer) {
+			delivererService.editProfile(oldUser, newUser);
+		} else if(oldUser.getRole() == Role.manager) {
+			managerService.editProfile(oldUser, newUser);
+		}
 		return null;
 	}
+	
 }

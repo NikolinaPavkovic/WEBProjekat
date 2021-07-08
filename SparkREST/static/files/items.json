@@ -25,7 +25,7 @@
     },
     "imgPath" : "./images/petrus.png"
   },
-  "amount" : 1.0,
+  "amount" : 0.0,
   "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
   "imagePath" : "./images/items/pizza.jpg"
 }, {
@@ -55,7 +55,7 @@
     },
     "imgPath" : "./images/petrus.png"
   },
-  "amount" : 2.0,
+  "amount" : 0.0,
   "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
   "imagePath" : "./images/items/sandwich.jpg"
 } ]

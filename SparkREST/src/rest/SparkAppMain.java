@@ -208,6 +208,15 @@ public class SparkAppMain {
 			ArrayList<Comment> commentsFromFile = comments.load();
 			return g.toJson(commentsFromFile);
 		});
+		
+		post("/rest/addToCart", (req, res) -> {
+			res.type("application/json");
+			Item item = g.fromJson(req.body(), Item.class);
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			customerService.addItemToShoppingCart(user, item);
+			return "";
+		}); 
 
 	}
 }
