@@ -15,8 +15,7 @@ Vue.component("restaurant_info", {
       comments: null,
       avgGrade: "",
       selectedItem: null,
-      amount: 0,
-      inputList: null
+      amount: 0
     }
   },
 
@@ -24,7 +23,7 @@ Vue.component("restaurant_info", {
 
   <div>
     <img :src="restaurantImage" class="rest-image">
-
+	<button v-if="mode=='customer'" style="position: absolute; top: 10px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
     <div class="all">
     <div class="wrapper-restaurant">
       <div class="left">
@@ -74,9 +73,9 @@ Vue.component("restaurant_info", {
     <div>
     	</br></br></br></br></br>
     	<span>
-	    	<button v-on:click="increment(index)" >+</button>
-	    	<label id="index">0</label>
-	    	<button v-on:click="decrement(index)">-</button>
+	    	<button v-if="mode=='customer'" v-on:click="increment(index)" >+</button>
+	    	<label v-if="mode=='customer'" id="index">0</label>
+	    	<button v-if="mode=='customer'" v-on:click="decrement(index)">-</button>
 	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, index)"> Dodaj u korpu </button>
     	</span>
     </div>
@@ -159,6 +158,11 @@ Vue.component("restaurant_info", {
 				amount -= 1;
 				document.getElementById("index").innerHTML = amount;
 			}
+		},
+		viewShoppingCart: function() {
+			axios
+				.get('/rest/setShoppingCart');
+			router.push(`/shoppingCart`);
 		}
   }
 

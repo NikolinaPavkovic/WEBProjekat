@@ -13,7 +13,8 @@ Vue.component("profile", {
 	template: `
 	<div>
 		<div class="all" v-bind:hidden="editMode==true">
-			<button style="position: absolute; top: 10px; right: 170px;" v-on:click="changeMode">Izmeni profil</button>
+			<button style="position: absolute; top: 10px; right: 200px;" v-on:click="changeMode">Izmeni profil</button>
+			<button style="position: absolute; top: 10px; right: 40px;" v-on:click="getUserOrders">Moje porudžbine</button>
 			<div class="wrapper">
 				<div class="left">
 					<h4 key="user.name">{{user.name}} {{user.surname}}</h4>
@@ -114,6 +115,9 @@ Vue.component("profile", {
 		},
 		cancel: function() {
 			this.editMode = false;
+		},
+		getUserOrders: function() {
+			router.push(`/orders?username=` + this.user.username);
 		}
 	}
 });

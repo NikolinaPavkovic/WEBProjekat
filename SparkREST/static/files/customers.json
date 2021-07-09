@@ -134,7 +134,7 @@
       "imagePath" : "./images/items/pizza.jpg"
     } ],
     "customer" : null,
-    "price" : 0.0
+    "price" : 3150.0
   },
   "points" : 0,
   "customerType" : {

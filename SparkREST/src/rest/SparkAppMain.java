@@ -15,6 +15,7 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import beans.Comment;
+import beans.Customer;
 import beans.Gender;
 import beans.Item;
 import beans.Restaurant;
@@ -220,12 +221,30 @@ public class SparkAppMain {
 			return "";
 		});
 
-
 		post("/rest/restaurants/findRestaurants", (req, res) -> {
 			res.type("application/json");
 			System.out.println(req.body());
 			System.out.println(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
 			return g.toJson(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
+		});
+		
+		get("/rest/getCustomer", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			Customer customer = customerService.getCustomer(user);
+			if(customer == null) {
+				return "ERROR";
+			}
+			return g.toJson(customer);
+		});
+		
+		get("/rest/setShoppingCart", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			customerService.setShoppingCart(user);
+			return "";
 		});
 
 

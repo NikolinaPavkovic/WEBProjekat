@@ -1,6 +1,5 @@
 package services;
 
-import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,15 +9,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
 import beans.Item;
-import beans.Role;
-import beans.ShoppingCart;
 import beans.User;
 import dao.Customers;
-import dao.Users;
 
 public class CustomerService {
 	private Customers customers = new Customers();
-	private Users users = new Users();
 	
 	public Collection<Customer> getCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		return this.customers.load();
@@ -32,22 +27,6 @@ public class CustomerService {
 			}
 		}
 	}
-	
-	/*public Customer editCustomer(Customer oldCustomer, Customer newCustomer) throws JsonGenerationException, JsonMappingException, IOException {
-		ArrayList<Customer> customerList = customers.load();
-		for (int i = 0; i < customerList.size(); i++) {
-			if(customerList.get(i).getUsername().equals(oldCustomer.getUsername())) {
-				customerList.remove(i);
-			}
-		}
-		customerList.add(newCustomer);
-		customers.emptyFile();
-		for(Customer customer : customerList) {
-			customers.save(customer);
-		}
-		return null;
-	}*/
-	
 	
 	 public Customer editProfile(User oldUser, User newUser) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
@@ -112,10 +91,33 @@ public class CustomerService {
 	 
 	 public void setShoppingCart(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
-		 Customer newCustomer = new Customer();
+		 Customer customer = new Customer();
 		 for (int i = 0; i < customerList.size(); i++) {
-			 
+			 if(customerList.get(i).getUsername().equals(user.getUsername())) {
+				 customer = customerList.get(i);
+				 customerList.remove(i);
+			 }
 		 }
+		 double totalPrice = 0.0;
+		 for (Item item : customer.getShoppingCart().getItems()) {
+			totalPrice += item.getPrice() * item.getAmount();
+		 }
+		 customer.getShoppingCart().setPrice(totalPrice);
+		 customerList.add(customer);
+		 customers.emptyFile();
+		 for (Customer customer2 : customerList) {
+			customers.save(customer2);
+		}
 	 }
+	 
+	 public Customer getCustomer(User user) throws JsonGenerationException, JsonMappingException, IOException  {
+		ArrayList<Customer> customerList = customers.load();
+		for(int i = 0; i < customerList.size(); i++) {
+			if(user.getUsername().equals(customerList.get(i).getUsername())) {
+				return customerList.get(i);
+			}
+		}
+		return null;
+	}
 
 }
