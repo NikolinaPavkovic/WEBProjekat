@@ -74,7 +74,5 @@ public class Restaurant {
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
-	
-	
-	
+
 }

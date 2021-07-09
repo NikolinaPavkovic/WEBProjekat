@@ -40,7 +40,7 @@ Vue.component("add_restaurant", {
 
   template: `
   <div>
-    <form>
+    <form class="add-form">
       <label> Naziv restorana: </label>
       <input type="text" v-model="restaurantName" name="name" v-on:change="signalChange"/>
       <p style="color: red;"> {{errorName}} </p>

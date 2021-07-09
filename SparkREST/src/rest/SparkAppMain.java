@@ -24,6 +24,7 @@ import dao.Comments;
 import dto.ItemDTO;
 import dto.LoginDTO;
 import dto.RestaurantDTO;
+import dto.SearchDTO;
 import dto.UserDTO;
 import services.CommentService;
 import services.CustomerService;
@@ -202,13 +203,14 @@ public class SparkAppMain {
 			return "";
 
 		});
-		
+
 		get("/rest/getComments", (req, res) -> {
 			res.type("application/json");
 			ArrayList<Comment> commentsFromFile = comments.load();
 			return g.toJson(commentsFromFile);
 		});
-		
+
+
 		post("/rest/addToCart", (req, res) -> {
 			res.type("application/json");
 			Item item = g.fromJson(req.body(), Item.class);
@@ -216,7 +218,16 @@ public class SparkAppMain {
 			User user = session.attribute("user");
 			customerService.addItemToShoppingCart(user, item);
 			return "";
-		}); 
+		});
+
+
+		post("/rest/restaurants/findRestaurants", (req, res) -> {
+			res.type("application/json");
+			System.out.println(req.body());
+			System.out.println(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
+			return g.toJson(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
+		});
+
 
 	}
 }

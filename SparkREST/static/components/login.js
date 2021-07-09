@@ -11,7 +11,7 @@ Vue.component("login", {
 		<div>
 			<img alt="" src="./images/logo1.png">
 			<h1 style="color: #99CCFF; text-align: center; font-size: 50"></h1>
-			<form>
+			<form class="add-form">
 				<label>Korisničko ime:</label>
 				<input type="text" v-model="usernameInput" name="username" required/>
 

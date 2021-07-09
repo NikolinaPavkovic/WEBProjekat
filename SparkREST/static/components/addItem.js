@@ -23,7 +23,7 @@ Vue.component("add_item", {
   template: `
 
   <div>
-    <form>
+    <form class="add-form">
       <label> Naziv artikla: </label>
       <input type="text" v-model="itemName" name="name"/>
       <p style="color: red;"> {{errorName}} </p>
