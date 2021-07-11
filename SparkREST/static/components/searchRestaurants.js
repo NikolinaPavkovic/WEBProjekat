@@ -10,6 +10,12 @@ function cyrilicToLatinic(string) {
     }).join('')
   }
 
+function removeFromArray(arr, value) {
+  return arr.filter(function(ele) {
+    return ele != value;
+  });
+}
+
 Vue.component("search-restaurant", {
   data: function() {
     return {
@@ -23,7 +29,11 @@ Vue.component("search-restaurant", {
       allLocations: null,
       autocompleteInstance: [],
       showResults: false,
-      message: ""
+      message: "",
+      filters_show: false,
+      filters: false,
+      options: [],
+      type: []
 
     }
   },
@@ -65,10 +75,50 @@ Vue.component("search-restaurant", {
             </select>
           </div>
           <button v-on:click="searchRestaurant" class="search-button"> <img class="search-image" src="./images/search.png"> </button>
+        </div> </br>
+
+        <a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
+        <div v-bind:hidden="filters_show == false">
+
+          <div v-bind:hidden="filters_show == false">
+            <h1 class="filter-restaurants"> Tip restorana: </h1>
+            <div class="byType">
+            <label class="container"> Italian
+              <input type="checkbox" value="italian" name="type" id="italian">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Chinese
+              <input type="checkbox" value="chinese" name="type" id="chinese">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Vegan
+              <input type="checkbox" value="vegan" name="type" id="vegan">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Grill
+              <input type="checkbox" value="grill" name="type" id="grill">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Pizza
+              <input type="checkbox" value="pizza" name="type" id="pizza">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Mexican
+              <input type="checkbox" value="mexican" name="type" id="mexican">
+              <span class="checkmark"></span>
+            </label>
+            </div> </br>
+              <button class="submit" @click="filterRestaurants"> Pretrazi </button>
+          </div>
         </div>
       </div>
 
-      <p> {{message}} </p>
+      <p class="search-message"> {{message}} </p>
           <div class="row-restaurants" v-for="r in restaurants" v-bind:hidden="showResults==false">
             <div class="col-with-pic"> </br>
               <div class="col-picture">
@@ -76,8 +126,6 @@ Vue.component("search-restaurant", {
                   <img :src="r.imgPath" class="restaurant-image" alt="r.name"> </br> </br>
                 </div>
                 <button class="see-more"><a :href="'#/details?name=' + r.name" class="link" > Pregledaj restoran </a> </button>
-
-
               </div>
             </div>
 
@@ -219,11 +267,71 @@ Vue.component("search-restaurant", {
             this.restaurants = response.data;
             if (response.data.length == 0) {
               this.restaurants = [];
-              this.message = "Nema rezultata";
+              //this.message = "Nema rezultata";
+              toast("Nema rezultata pretrage");
             }
           })
 
         this.showResults = true;
+      },
+
+      showFilters: function() {
+        this.filters_show = !this.filters_show;
+      },
+
+      uncheckRadioType: function() {
+        document.getElementById('open').checked = false;
+        document.getElementById('closed').checked = false;
+        this.restaurantStatus = "";
+      },
+
+      filterRestaurants: function() {
+
+        if (document.getElementById('italian').checked == true) {
+          this.type.push("italian");
+        }
+        if (document.getElementById('chinese').checked == true) {
+          this.type.push("chinese");
+        }
+        if (document.getElementById('vegan').checked == true) {
+          this.type.push("vegan");
+        }
+        if (document.getElementById('grill').checked == true) {
+          this.type.push("grill");
+        }
+        if (document.getElementById('pizza').checked == true) {
+          this.type.push("pizza");
+        }
+        if (document.getElementById('mexican').checked == true) {
+          this.type.push("mexican");
+        }
+
+        for (let t of this.type) {
+          if (document.getElementById(t).checked == false) {
+            this.type = removeFromArray(this.type, t);
+          }
+        }
+
+        console.log(this.type);
+        this.restaurantStatus = "open";
+
+        let filterParams = {
+          type: this.type,
+          status: this.restaurantStatus,
+          restaurants: this.restaurants
+        }
+
+        axios
+          .post("/rest/restaurants/filterRestaurants", JSON.stringify(filterParams))
+          .then(response => {
+            this.restaurants = response.data;
+            if (response.data.length == 0) {
+              this.restaurants = [];
+              //this.message = "Nema rezultata";
+              toast("Nema rezultata pretrage");
+            }
+          })
+
       }
   }
 

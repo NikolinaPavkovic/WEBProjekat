@@ -10,8 +10,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Item;
 import beans.Restaurant;
+import beans.RestaurantStatus;
 import dao.Restaurants;
 import dto.SearchDTO;
+import dto.FilterDTO;
 
 public class RestaurantService {
 	private Restaurants restaurants = new Restaurants();
@@ -48,27 +50,24 @@ public class RestaurantService {
 		return restaurant;
 	}
 	
-	public ArrayList<Restaurant> findRestaurants(SearchDTO fromJson) throws IOException {
-		ArrayList<Restaurant> filteredRestaurants = filterRestaurants(fromJson);
-		ArrayList<Restaurant> found = new ArrayList<Restaurant>();
+	public ArrayList<Restaurant> filterRestaurantsByStatus(FilterDTO fromJson) throws IOException, JsonGenerationException, JsonMappingException {
+		ArrayList<Restaurant> filtered = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> found = fromJson.getRestaurants();
 		
-		
-		return found;
-	}
-	
-	private boolean doesNameExists(String jsonName, String restaurantName) {
-		if (!jsonName.isEmpty()) {
-			if (jsonName.equals(restaurantName)) {
-				return true;
-			} else {
-				return false;
+		for (Restaurant r : found) {
+			if (fromJson.getType() != null) {
+				for (String s : fromJson.getType()) {
+					if (s.equals(r.getType().toString()) && r.getStatus().equals(RestaurantStatus.open)) {
+						filtered.add(r);
+					} 
+				}
 			}
 		}
 		
-		return false;
+		return filtered;
 	}
 	
-	public ArrayList<Restaurant> filterRestaurants(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
+	public ArrayList<Restaurant> findRestaurants(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Restaurant> filteredRestaurants = new ArrayList<Restaurant>();
 		ArrayList<Restaurant> allRestaurants = this.restaurants.load();
 		boolean canAdd = false;

@@ -122,7 +122,7 @@ Vue.component("restaurant_info", {
         avg = sum/cnt;
         this.avgGrade = avg;
       });
-      
+
   },
 
   methods: {
