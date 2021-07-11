@@ -71,18 +71,43 @@ public class CustomerService {
 	 
 	 public void addItemToShoppingCart(User user, Item item) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
+		 ArrayList<Item> items = new ArrayList<Item>();
 		 Customer newCustomer = new Customer();
+		 int brojac = 0;
+		 
 		 for (int i = 0; i < customerList.size(); i++) {
 			if(user.getUsername().equals(customerList.get(i).getUsername())) {
+				System.out.println("1111111111111111");
 				newCustomer = customerList.get(i);
 				if(newCustomer.getShoppingCart().getItems() == null) {
 					newCustomer.getShoppingCart().setItems(new ArrayList<Item>());
 				}
-				newCustomer.getShoppingCart().getItems().add(item);
+				items = newCustomer.getShoppingCart().getItems();
+				System.out.println(items.get(0).getName());
+				System.out.println("22222222222222222222");
+				for(int j = 0; j < items.size(); j++) {
+					System.out.println("333333333333333");
+					if(items.get(j).getName().equals(item.getName())) {
+						System.out.println("44444444444444444444");
+						brojac++;
+						double amount = item.getAmount();
+						amount += items.get(j).getAmount();
+						item.setAmount(amount);
+						items.remove(j);
+						items.add(item);
+					}
+				}
+				if(brojac == 0) {
+					items.add(item);
+					System.out.println("55555555555555555555");
+				}
+				newCustomer.getShoppingCart().setItems(items);
 				customerList.remove(i);
 				customerList.add(newCustomer);
 			}
 		 }
+		 System.out.println(brojac);
+		 System.out.println(item.getName());
 		 customers.emptyFile();
 		 for (Customer customer : customerList) {
 			customers.save(customer);

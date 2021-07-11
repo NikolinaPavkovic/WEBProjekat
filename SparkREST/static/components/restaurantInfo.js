@@ -15,7 +15,8 @@ Vue.component("restaurant_info", {
       comments: null,
       avgGrade: "",
       selectedItem: null,
-      amount: 0
+      amount: 0,
+      errorMessage: ""
     }
   },
 
@@ -77,6 +78,7 @@ Vue.component("restaurant_info", {
 	    	<label v-if="mode=='customer'" id="index">0</label>
 	    	<button v-if="mode=='customer'" v-on:click="decrement(index)">-</button>
 	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, index)"> Dodaj u korpu </button>
+	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
     	</span>
     </div>
   </div>
@@ -132,18 +134,24 @@ Vue.component("restaurant_info", {
 		},
 		addToCart: function(item, index) {
 			var amountInput = document.getElementById("index").innerHTML;
-			let itemParameters = {
-				name : item.name,
-				price : item.price,
-				type : item.type,
-				restaurant : item.restaurant,
-				amount : amountInput,
-				description : item.description,
-				imagePath : item.imagePath
-			};
-			axios
-				.post('/rest/addToCart', JSON.stringify(itemParameters));
-			document.getElementById("index").innerHTML = '0';
+			if(amountInput < 1) {
+				this.errorMessage = "Unesite željnu količinu!";
+			} else {
+				let itemParameters = {
+					name : item.name,
+					price : item.price,
+					type : item.type,
+					restaurant : item.restaurant,
+					amount : amountInput,
+					description : item.description,
+					imagePath : item.imagePath
+				};
+				axios
+					.post('/rest/addToCart', JSON.stringify(itemParameters));
+				document.getElementById("index").innerHTML = '0';
+				
+				this.errorMessage = "Artikal dodat u korpu!";
+			}
 		},
 		increment: function(index) {
 			var amount = 0;

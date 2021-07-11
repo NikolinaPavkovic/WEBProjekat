@@ -23,6 +23,10 @@ Vue.component("shopping_cart", {
 	      <h1 class="description"> {{i.description}} </h1>
 	      <h1 class="price"> {{i.price}},00 RSD </h1>
 	    </div>
+	    <div>
+    		</br></br></br></br></br>
+    		<button class="see-more" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
+    	</div>
 	  </div>
 	  <button style="position: absolute; right: 40px;">Potvrdi porudžbinu</button>
 	 </div>

@@ -1,25 +1,4 @@
 [ {
-  "username" : "vanja",
-  "password" : "vanja",
-  "name" : "Vanja",
-  "surname" : "Veljic",
-  "gender" : "female",
-  "dateOfBirth" : 1609196400000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "orders" : [ ],
-  "shoppingCart" : {
-    "items" : null,
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : 0,
-  "customerType" : {
-    "typeName" : null,
-    "discount" : 0.0,
-    "requiredPoints" : 0
-  }
-}, {
   "username" : "sima",
   "password" : "sima",
   "name" : "Sima",
@@ -102,7 +81,28 @@
       "amount" : 2.0,
       "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
       "imagePath" : "./images/items/pizza.jpg"
-    }, {
+    } ],
+    "customer" : null,
+    "price" : 3150.0
+  },
+  "points" : 0,
+  "customerType" : {
+    "typeName" : null,
+    "discount" : 0.0,
+    "requiredPoints" : 0
+  }
+}, {
+  "username" : "vanja",
+  "password" : "vanja",
+  "name" : "Vanja",
+  "surname" : "Veljic",
+  "gender" : "female",
+  "dateOfBirth" : 1609196400000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "orders" : [ ],
+  "shoppingCart" : {
+    "items" : [ {
       "name" : "Pizza",
       "price" : 450.0,
       "type" : "food",
@@ -134,7 +134,7 @@
       "imagePath" : "./images/items/pizza.jpg"
     } ],
     "customer" : null,
-    "price" : 3150.0
+    "price" : 2250.0
   },
   "points" : 0,
   "customerType" : {
