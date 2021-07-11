@@ -4,7 +4,8 @@ Vue.component("shopping_cart", {
 			shoppingCart: null,
 			user: null,
 			items: null,
-			error: ""
+			error: "",
+			nesto: ""
 		}
 	},
 	template: `
@@ -17,7 +18,6 @@ Vue.component("shopping_cart", {
 	        </div>
 	      </div>
 	    </div>
-	
 	    <div class="col-information">
 	      <h1 class="item-name"> {{i.name}} x{{i.amount}}</h1>
 	      <h1 class="description"> {{i.description}} </h1>
@@ -25,7 +25,10 @@ Vue.component("shopping_cart", {
 	    </div>
 	    <div>
     		</br></br></br></br></br>
-    		<button class="see-more" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
+    		<span>
+    			<button class="see-more" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
+    			<p>{{nesto}}</p>
+    		</span>
     	</div>
 	  </div>
 	  <button style="position: absolute; right: 40px;">Potvrdi porudžbinu</button>
@@ -48,5 +51,24 @@ Vue.component("shopping_cart", {
 					this.items = this.shoppingCart.items;
 				}
 			});
+	},
+	methods: {
+		removeFromCart: function(i) {
+			let itemParameters = {
+				name : i.name,
+				price : i.price,
+				type : i.type,
+				restaurant : i.restaurant,
+				amount : i.amount,
+				description : i.description,
+				imagePath : i.imagePath
+			};
+		
+			axios
+				.delete('/rest/removeFromCart/' + i.name)
+				.then(response => (this.$router.go()));
+			
+				
+		}
 	}
 });

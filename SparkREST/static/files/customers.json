@@ -129,12 +129,12 @@
         },
         "imgPath" : "./images/petrus.png"
       },
-      "amount" : 5.0,
+      "amount" : 7.0,
       "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
       "imagePath" : "./images/items/pizza.jpg"
     } ],
     "customer" : null,
-    "price" : 2250.0
+    "price" : 3150.0
   },
   "points" : 0,
   "customerType" : {

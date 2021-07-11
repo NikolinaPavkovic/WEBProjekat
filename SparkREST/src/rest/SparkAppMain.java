@@ -246,6 +246,17 @@ public class SparkAppMain {
 			customerService.setShoppingCart(user);
 			return "";
 		});
+		
+		delete("/rest/removeFromCart/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			System.out.println(name);
+			Item item = customerService.findItem(name);
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			customerService.removeFromCart(user, item);
+			return "";
+		});
 
 
 	}
