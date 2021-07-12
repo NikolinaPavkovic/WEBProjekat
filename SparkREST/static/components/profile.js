@@ -43,7 +43,7 @@ Vue.component("profile", {
 		</div>
 		<div v-bind:hidden="editMode==false">
 			<img src="./images/logo1.png">
-			<form >
+			<form class="add-form">
 				<label>Ime:</label>
 				<input type="text" v-model="nameInput" name="name" required/>
 				
