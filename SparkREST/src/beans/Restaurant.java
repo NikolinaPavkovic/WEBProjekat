@@ -75,4 +75,13 @@ public class Restaurant {
 		this.imgPath = imgPath;
 	}
 
+	public double getAverageGrade() {
+		return averageGrade;
+	}
+
+	public void setAverageGrade(double averageGrade) {
+		this.averageGrade = averageGrade;
+	}
+	
+	
 }

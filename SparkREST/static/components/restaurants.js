@@ -34,7 +34,9 @@ Vue.component("restaurants", {
       showSearch: false,
       restaurantCity: "",
       filters_show: false,
-      type: []
+      type: [],
+      avgGrade: "",
+      comments: null
 		}
 	},
 	template: `
@@ -140,6 +142,7 @@ Vue.component("restaurants", {
 				<h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
 				<h1 class="info"> Tip restorana: {{r.type}} </h1>
 				<h1 class="info"> {{r.status}} </h1>
+        <h1 class="info"> {{getAvg(r.name)}} </h1>
 			</div>
 		</div>
 
@@ -171,6 +174,12 @@ Vue.component("restaurants", {
 					this.mode = "notLogged";
 				}
 			});
+
+      axios
+        .get('/rest/getComments')
+        .then(response => {
+          this.comments = response.data;
+        });
 
 			var placesCountry = placesAutocompleteDataset({
 				algoliasearch: algoliasearch,
@@ -322,6 +331,18 @@ Vue.component("restaurants", {
 				restaurantType: this.restaurantType
 			}
 
+      if (this.restaurantName == "") {
+        axios
+          .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
+          .then(response => {
+            this.restaurants = response.data;
+            if (response.data.length == 0) {
+              this.restaurants = [];
+              toast("Nema rezultata pretrage");
+            }
+          })
+      } 
+
 			axios
 				.post("/rest/restaurants/findRestaurants", JSON.stringify(searchParams))
 				.then(response => {
@@ -345,7 +366,7 @@ Vue.component("restaurants", {
     showFilters: function() {
       this.filters_show = !this.filters_show;
     },
-    
+
     filterRestaurants: function() {
 
       if (document.getElementById('italian').checked == true) {
@@ -392,7 +413,21 @@ Vue.component("restaurants", {
               toast("Nema rezultata pretrage");
             }
           })
+    },
 
+    getAvg: function(name) {
+      let cnt = 0;
+      let avg = 0;
+      let sum = 0;
+      for (let comment of this.comments) {
+        if (comment.restaurant.name == name) {
+          sum += comment.grade;
+          cnt ++;
+        }
+      }
+      avg = sum/cnt;
+      //this.avgGrade = avg;
+      return avg;
     }
 	}
 });

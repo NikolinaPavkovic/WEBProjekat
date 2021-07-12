@@ -254,7 +254,11 @@ public class SparkAppMain {
 			System.out.println(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
 			return g.toJson(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
 		});
-
+		
+		post("/rest/restaurants/findByGrade", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(restaurantService.getRestaurantsByGrade(g.fromJson(req.body(), SearchDTO.class)));
+		});
 
 	}
 }

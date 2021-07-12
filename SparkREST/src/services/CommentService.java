@@ -44,5 +44,17 @@ public class CommentService {
 		
 		return restaurantComments;
 	}
+	
+	public ArrayList<Restaurant> getRestaurantsByGrade(double grade) throws JsonGenerationException, JsonMappingException, IOException{
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		
+		for (Comment c : comments.load()) {
+			if (grade == countAverageGrade(c.getRestaurant().getName())) {
+				restaurants.add(c.getRestaurant());
+			}
+		}
+		
+		return restaurants;
+	}
 
 }

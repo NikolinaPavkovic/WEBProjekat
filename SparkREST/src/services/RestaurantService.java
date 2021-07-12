@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import beans.Comment;
 import beans.Item;
 import beans.Restaurant;
 import beans.RestaurantStatus;
@@ -65,6 +67,14 @@ public class RestaurantService {
 		}
 		
 		return filtered;
+	}
+	
+	public ArrayList<Restaurant> sortByName(FilterDTO fromJson) {
+		ArrayList<Restaurant> sorted = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> found = fromJson.getRestaurants();
+		
+		
+		return sorted;
 	}
 	
 	public ArrayList<Restaurant> findRestaurants(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
@@ -131,6 +141,21 @@ public class RestaurantService {
 			}
 		}
 		return filteredRestaurants;
+	}
+	
+	public ArrayList<Restaurant> getRestaurantsByGrade(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException{
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		
+		for (Restaurant r : getRestaurants()) {
+			double avg = commentService.countAverageGrade(r.getName());
+			if (avg == fromJson.getGrade()) {
+				restaurants.add(r);
+			} else {
+				continue;
+			}
+		}
+		
+		return restaurants;
 	}
 	
 }

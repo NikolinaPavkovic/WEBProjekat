@@ -33,7 +33,8 @@ Vue.component("search-restaurant", {
       filters_show: false,
       filters: false,
       options: [],
-      type: []
+      type: [],
+      sort_show: false
 
     }
   },
@@ -112,8 +113,49 @@ Vue.component("search-restaurant", {
               <input type="checkbox" value="mexican" name="type" id="mexican">
               <span class="checkmark"></span>
             </label>
-            </div> </br>
+            </div>
               <button class="submit" @click="filterRestaurants"> Pretrazi </button>
+          </div>
+        </div> </br> </br>
+
+        <a href="#search_restaurant" @click="showSortingMethods" style="margin-left: 41px;"> Sortiraj </a>
+        <div v-bind:hidden="sort_show==false">
+          <h1 class="filter-restaurants"> Po nazivu: </h1>
+          <div class="byType">
+            <label class="container"> rastuce
+              <input type="checkbox" value="rastuce" name="sortByName" id="sortByNameAsc">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> opadajuce
+              <input type="checkbox" value="opadajuce" name="sortByName" id="sortByNameDesc">
+              <span class="checkmark"></span>
+            </label>
+
+            <h1 class="sort-restaurants"> Po lokaciji: </h1>
+            <label class="container"> rastuce
+              <input type="checkbox" value="rastuce" name="sortByLoc" id="sortByLocAsc">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> opadajuce
+              <input type="checkbox" value="opadajuce" name="sortByLoc" id="sortByLocDesc">
+              <span class="checkmark"></span>
+            </label>
+
+            <h1 class="sort-restaurants"> Po oceni: </h1>
+            <label class="container"> rastuce
+              <input type="checkbox" value="rastuce" name="sortByGrade" id="sortByGradeAsc">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> opadajuce
+              <input type="checkbox" value="opadajuce" name="sortByGrade" id="sortByGradeDesc">
+              <span class="checkmark"></span>
+            </label>
+            <div>
+              <button class="submit" @click="sortRestaurants"> Sortiraj </button>
+            </div>
           </div>
         </div>
       </div>
@@ -259,6 +301,18 @@ Vue.component("search-restaurant", {
           restaurantType: this.restaurantType
         }
 
+        if (this.restaurantName == "") {
+          axios
+            .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
+            .then(response => {
+              this.restaurants = response.data;
+              if (response.data.length == 0) {
+                this.restaurants = [];
+                toast("Nema rezultata pretrage");
+              }
+            })
+        }
+
         console.log(searchParams.dateFrom);
 
         axios
@@ -277,6 +331,10 @@ Vue.component("search-restaurant", {
 
       showFilters: function() {
         this.filters_show = !this.filters_show;
+      },
+
+      showSortingMethods: function() {
+        this.sort_show = !this.sort_show;
       },
 
       uncheckRadioType: function() {
@@ -331,6 +389,10 @@ Vue.component("search-restaurant", {
               toast("Nema rezultata pretrage");
             }
           })
+
+      },
+
+      sortRestaurants: function() {
 
       }
   }
