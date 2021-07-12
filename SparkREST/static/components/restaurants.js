@@ -10,6 +10,12 @@ function cyrilicToLatinic(string) {
     }).join('')
   }
 
+function removeFromArray(arr, value) {
+    return arr.filter(function(ele) {
+      return ele != value;
+    });
+  }
+
 Vue.component("restaurants", {
 	data: function() {
 		return {
@@ -24,7 +30,13 @@ Vue.component("restaurants", {
 			locations: null,
 			allLocations: null,
 			autocompleteInstance: [],
-			message: ""
+			message: "",
+      showSearch: false,
+      restaurantCity: "",
+      filters_show: false,
+      type: [],
+      avgGrade: "",
+      comments: null
 		}
 	},
 	template: `
@@ -36,13 +48,13 @@ Vue.component("restaurants", {
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode!='notLogged'" v-on:click="profileInfo">Profil</button>
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
 
-		<div class="search-form">
+		<div class="search-form" v-bind:hidden="showSearch==true">
 			<div class="row">
 				<div class="column">
 					<input type="search" v-model="restaurantName" placeholder="Naziv restorana" name="name"/>
 				</div>
 				<div class="column">
-					<input type="search" id="autocomplete-dataset" placeholder="Lokacija restorana" name="location"/>
+					<input type="search" id="autocomplete-dataset" placeholder="Lokacija restorana" name="location" v-model="restaurantCity"/>
 				</div>
 				<div class="column">
 					<select v-model="restaurantType">
@@ -69,7 +81,48 @@ Vue.component("restaurants", {
 					</select>
 				</div>
 				<button v-on:click="searchRestaurant" class="search-button"> <img class="search-image" src="./images/search.png"> </button>
-			</div>
+			</div> </br>
+
+      <a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
+        <div v-bind:hidden="filters_show == false">
+
+          <div v-bind:hidden="filters_show == false">
+            <h1 class="filter-restaurants"> Tip restorana: </h1>
+            <div class="byType">
+            <label class="container"> Italian
+              <input type="checkbox" value="italian" name="type" id="italian">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Chinese
+              <input type="checkbox" value="chinese" name="type" id="chinese">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Vegan
+              <input type="checkbox" value="vegan" name="type" id="vegan">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Grill
+              <input type="checkbox" value="grill" name="type" id="grill">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Pizza
+              <input type="checkbox" value="pizza" name="type" id="pizza">
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container"> Mexican
+              <input type="checkbox" value="mexican" name="type" id="mexican">
+              <span class="checkmark"></span>
+            </label>
+            </div> </br>
+              <button class="submit" @click="filterRestaurants"> Pretrazi </button>
+          </div>
+        </div>
+
 		</div>
 
 		<div class="row-restaurants" v-for="(r, index) in restaurants" >
@@ -89,6 +142,7 @@ Vue.component("restaurants", {
 				<h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
 				<h1 class="info"> Tip restorana: {{r.type}} </h1>
 				<h1 class="info"> {{r.status}} </h1>
+        <h1 class="info"> {{getAvg(r.name)}} </h1>
 			</div>
 		</div>
 
@@ -120,6 +174,12 @@ Vue.component("restaurants", {
 					this.mode = "notLogged";
 				}
 			});
+
+      axios
+        .get('/rest/getComments')
+        .then(response => {
+          this.comments = response.data;
+        });
 
 			var placesCountry = placesAutocompleteDataset({
 				algoliasearch: algoliasearch,
@@ -221,7 +281,6 @@ Vue.component("restaurants", {
 			this.locationSearch = cyrilicToLatinic(document.querySelector('#autocomplete-dataset').value);
 			let city = cyrilicToLatinic(document.querySelector('#city').value);
 			let country = cyrilicToLatinic(document.querySelector('#country').value);
-			console.log(this.locationSearch);
 
 			if (this.restaurantType === 'chinese') {
 				this.restaurantType = "chinese";
@@ -265,14 +324,24 @@ Vue.component("restaurants", {
 
 			let searchParams = {
 				restaurantName: this.restaurantName,
-				city: city,
+				city: this.restaurantCity,
 				location: this.locationSearch,
 				country: country,
 				grade: this.restaurantGrade,
 				restaurantType: this.restaurantType
 			}
 
-			console.log(searchParams.dateFrom);
+      if (this.restaurantName == "") {
+        axios
+          .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
+          .then(response => {
+            this.restaurants = response.data;
+            if (response.data.length == 0) {
+              this.restaurants = [];
+              toast("Nema rezultata pretrage");
+            }
+          })
+      } 
 
 			axios
 				.post("/rest/restaurants/findRestaurants", JSON.stringify(searchParams))
@@ -280,11 +349,85 @@ Vue.component("restaurants", {
 					this.restaurants = response.data;
 					if (response.data.length == 0) {
 						this.restaurants = [];
-						this.message = "Nema rezultata";
+						//this.message = "Nema rezultata";
+            toast("Nema rezultata pretrage");
 					}
 				})
+		},
 
-			this.showResults = true;
-		}
+    enableSearch: function() {
+      this.showSearch = true;
+    },
+
+    goToSearch: function() {
+      router.push(`/search_restaurant`);
+    },
+
+    showFilters: function() {
+      this.filters_show = !this.filters_show;
+    },
+
+    filterRestaurants: function() {
+
+      if (document.getElementById('italian').checked == true) {
+          this.type.push("italian");
+        }
+        if (document.getElementById('chinese').checked == true) {
+          this.type.push("chinese");
+        }
+        if (document.getElementById('vegan').checked == true) {
+          this.type.push("vegan");
+        }
+        if (document.getElementById('grill').checked == true) {
+          this.type.push("grill");
+        }
+        if (document.getElementById('pizza').checked == true) {
+          this.type.push("pizza");
+        }
+        if (document.getElementById('mexican').checked == true) {
+          this.type.push("mexican");
+        }
+
+        for (let t of this.type) {
+          if (document.getElementById(t).checked == false) {
+            this.type = removeFromArray(this.type, t);
+          }
+        }
+
+        console.log(this.type);
+        this.restaurantStatus = "open";
+
+        let filterParams = {
+          type: this.type,
+          status: this.restaurantStatus,
+          restaurants: this.restaurants
+        }
+
+        axios
+          .post("/rest/restaurants/filterRestaurants", JSON.stringify(filterParams))
+          .then(response => {
+            this.restaurants = response.data;
+            if (response.data.length == 0) {
+              this.restaurants = [];
+              //this.message = "Nema rezultata";
+              toast("Nema rezultata pretrage");
+            }
+          })
+    },
+
+    getAvg: function(name) {
+      let cnt = 0;
+      let avg = 0;
+      let sum = 0;
+      for (let comment of this.comments) {
+        if (comment.restaurant.name == name) {
+          sum += comment.grade;
+          cnt ++;
+        }
+      }
+      avg = sum/cnt;
+      //this.avgGrade = avg;
+      return avg;
+    }
 	}
 });

@@ -146,26 +146,4 @@
     "requiredPoints" : 0
   },
   "deleted" : false
-}, {
-  "username" : "zoran",
-  "password" : "zoran",
-  "name" : "Zoran",
-  "surname" : "Zoric",
-  "gender" : "male",
-  "dateOfBirth" : 1624917600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "orders" : [ ],
-  "shoppingCart" : {
-    "items" : null,
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : 0,
-  "customerType" : {
-    "typeName" : null,
-    "discount" : 0.0,
-    "requiredPoints" : 0
-  },
-  "deleted" : true
 } ]

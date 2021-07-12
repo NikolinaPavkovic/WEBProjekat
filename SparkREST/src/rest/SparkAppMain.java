@@ -22,6 +22,7 @@ import beans.Restaurant;
 import beans.Role;
 import beans.User;
 import dao.Comments;
+import dto.FilterDTO;
 import dto.ItemDTO;
 import dto.LoginDTO;
 import dto.RestaurantDTO;
@@ -224,8 +225,8 @@ public class SparkAppMain {
 		post("/rest/restaurants/findRestaurants", (req, res) -> {
 			res.type("application/json");
 			System.out.println(req.body());
-			System.out.println(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
-			return g.toJson(restaurantService.filterRestaurants(g.fromJson(req.body(), SearchDTO.class)));
+			System.out.println(restaurantService.findRestaurants(g.fromJson(req.body(), SearchDTO.class)));
+			return g.toJson(restaurantService.findRestaurants(g.fromJson(req.body(), SearchDTO.class)));
 		});
 		
 		get("/rest/getCustomer", (req, res) -> {
@@ -266,6 +267,17 @@ public class SparkAppMain {
 		
 		get("/rest/getCustomers", (req, res) -> {
 			return "";
+
+		post("/rest/restaurants/filterRestaurants", (req, res) -> {
+			res.type("application/json");
+			System.out.println(req.body());
+			System.out.println(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
+			return g.toJson(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
+		});
+		
+		post("/rest/restaurants/findByGrade", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(restaurantService.getRestaurantsByGrade(g.fromJson(req.body(), SearchDTO.class)));
 		});
 
 	}
