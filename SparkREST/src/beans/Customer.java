@@ -8,20 +8,18 @@ public class Customer extends User{
 	private ShoppingCart shoppingCart;
 	private int points;
 	private CustomerType customerType;
-	private boolean deleted;
 	
 	public Customer() {
 		super();
 	}
 
 	public Customer(String username, String password, String name, String surname, Gender gender, Date date,
-			Role role, boolean isBlocked, ArrayList<Order> orders, ShoppingCart shoppingCart, int points, CustomerType customerType, boolean deleted) {
-		super(username, password, name, surname, gender, date, role, isBlocked);
+			Role role, boolean isBlocked, boolean deleted, ArrayList<Order> orders, ShoppingCart shoppingCart, int points, CustomerType customerType) {
+		super(username, password, name, surname, gender, date, role, isBlocked, deleted);
 		this.orders = orders;
 		this.shoppingCart = shoppingCart;
 		this.points = points;
 		this.customerType = customerType;
-		this.deleted = deleted;
 	}
 
 	public ArrayList<Order> getOrders() {
@@ -55,14 +53,5 @@ public class Customer extends User{
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
 	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-	
 	
 }

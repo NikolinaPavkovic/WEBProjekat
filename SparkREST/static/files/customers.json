@@ -1,12 +1,13 @@
 [ {
-  "username" : "marko",
-  "password" : "marko",
-  "name" : "Marko",
-  "surname" : "Markovic",
+  "username" : "goran",
+  "password" : "goran",
+  "name" : "Goran",
+  "surname" : "Goranovic",
   "gender" : "male",
-  "dateOfBirth" : 1624917600000,
+  "dateOfBirth" : 1419894000000,
   "role" : "customer",
   "isBlocked" : false,
+  "deleted" : false,
   "orders" : [ ],
   "shoppingCart" : {
     "items" : null,
@@ -18,17 +19,17 @@
     "typeName" : null,
     "discount" : 0.0,
     "requiredPoints" : 0
-  },
-  "deleted" : false
+  }
 }, {
   "username" : "vanja",
   "password" : "vanja",
   "name" : "Vanja",
   "surname" : "Veljic",
   "gender" : "female",
-  "dateOfBirth" : 1625004000000,
+  "dateOfBirth" : 957564000000,
   "role" : "customer",
   "isBlocked" : false,
+  "deleted" : false,
   "orders" : [ ],
   "shoppingCart" : {
     "items" : null,
@@ -40,39 +41,17 @@
     "typeName" : null,
     "discount" : 0.0,
     "requiredPoints" : 0
-  },
-  "deleted" : false
-}, {
-  "username" : "gorana",
-  "password" : "gorana",
-  "name" : "Gorana",
-  "surname" : "Goranovic",
-  "gender" : "female",
-  "dateOfBirth" : 1624917600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "orders" : [ ],
-  "shoppingCart" : {
-    "items" : null,
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : 0,
-  "customerType" : {
-    "typeName" : null,
-    "discount" : 0.0,
-    "requiredPoints" : 0
-  },
-  "deleted" : false
+  }
 }, {
   "username" : "sima",
   "password" : "sima",
   "name" : "Sima",
   "surname" : "Simic",
   "gender" : "male",
-  "dateOfBirth" : 962661600000,
+  "dateOfBirth" : 1625781600000,
   "role" : "customer",
   "isBlocked" : false,
+  "deleted" : false,
   "orders" : [ ],
   "shoppingCart" : {
     "items" : null,
@@ -84,6 +63,5 @@
     "typeName" : null,
     "discount" : 0.0,
     "requiredPoints" : 0
-  },
-  "deleted" : true
+  }
 } ]

@@ -32,6 +32,7 @@ public class DelivererService {
 						delivererList.get(i).getDateOfBirth(),
 						delivererList.get(i).getRole(),
 						delivererList.get(i).getIsBlocked(),
+						delivererList.get(i).isDeleted(),
 						delivererList.get(i).getOrders());
 				break;
 			}
@@ -44,6 +45,7 @@ public class DelivererService {
 				newUser.getDateOfBirth(),
 				newUser.getRole(),
 				newUser.getIsBlocked(),
+				newUser.isDeleted(),
 				oldDeliverer.getOrders());
 		delivererList.add(newDeliverer);
 		deliverers.emptyFile();
@@ -51,4 +53,32 @@ public class DelivererService {
 			deliverers.save(deliverer);
 		}
 	}
+	
+	public void deleteDeliverer(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Deliverer> delivererList = deliverers.load();
+		Deliverer deliverer = new Deliverer();
+		for(int i = 0; i < delivererList.size(); i++) {
+			if(delivererList.get(i).getUsername().equals(username)) {
+				deliverer = delivererList.get(i);
+				delivererList.remove(i);
+			}
+		}
+		deliverer.setDeleted(true);
+		delivererList.add(deliverer);
+		deliverers.emptyFile();
+		for (Deliverer d : delivererList) {
+			deliverers.save(d);
+		}
+	}
+	
+	public ArrayList<Deliverer> getActiveDeliverers() throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Deliverer> activeDeliverers = new ArrayList<Deliverer>();
+		 ArrayList<Deliverer> allDeliverers = deliverers.load();
+		 for (int i = 0; i < allDeliverers.size(); i++) {
+			if(allDeliverers.get(i).isDeleted() == false) {
+				activeDeliverers.add(allDeliverers.get(i));
+			}
+		}
+		 return activeDeliverers;
+	 }
 }

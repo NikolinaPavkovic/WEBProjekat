@@ -10,10 +10,9 @@ public class Deliverer extends User{
 	}
 	
 	public Deliverer(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
-			Role role, boolean isBlocked, ArrayList<Order> orders) {
-		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked);
+			Role role, boolean isBlocked, boolean deleted, ArrayList<Order> orders) {
+		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked, deleted);
 		this.orders = orders;
-		// TODO Auto-generated constructor stub
 	}
 
 	public ArrayList<Order> getOrders() {
@@ -23,8 +22,5 @@ public class Deliverer extends User{
 	public void setOrders(ArrayList<Order> orders) {
 		this.orders = orders;
 	}
-	
-	
-	
 	
 }

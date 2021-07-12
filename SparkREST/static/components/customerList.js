@@ -54,7 +54,7 @@ Vue.component("customers", {
 	methods: {
 		deleteCustomer: function(customer) {
 			axios
-				.delete('/rest/deleteCustomer/' + customer.username)
+				.delete('/rest/deleteUser/' + customer.username)
 				.then(response => (this.$router.go()));
 		}
 	}

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import beans.Customer;
 import beans.Manager;
 
 public class Managers {
@@ -40,7 +39,7 @@ public class Managers {
 	public ArrayList<Manager> load() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Manager> managersFromFile = new ArrayList<Manager>();
 		final ObjectMapper mapper = new ObjectMapper();
-		ArrayList<Manager> managers = mapper.readValue(new File("./static/files/managers.json"), new TypeReference<List<Customer>>(){});
+		ArrayList<Manager> managers = mapper.readValue(new File("./static/files/managers.json"), new TypeReference<List<Manager>>(){});
 		managers.forEach(c -> managersFromFile.add(c));
 		
 		return managersFromFile;

@@ -1,7 +1,7 @@
 Vue.component("managers", {
 	data: function() {
 		return {
-			customers: null,
+			managers: null,
 			mode: "notLogged"
 		}
 	},
@@ -15,13 +15,15 @@ Vue.component("managers", {
                         <th>Ime</th>
                         <th>Prezime</th>
                         <th>Korisničko ime</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(c, index) in customers">
-                        <td>{{c.name}}</td>
-                        <td>{{c.surname}}</td>
-                        <td>{{c.username}}</td>
+                    <tr v-for="(m, index) in managers">
+                        <td>{{m.name}}</td>
+                        <td>{{m.surname}}</td>
+                        <td>{{m.username}}</td>
+                        <td><button v-on:click="deleteManager(m)">Obriši<button></td>
                     </tr>
                 </tbody>
             </table>
@@ -29,8 +31,8 @@ Vue.component("managers", {
 	`,
 	mounted() {
 		axios
-			.get('/rest/managers')
-			.then(response => (this.customers = response.data));
+			.get('/rest/activeManagers')
+			.then(response => (this.managers = response.data));
 			
 		axios
 			.get('/rest/isLogged')
@@ -42,5 +44,12 @@ Vue.component("managers", {
 				}
 			});
 		
+	},
+	methods: {
+		deleteManager: function(manager) {
+			axios
+				.delete('/rest/deleteUser/' + manager.username)
+				.then(response => (this.$router.go()));
+		}
 	}
 });

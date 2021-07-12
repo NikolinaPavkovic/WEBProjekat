@@ -6,14 +6,13 @@ public class Manager extends User{
 
 	public Manager() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.restaurant = new Restaurant();
 	}
 
 	public Manager(String username, String password, String name, String surname, Gender gender, java.util.Date dateOfBirth,
-			Role role, boolean isBlocked,Restaurant restaurant) {
-		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked);
+			Role role, boolean isBlocked, boolean deleted, Restaurant restaurant) {
+		super(username, password, name, surname, gender, dateOfBirth, role, isBlocked, deleted);
 		this.restaurant = restaurant;
-		// TODO Auto-generated constructor stub
 	}
 
 	public Restaurant getRestaurant() {
@@ -23,7 +22,5 @@ public class Manager extends User{
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
 	}
-	
-	
-	
+
 }

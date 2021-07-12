@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import beans.Customer;
 import beans.CustomerType;
 import beans.Deliverer;
-import beans.Item;
 import beans.Manager;
 import beans.Order;
 import beans.Restaurant;
@@ -43,13 +42,13 @@ public class UserService {
 			return null;
 		}
 		if(user.getRole() == Role.customer) {
-			Customer customer = new Customer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.customer, user.getIsBlocked(), new ArrayList<Order>(), new ShoppingCart(), 0, new CustomerType(), false);
+			Customer customer = new Customer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.customer, user.getIsBlocked(), user.isDeleted(), new ArrayList<Order>(), new ShoppingCart(), 0, new CustomerType());
 			customers.save(customer);
 		} else if(user.getRole() == Role.manager) {
-			Manager manager = new Manager(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.manager, user.getIsBlocked(), new Restaurant());
+			Manager manager = new Manager(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.manager, user.getIsBlocked(), user.isDeleted(), new Restaurant());
 			managers.save(manager);
 		} else if(user.getRole() == Role.deliverer) {
-			Deliverer deliverer = new Deliverer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.deliverer, user.getIsBlocked(), new ArrayList<Order>());
+			Deliverer deliverer = new Deliverer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.deliverer, user.getIsBlocked(), user.isDeleted(), new ArrayList<Order>());
 			deliverers.save(deliverer);
 		}
 		users.save(user);
@@ -87,5 +86,34 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	public void deleteUser(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<User> userList = users.load();
+		User user = new User();
+		for (int i = 0; i < userList.size(); i++) {
+			if(userList.get(i).getUsername().equals(username)) {
+				user = userList.get(i);
+				userList.remove(i);
+			}
+		}
+		
+		if(user.getRole() == Role.customer) {
+			customerService.deleteCustomer(username);
+		} else if(user.getRole() == Role.manager) {
+			managerService.deleteManager(username);
+		} else if(user.getRole() == Role.deliverer) {
+			delivererService.deleteDeliverer(username);
+		}
+		
+		user.setDeleted(true);
+		userList.add(user);
+		users.emptyFile();
+		for (User u : userList) {
+			users.save(u);
+		}
+		
+	}
+	
+	
 	
 }

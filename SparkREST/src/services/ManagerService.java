@@ -32,6 +32,7 @@ public class ManagerService {
 						managerList.get(i).getDateOfBirth(),
 						managerList.get(i).getRole(),
 						managerList.get(i).getIsBlocked(),
+						managerList.get(i).isDeleted(),
 						managerList.get(i).getRestaurant());
 				break;
 			}
@@ -45,11 +46,41 @@ public class ManagerService {
 				newUser.getDateOfBirth(),
 				newUser.getRole(),
 				newUser.getIsBlocked(),
+				newUser.isDeleted(),
 				oldManager.getRestaurant());
 		managerList.add(newManager);
 		managers.emptyFile();
 		for(Manager manager : managerList) {
 			managers.save(manager);
+		}
+	}
+	
+	public ArrayList<Manager> getActiveManagers() throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Manager> activeManagers = new ArrayList<Manager>();
+		 ArrayList<Manager> allManagers = managers.load();
+		 for (int i = 0; i < allManagers.size(); i++) {
+			if(allManagers.get(i).isDeleted() == false) {
+				activeManagers.add(allManagers.get(i));
+			}
+		}
+		 return activeManagers;
+	 }
+	
+	public void deleteManager(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Manager> managerList = managers.load();
+		Manager manager = new Manager();
+		for(int i = 0; i < managerList.size(); i++) {
+			if(managerList.get(i).getUsername().equals(username)) {
+				manager = managerList.get(i);
+				managerList.remove(i);
+			}
+		}
+		
+		manager.setDeleted(true);
+		managerList.add(manager);
+		managers.emptyFile();
+		for(Manager m : managerList) {
+			managers.save(m);
 		}
 	}
 }

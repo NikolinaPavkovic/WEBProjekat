@@ -15,6 +15,7 @@ Vue.component("deliverers", {
                         <th>Ime</th>
                         <th>Prezime</th>
                         <th>Korisničko ime</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,7 @@ Vue.component("deliverers", {
                         <td>{{d.name}}</td>
                         <td>{{d.surname}}</td>
                         <td>{{d.username}}</td>
+                        <td><button v-on:click="deleteDeliverer(d)">Obriši<button></td>
                     </tr>
                 </tbody>
             </table>
@@ -29,7 +31,7 @@ Vue.component("deliverers", {
 	`,
 	mounted() {
 		axios
-			.get('/rest/deliverers')
+			.get('/rest/activeDeliverers')
 			.then(response => (this.deliverers = response.data));
 			
 		axios
@@ -42,5 +44,12 @@ Vue.component("deliverers", {
 				}
 			});
 		
+	},
+	methods: {
+		deleteDeliverer: function(deliverer) {
+			axios
+				.delete('/rest/deleteUser/' + deliverer.username)
+				.then(response => (this.$router.go()));
+		}
 	}
 });

@@ -44,11 +44,11 @@ public class CustomerService {
 						customerList.get(i).getDateOfBirth(),
 						customerList.get(i).getRole(),
 						customerList.get(i).getIsBlocked(),
+						customerList.get(i).isDeleted(),
 						customerList.get(i).getOrders(),
 						customerList.get(i).getShoppingCart(),
 						customerList.get(i).getPoints(),
-						customerList.get(i).getCustomerType(),
-						customerList.get(i).isDeleted());
+						customerList.get(i).getCustomerType());
 				break;
 			}
 		}
@@ -60,11 +60,11 @@ public class CustomerService {
 				newUser.getDateOfBirth(),
 				newUser.getRole(),
 				newUser.getIsBlocked(),
+				newUser.isDeleted(),
 				oldCustomer.getOrders(),
 				oldCustomer.getShoppingCart(),
 				oldCustomer.getPoints(),
-				oldCustomer.getCustomerType(),
-				oldCustomer.isDeleted());
+				oldCustomer.getCustomerType());
 		customerList.add(newCustomer);
 		customers.emptyFile();
 		for(Customer customer : customerList) {

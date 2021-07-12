@@ -11,6 +11,7 @@ public class User {
 	private Date dateOfBirth;
 	private Role role;
 	private boolean isBlocked;
+	private boolean deleted;
 	//private CustomerType customerType;
 	
 	public User() {
@@ -19,7 +20,7 @@ public class User {
 	
 
 	public User(String username, String password, String name, String surname, Gender gender, Date dateOfBirth,
-			Role role, boolean isBlocked) {
+			Role role, boolean isBlocked, boolean deleted) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -29,6 +30,7 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.role = role;
 		this.isBlocked = isBlocked;
+		this.deleted = deleted;
 	}
 
 
@@ -96,10 +98,15 @@ public class User {
 	public void setIsBlocked(boolean isBlocked) {
 		this.isBlocked = isBlocked;
 	}
-	
-	
-	
-	
-	
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 }

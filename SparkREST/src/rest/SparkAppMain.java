@@ -28,7 +28,6 @@ import dto.LoginDTO;
 import dto.RestaurantDTO;
 import dto.SearchDTO;
 import dto.UserDTO;
-import services.CommentService;
 import services.CustomerService;
 import services.DelivererService;
 import services.ItemService;
@@ -46,7 +45,6 @@ public class SparkAppMain {
 	private static ManagerService managerService = new ManagerService();
 	private static DelivererService delivererService = new DelivererService();
 	private static ItemService itemService = new ItemService();
-	private static CommentService commentService = new CommentService();
 	private static Comments comments = new Comments();
 
 	public static void main(String[] args) throws Exception {
@@ -71,7 +69,7 @@ public class SparkAppMain {
 			}
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			date = (Date) format.parse(userDTO.getDateOfBirth());
-			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer, false);
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer, false, false);
 			userService.addUser(user);
 			Session session = req.session(true);
 			User isLoggedIn = session.attribute("user");
@@ -100,7 +98,7 @@ public class SparkAppMain {
 			} else {
 				role = Role.deliverer;
 			}
-			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role, false);
+			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, role, false, false);
 			userService.addUser(user);
 			return "SUCCESS";
 		});
@@ -258,10 +256,10 @@ public class SparkAppMain {
 			return "";
 		});
 		
-		delete("/rest/deleteCustomer/:username", (req, res) ->{
+		delete("/rest/deleteUser/:username", (req, res) ->{
 			res.type("application/json");
 			String username = req.params("username");
-			customerService.deleteCustomer(username);
+			userService.deleteUser(username);
 			return "";
 		});
 		
@@ -285,6 +283,16 @@ public class SparkAppMain {
 		get("/rest/activeCustomers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(customerService.getActiveCustomers());
+		});
+		
+		get("/rest/activeManagers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(managerService.getActiveManagers());
+		});
+		
+		get("/rest/activeDeliverers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(delivererService.getActiveDeliverers());
 		});
 
 	}

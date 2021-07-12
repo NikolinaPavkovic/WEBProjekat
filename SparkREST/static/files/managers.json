@@ -1,18 +1,20 @@
 [ {
-  "username" : "ljuba",
-  "password" : "ljuba",
-  "name" : "Ljubomir",
-  "surname" : "Ljubic",
-  "gender" : "male",
-  "dateOfBirth" : 925941600000,
+  "username" : "milana",
+  "password" : "milana",
+  "name" : "Milana",
+  "surname" : "Milic",
+  "gender" : "female",
+  "dateOfBirth" : 1624831200000,
   "role" : "manager",
   "isBlocked" : false,
+  "deleted" : false,
   "restaurant" : {
     "name" : null,
     "type" : null,
     "items" : null,
     "status" : null,
     "location" : null,
-    "imgPath" : null
+    "imgPath" : null,
+    "averageGrade" : 0.0
   }
 } ]

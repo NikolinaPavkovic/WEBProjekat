@@ -1,11 +1,23 @@
 [ {
-  "username" : "aleksandar",
-  "password" : "aleksandar",
+  "username" : "aco",
+  "password" : "aco",
   "name" : "Aleksandar",
   "surname" : "Aleksic",
   "gender" : "male",
-  "dateOfBirth" : 810338400000,
+  "dateOfBirth" : 1624831200000,
   "role" : "deliverer",
   "isBlocked" : false,
+  "deleted" : false,
+  "orders" : [ ]
+}, {
+  "username" : "mitar",
+  "password" : "mitar",
+  "name" : "Mitar",
+  "surname" : "Mitric",
+  "gender" : "male",
+  "dateOfBirth" : 1624917600000,
+  "role" : "deliverer",
+  "isBlocked" : false,
+  "deleted" : false,
   "orders" : [ ]
 } ]
