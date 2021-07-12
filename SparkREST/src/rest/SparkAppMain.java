@@ -267,6 +267,8 @@ public class SparkAppMain {
 		
 		get("/rest/getCustomers", (req, res) -> {
 			return "";
+		});
+
 
 		post("/rest/restaurants/filterRestaurants", (req, res) -> {
 			res.type("application/json");
@@ -278,6 +280,11 @@ public class SparkAppMain {
 		post("/rest/restaurants/findByGrade", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(restaurantService.getRestaurantsByGrade(g.fromJson(req.body(), SearchDTO.class)));
+		});
+		
+		get("/rest/activeCustomers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(customerService.getActiveCustomers());
 		});
 
 	}

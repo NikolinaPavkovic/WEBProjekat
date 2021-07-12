@@ -37,7 +37,7 @@ Vue.component("customers", {
 	`,
 	mounted() {
 		axios
-			.get('/rest/customers')
+			.get('/rest/activeCustomers')
 			.then(response => (this.customers = response.data));
 			
 		axios

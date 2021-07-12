@@ -195,6 +195,17 @@ public class CustomerService {
 		}
 	 }
 	 
+	 public ArrayList<Customer> getActiveCustomers() throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Customer> activeCustomers = new ArrayList<Customer>();
+		 ArrayList<Customer> allCustomers = customers.load();
+		 for (int i = 0; i < allCustomers.size(); i++) {
+			if(allCustomers.get(i).isDeleted() == false) {
+				activeCustomers.add(allCustomers.get(i));
+			}
+		}
+		 return activeCustomers;
+	 }
+	 
 	 
 
 }
