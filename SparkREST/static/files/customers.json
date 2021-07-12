@@ -51,7 +51,7 @@
   "dateOfBirth" : 1625781600000,
   "role" : "customer",
   "isBlocked" : false,
-  "deleted" : false,
+  "deleted" : true,
   "orders" : [ ],
   "shoppingCart" : {
     "items" : null,

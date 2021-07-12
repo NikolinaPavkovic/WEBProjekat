@@ -33,7 +33,7 @@ Vue.component("login", {
 				username: this.usernameInput,
 				password: this.passwordInput
 			};
-
+			
 			axios
 				.post('/rest/login', JSON.stringify(loginParameters))
 				.then(response => {
@@ -44,6 +44,15 @@ Vue.component("login", {
 						router.push(`/`);
 					}
 				});
+				
+			axios
+				.get('/rest/isDeleted/' + this.usernameInput)
+				.then(response => {
+					if(response.data == "YES") {
+						this.errorMessage = "Nalog deaktiviran!";
+					}
+				});
+			
 		}
 	}
 });

@@ -19,16 +19,6 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "sima",
-  "password" : "sima",
-  "name" : "Sima",
-  "surname" : "Simic",
-  "gender" : "male",
-  "dateOfBirth" : 1625781600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
   "username" : "aco",
   "password" : "aco",
   "name" : "Aleksandar",
@@ -78,4 +68,14 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
+}, {
+  "username" : "sima",
+  "password" : "sima",
+  "name" : "Sima",
+  "surname" : "Simic",
+  "gender" : "male",
+  "dateOfBirth" : 1625781600000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : true
 } ]

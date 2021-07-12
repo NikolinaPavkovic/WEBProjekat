@@ -294,6 +294,16 @@ public class SparkAppMain {
 			res.type("application/json");
 			return g.toJson(delivererService.getActiveDeliverers());
 		});
+		
+		get("/rest/isDeleted/:username", (req, res) -> {
+			res.type("application/json");
+			String username = req.params("username");
+			if(userService.isUserDeleted(username) == true) {
+				return "YES";
+			} else {
+				return "NO";
+			}
+		});
 
 	}
 }

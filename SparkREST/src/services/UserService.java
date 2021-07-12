@@ -57,8 +57,8 @@ public class UserService {
 	
 	public User login(LoginDTO user) throws JsonGenerationException, JsonMappingException, IOException {
 		User userExists = users.findByUsername(user.getUsername());
-		if(userExists != null) {
-			if(userExists.getPassword().equals(user.getPassword())) {
+		if(userExists != null ) {
+			if(userExists.getPassword().equals(user.getPassword()) && !userExists.isDeleted()) {
 				return userExists;
 			}
 		}
@@ -112,6 +112,16 @@ public class UserService {
 			users.save(u);
 		}
 		
+	}
+	
+	public boolean isUserDeleted(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<User> userList = users.load();
+		for (User user : userList) {
+			if(user.getUsername().equals(username)) {
+				return user.isDeleted();
+			}
+		}
+		return false;
 	}
 	
 	
