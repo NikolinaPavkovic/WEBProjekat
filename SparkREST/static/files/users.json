@@ -80,21 +80,30 @@
   "role" : "deliverer",
   "isBlocked" : false
 }, {
-  "username" : "nina",
-  "password" : "nina",
-  "name" : "Nina",
-  "surname" : "Pavkovic",
-  "gender" : "male",
-  "dateOfBirth" : 1622844000000,
-  "role" : "admin",
-  "isBlocked" : false
-}, {
   "username" : "goran",
   "password" : "goran",
   "name" : "GoranGoran",
   "surname" : "Goranovic",
   "gender" : "male",
   "dateOfBirth" : 955749600000,
+  "role" : "customer",
+  "isBlocked" : false
+}, {
+  "username" : "nina",
+  "password" : "nina",
+  "name" : "Nikolina",
+  "surname" : "Pavkovic",
+  "gender" : "male",
+  "dateOfBirth" : 1622844000000,
+  "role" : "admin",
+  "isBlocked" : false
+}, {
+  "username" : "zoran",
+  "password" : "zoran",
+  "name" : "Zoran",
+  "surname" : "Zoric",
+  "gender" : "male",
+  "dateOfBirth" : 1624917600000,
   "role" : "customer",
   "isBlocked" : false
 } ]

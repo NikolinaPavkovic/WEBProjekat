@@ -26,7 +26,7 @@ Vue.component("shopping_cart", {
 	    <div>
     		</br></br></br></br></br>
     		<span>
-    			<button class="see-more" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
+    			<button class="delete-button" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
     			<p>{{nesto}}</p>
     		</span>
     	</div>
@@ -65,7 +65,7 @@ Vue.component("shopping_cart", {
 			};
 		
 			axios
-				.delete('/rest/removeFromCart/' + i.name)
+				.delete('/rest/deleteCustomer/' + i.name)
 				.then(response => (this.$router.go()));
 			
 				

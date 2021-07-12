@@ -43,7 +43,7 @@ public class UserService {
 			return null;
 		}
 		if(user.getRole() == Role.customer) {
-			Customer customer = new Customer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.customer, user.getIsBlocked(), new ArrayList<Order>(), new ShoppingCart(), 0, new CustomerType());
+			Customer customer = new Customer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.customer, user.getIsBlocked(), new ArrayList<Order>(), new ShoppingCart(), 0, new CustomerType(), false);
 			customers.save(customer);
 		} else if(user.getRole() == Role.manager) {
 			Manager manager = new Manager(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getGender(), user.getDateOfBirth(), Role.manager, user.getIsBlocked(), new Restaurant());

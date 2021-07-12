@@ -170,7 +170,7 @@ Vue.component("restaurant_info", {
 		viewShoppingCart: function() {
 			axios
 				.get('/rest/setShoppingCart');
-			router.push(`/shoppingCart`);
+			router.push(`/shoppingCart/` + this.user.username);
 		}
   }
 

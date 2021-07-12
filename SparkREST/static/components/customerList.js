@@ -18,6 +18,7 @@ Vue.component("customers", {
                         <th>Poeni</th>
                         <th>Tip kupca</th>
                         <th>Blokiran</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@ Vue.component("customers", {
                         <td>{{c.points}}</td>
                         <td>{{c.customerType.typeName}}</td>
                         <td>{{c.isBlocked}}</td>
+                        <td><button v-on:click="deleteCustomer(c)">Obriši<button></td>
                     </tr>
                 </tbody>
             </table>
@@ -48,5 +50,12 @@ Vue.component("customers", {
 				}
 			});
 		
+	},
+	methods: {
+		deleteCustomer: function(customer) {
+			axios
+				.delete('/rest/deleteCustomer/' + customer.username)
+				.then(response => (this.$router.go()));
+		}
 	}
 });

@@ -47,7 +47,8 @@ public class CustomerService {
 						customerList.get(i).getOrders(),
 						customerList.get(i).getShoppingCart(),
 						customerList.get(i).getPoints(),
-						customerList.get(i).getCustomerType());
+						customerList.get(i).getCustomerType(),
+						customerList.get(i).isDeleted());
 				break;
 			}
 		}
@@ -62,7 +63,8 @@ public class CustomerService {
 				oldCustomer.getOrders(),
 				oldCustomer.getShoppingCart(),
 				oldCustomer.getPoints(),
-				oldCustomer.getCustomerType());
+				oldCustomer.getCustomerType(),
+				oldCustomer.isDeleted());
 		customerList.add(newCustomer);
 		customers.emptyFile();
 		for(Customer customer : customerList) {
@@ -175,5 +177,24 @@ public class CustomerService {
 		}
 		 return item;
 	 }
+	 
+	 public void deleteCustomer(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Customer> customerList = customers.load();
+		 Customer customer = new Customer();
+		 for(int i = 0; i < customerList.size(); i++) {
+			 if(customerList.get(i).getUsername().equals(username)) {
+				 customer = customerList.get(i);
+				 customerList.remove(i);
+			 }
+		 }
+		 customer.setDeleted(true);
+		 customerList.add(customer);
+		 customers.emptyFile();
+		 for (Customer c : customerList) {
+			customers.save(c);
+		}
+	 }
+	 
+	 
 
 }

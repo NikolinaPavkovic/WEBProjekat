@@ -31,7 +31,7 @@ const router = new VueRouter({
 			{ path: '/deliverers', component: deliverers },
 			{ path: "/add_item", component: add_item},
 			{ path: "/search_restaurant", component: search_restaurant },
-			{ path: "/shoppingCart", component: shoppingCart }
+			{ path: "/shoppingCart/:username", component: shoppingCart }
 
 
 		]

@@ -250,14 +250,23 @@ public class SparkAppMain {
 		delete("/rest/removeFromCart/:name", (req, res) -> {
 			res.type("application/json");
 			String name = req.params("name");
-			System.out.println(name);
 			Item item = customerService.findItem(name);
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			customerService.removeFromCart(user, item);
 			return "";
 		});
-
+		
+		delete("/rest/deleteCustomer/:username", (req, res) ->{
+			res.type("application/json");
+			String username = req.params("username");
+			customerService.deleteCustomer(username);
+			return "";
+		});
+		
+		get("/rest/getCustomers", (req, res) -> {
+			return "";
+		});
 
 	}
 }
