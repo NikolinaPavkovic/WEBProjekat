@@ -226,7 +226,7 @@ public class SparkAppMain {
 			System.out.println(restaurantService.findRestaurants(g.fromJson(req.body(), SearchDTO.class)));
 			return g.toJson(restaurantService.findRestaurants(g.fromJson(req.body(), SearchDTO.class)));
 		});
-		
+
 		get("/rest/getCustomer", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -237,7 +237,7 @@ public class SparkAppMain {
 			}
 			return g.toJson(customer);
 		});
-		
+
 		get("/rest/setShoppingCart", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -245,7 +245,7 @@ public class SparkAppMain {
 			customerService.setShoppingCart(user);
 			return "";
 		});
-		
+
 		delete("/rest/removeFromCart/:name", (req, res) -> {
 			res.type("application/json");
 			String name = req.params("name");
@@ -255,14 +255,14 @@ public class SparkAppMain {
 			customerService.removeFromCart(user, item);
 			return "";
 		});
-		
+
 		delete("/rest/deleteUser/:username", (req, res) ->{
 			res.type("application/json");
 			String username = req.params("username");
 			userService.deleteUser(username);
 			return "";
 		});
-		
+
 		get("/rest/getCustomers", (req, res) -> {
 			return "";
 		});
@@ -274,27 +274,28 @@ public class SparkAppMain {
 			System.out.println(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
 			return g.toJson(restaurantService.filterRestaurantsByStatus(g.fromJson(req.body(), FilterDTO.class)));
 		});
-		
+
 		post("/rest/restaurants/findByGrade", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(restaurantService.getRestaurantsByGrade(g.fromJson(req.body(), SearchDTO.class)));
 		});
-		
+
+
 		get("/rest/activeCustomers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(customerService.getActiveCustomers());
 		});
-		
+
 		get("/rest/activeManagers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(managerService.getActiveManagers());
 		});
-		
+
 		get("/rest/activeDeliverers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(delivererService.getActiveDeliverers());
 		});
-		
+
 		get("/rest/isDeleted/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");
@@ -305,5 +306,23 @@ public class SparkAppMain {
 			}
 		});
 
+
+		post("/rest/restaurants/sortByName", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(restaurantService.sortByName(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/rest/restaurants/sortByLocation", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(restaurantService.sortByLocation(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/rest/restaurants/sortByGrade", (req, res) -> {
+			res.type("application/json");
+			System.out.println(req.body());
+			System.out.println(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
+			return g.toJson(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
+		});
+		
 	}
 }
