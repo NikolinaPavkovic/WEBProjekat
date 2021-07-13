@@ -9,6 +9,7 @@ public class ShoppingCart {
 	
 	public ShoppingCart() {
 		super();
+		this.items = new ArrayList<Item>();
 	}
 
 	public ShoppingCart(ArrayList<Item> items, Customer customer, double price) {

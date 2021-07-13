@@ -23,15 +23,6 @@ public class CustomerService {
 		return this.customers.load();
 	}
 	
-	public void addProductToCart(User user, Item item) throws JsonGenerationException, JsonMappingException, IOException {
-		ArrayList<Customer> customerList = customers.load();
-		for(int i = 0; i < customerList.size(); i++) {
-			if(user.getUsername().equals(customerList.get(i).getUsername())) {
-				customerList.get(i).getShoppingCart().getItems().add(item);
-			}
-		}
-	}
-	
 	 public Customer editProfile(User oldUser, User newUser) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer oldCustomer = new Customer();
@@ -110,6 +101,7 @@ public class CustomerService {
 		 for (Customer customer : customerList) {
 			customers.save(customer);
 		}
+		 setShoppingCart(user);
 	 }
 	 
 	 public void setShoppingCart(User user) throws JsonGenerationException, JsonMappingException, IOException {

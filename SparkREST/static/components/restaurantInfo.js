@@ -16,7 +16,8 @@ Vue.component("restaurant_info", {
       avgGrade: "",
       selectedItem: null,
       amount: 0,
-      errorMessage: ""
+      errorMessage: "",
+      emptyCartMessage: ""
     }
   },
 
@@ -25,6 +26,7 @@ Vue.component("restaurant_info", {
   <div>
     <img :src="restaurantImage" class="rest-image">
 	<button v-if="mode=='customer'" style="position: absolute; top: 10px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
+	<p style="color:red;text-transform:none;">{{emptyCartMessage}}</p>
     <div class="all">
     <div class="wrapper-restaurant">
       <div class="left">
@@ -169,8 +171,14 @@ Vue.component("restaurant_info", {
 		},
 		viewShoppingCart: function() {
 			axios
-				.get('/rest/setShoppingCart');
-			router.push(`/shoppingCart/` + this.user.username);
+				.get('/rest/isCartEmpty')
+				.then( response => {
+					if(response.data == "YES") {
+						this.emptyCartMessage = "Korpa je prazna!"
+					} else {
+						router.push(`/shoppingCart/` + this.user.username);
+					}
+				});
 		}
   }
 

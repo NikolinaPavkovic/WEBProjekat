@@ -100,7 +100,7 @@ Vue.component("shopping_cart", {
 			axios
 				.put('/rest/editShoppingCart', JSON.stringify(editParameters))
 				.then(response => {
-					this.shoppingCart = response.data;
+					this.shoppingCart.price = response.data;
 			});
 		},
 		createOrder: function() {

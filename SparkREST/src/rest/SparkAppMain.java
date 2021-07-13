@@ -314,7 +314,7 @@ public class SparkAppMain {
 			EditCartDTO dto = g.fromJson(req.body(), EditCartDTO.class);
 			Session session = req.session(true);
 			User user = session.attribute("user");
-			return g.toJson(customerService.editShoppingCart(user, dto));
+			return g.toJson(customerService.editShoppingCart(user, dto).getPrice());
 		});
 		
 		post("/rest/createOrder", (req, res) -> {

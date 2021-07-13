@@ -49,6 +49,7 @@ Vue.component("restaurants", {
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode=='notLogged'" v-on:click="register">Registruj se</button>
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode!='notLogged'" v-on:click="profileInfo">Profil</button>
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
+		<button v-if="mode=='customer'" style="position: absolute; top: 50px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
 
 		<div class="search-form" v-bind:hidden="showSearch==true">
 			<div class="row">
@@ -483,6 +484,17 @@ Vue.component("restaurants", {
             this.restaurants = response.data;
           })
       }
-    }
+    },
+    viewShoppingCart: function() {
+			axios
+				.get('/rest/isCartEmpty')
+				.then( response => {
+					if(response.data == "YES") {
+						this.emptyCartMessage = "Korpa je prazna!"
+					} else {
+						router.push(`/shoppingCart/` + this.user.username);
+					}
+				});
+		}
 	}
 });
