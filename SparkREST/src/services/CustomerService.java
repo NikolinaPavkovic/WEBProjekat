@@ -9,9 +9,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
 import beans.Item;
+import beans.ShoppingCart;
 import beans.User;
 import dao.Customers;
 import dao.Items;
+import dto.EditCartDTO;
 
 public class CustomerService {
 	private Customers customers = new Customers();
@@ -165,6 +167,8 @@ public class CustomerService {
 		 for (Customer customer1 : customerList) {
 			customers.save(customer1);
 		}
+		 
+		 setShoppingCart(user);
 	 }
 	 
 	 public Item findItem(String name) throws JsonGenerationException, JsonMappingException, IOException {
@@ -204,6 +208,36 @@ public class CustomerService {
 			}
 		}
 		 return activeCustomers;
+	 }
+	 
+	 public ShoppingCart editShoppingCart(User user, EditCartDTO editDTO) throws JsonGenerationException, JsonMappingException, IOException {
+		 Customer customer = new Customer();
+		 ArrayList<Customer> customerList = customers.load();
+		 ArrayList<Item> items = new ArrayList<Item>();
+		 Item item = new Item();
+		 for(int i = 0; i < customerList.size(); i++) {
+			 if(customerList.get(i).getUsername().equals(user.getUsername())) {
+				 customer = customerList.get(i);
+				 customerList.remove(i);
+			 }
+		 }
+		 items = customer.getShoppingCart().getItems();
+		 for(int i = 0; i < items.size(); i++) {
+			 if(items.get(i).getName().equals(editDTO.getName())) {
+				 item = items.get(i);
+				 items.remove(i);
+			 }
+		 }
+		 item.setAmount(editDTO.getAmount());
+		 items.add(item);
+		 customer.getShoppingCart().setItems(items);
+		 customerList.add(customer);
+		 customers.emptyFile();
+		 for (Customer c : customerList) {
+			customers.save(c);
+		 }
+		 setShoppingCart(user);
+		 return customer.getShoppingCart();
 	 }
 	 
 	 

@@ -4,8 +4,7 @@ Vue.component("shopping_cart", {
 			shoppingCart: null,
 			user: null,
 			items: null,
-			error: "",
-			nesto: ""
+			error: ""
 		}
 	},
 	template: `
@@ -19,19 +18,25 @@ Vue.component("shopping_cart", {
 	      </div>
 	    </div>
 	    <div class="col-information">
-	      <h1 class="item-name"> {{i.name}} x{{i.amount}}</h1>
+	      <h1 class="item-name"> {{i.name}}</h1>
 	      <h1 class="description"> {{i.description}} </h1>
 	      <h1 class="price"> {{i.price}},00 RSD </h1>
 	    </div>
 	    <div>
     		</br></br></br></br></br>
     		<span>
+    			<button v-on:click="increment(i.name, i)" >+</button>
+		    	<label v-bind:id="i.name">{{i.amount}}</label>
+		    	<button v-on:click="decrement(i.name, i)">-</button>
+		    			    	
     			<button class="delete-button" v-on:click="removeFromCart(i)"> Izbaci iz korpe </button>
-    			<p>{{nesto}}</p>
     		</span>
     	</div>
 	  </div>
-	  <button style="position: absolute; right: 40px;">Potvrdi porudžbinu</button>
+	  <div class="row-items">
+	  	<p v-model="shoppingCart.price">Iznos vaše porudžbine: {{shoppingCart.price}},00 RSD</p>
+	  </div>
+	  <button v-on:click="createOrder" style="position: absolute; right: 40px;">Poruči</button>
 	 </div>
 	`,
 	mounted() {
@@ -65,10 +70,42 @@ Vue.component("shopping_cart", {
 			};
 		
 			axios
-				.delete('/rest/deleteCustomer/' + i.name)
-				.then(response => (this.$router.go()));
+				.delete('/rest/removeFromCart/' + i.name)
+				.then(response => (this.$router.go()));	
+		},
+		
+		increment: function(index, item) {
+			var amount = 0;
+			amount = parseFloat(document.getElementById(index).innerHTML);
+			amount += 1;
+			document.getElementById(index).innerHTML = amount;
+			this.editShoppingCart(item, amount);
+		},
+		decrement: function(index, i) {
+			var amount = 0;
+			amount = parseFloat(document.getElementById(index).innerHTML);
+			if(amount > 1) {
+				amount -= 1;
+				document.getElementById(index).innerHTML = amount;
+				this.editShoppingCart(i, amount);
+			}
+		},
+		
+		editShoppingCart: function(item, amount) {
+			let editParameters = {
+				name : item.name,
+				amount : amount
+			};
 			
-				
+			axios
+				.put('/rest/editShoppingCart', JSON.stringify(editParameters))
+				.then(response => {
+					this.shoppingCart = response.data;
+			});
+		},
+		createOrder: function() {
+			axios
+				.post('/rest/createOrder');
 		}
 	}
 });

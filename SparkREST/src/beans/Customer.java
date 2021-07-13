@@ -6,7 +6,7 @@ import java.util.Date;
 public class Customer extends User{
 	private ArrayList<Order> orders;
 	private ShoppingCart shoppingCart;
-	private int points;
+	private double points;
 	private CustomerType customerType;
 	
 	public Customer() {
@@ -14,7 +14,7 @@ public class Customer extends User{
 	}
 
 	public Customer(String username, String password, String name, String surname, Gender gender, Date date,
-			Role role, boolean isBlocked, boolean deleted, ArrayList<Order> orders, ShoppingCart shoppingCart, int points, CustomerType customerType) {
+			Role role, boolean isBlocked, boolean deleted, ArrayList<Order> orders, ShoppingCart shoppingCart, double points, CustomerType customerType) {
 		super(username, password, name, surname, gender, date, role, isBlocked, deleted);
 		this.orders = orders;
 		this.shoppingCart = shoppingCart;
@@ -38,11 +38,11 @@ public class Customer extends User{
 		this.shoppingCart = shoppingCart;
 	}
 
-	public int getPoints() {
+	public double getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 

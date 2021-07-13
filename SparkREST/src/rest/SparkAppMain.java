@@ -22,6 +22,7 @@ import beans.Restaurant;
 import beans.Role;
 import beans.User;
 import dao.Comments;
+import dto.EditCartDTO;
 import dto.FilterDTO;
 import dto.ItemDTO;
 import dto.LoginDTO;
@@ -32,6 +33,7 @@ import services.CustomerService;
 import services.DelivererService;
 import services.ItemService;
 import services.ManagerService;
+import services.OrderService;
 import services.RestaurantService;
 import services.UserService;
 import spark.Session;
@@ -46,6 +48,7 @@ public class SparkAppMain {
 	private static DelivererService delivererService = new DelivererService();
 	private static ItemService itemService = new ItemService();
 	private static Comments comments = new Comments();
+	private static OrderService orderService = new OrderService();
 
 	public static void main(String[] args) throws Exception {
 		port(8080);
@@ -299,6 +302,33 @@ public class SparkAppMain {
 			res.type("application/json");
 			String username = req.params("username");
 			if(userService.isUserDeleted(username) == true) {
+				return "YES";
+			} else {
+				return "NO";
+			}
+		});
+		
+		put("/rest/editShoppingCart", (req, res) -> {
+			res.type("application/json");
+			EditCartDTO dto = g.fromJson(req.body(), EditCartDTO.class);
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(customerService.editShoppingCart(user, dto));
+		});
+		
+		post("/rest/createOrder", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			orderService.createOrder(user);
+			return "";
+		});
+		
+		get("/rest/isCartEmpty", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			if(orderService.isCartEmpty(user)) {
 				return "YES";
 			} else {
 				return "NO";

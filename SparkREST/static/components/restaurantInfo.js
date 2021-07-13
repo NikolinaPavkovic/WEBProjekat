@@ -74,10 +74,10 @@ Vue.component("restaurant_info", {
     <div>
     	</br></br></br></br></br>
     	<span>
-	    	<button v-if="mode=='customer'" v-on:click="increment(index)" >+</button>
-	    	<label v-if="mode=='customer'" id="index">0</label>
-	    	<button v-if="mode=='customer'" v-on:click="decrement(index)">-</button>
-	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, index)"> Dodaj u korpu </button>
+	    	<button v-if="mode=='customer'" v-on:click="increment(i.name)" >+</button>
+	    	<label v-bind:id="i.name" v-if="mode=='customer'">0</label>
+	    	<button v-if="mode=='customer'" v-on:click="decrement(i.name)">-</button>
+	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
 	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
     	</span>
     </div>
@@ -133,7 +133,7 @@ Vue.component("restaurant_info", {
 			router.push(`/add_item`);
 		},
 		addToCart: function(item, index) {
-			var amountInput = document.getElementById("index").innerHTML;
+			var amountInput = document.getElementById(index).innerHTML;
 			if(amountInput < 1) {
 				this.errorMessage = "Unesite željnu količinu!";
 			} else {
@@ -148,23 +148,23 @@ Vue.component("restaurant_info", {
 				};
 				axios
 					.post('/rest/addToCart', JSON.stringify(itemParameters));
-				document.getElementById("index").innerHTML = '0';
+				document.getElementById(index).innerHTML = '0';
 				
 				this.errorMessage = "Artikal dodat u korpu!";
 			}
 		},
 		increment: function(index) {
 			var amount = 0;
-			amount = parseFloat(document.getElementById("index").innerHTML);
+			amount = parseFloat(document.getElementById(index).innerHTML);
 			amount += 1;
-			document.getElementById("index").innerHTML = amount;
+			document.getElementById(index).innerHTML = amount;
 		},
 		decrement: function(index) {
 			var amount = 0;
-			amount = parseFloat(document.getElementById("index").innerHTML);
+			amount = parseFloat(document.getElementById(index).innerHTML);
 			if(amount > 0) {
 				amount -= 1;
-				document.getElementById("index").innerHTML = amount;
+				document.getElementById(index).innerHTML = amount;
 			}
 		},
 		viewShoppingCart: function() {

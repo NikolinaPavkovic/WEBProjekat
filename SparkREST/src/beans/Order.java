@@ -1,23 +1,23 @@
 package beans;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class Order {
 	private String id;
 	private ArrayList<Item> orderedItems;
-	private Restaurant restaurant;
+	private String restaurant;
 	private Date dateAndTime;
 	private double price;
-	private Customer customer;
+	private String customer;
 	private OrderStatus status;
 	
 	public Order() {
 		super();
 	}
 
-	public Order(String id, ArrayList<Item> orderedItems, Restaurant restaurant, Date dateAndTime, double price,
-			Customer customer, OrderStatus status) {
+	public Order(String id, ArrayList<Item> orderedItems, String restaurant, Date dateAndTime, double price,
+			String customer, OrderStatus status) {
 		super();
 		this.id = id;
 		this.orderedItems = orderedItems;
@@ -44,11 +44,11 @@ public class Order {
 		this.orderedItems = orderedItems;
 	}
 
-	public Restaurant getRestaurant() {
+	public String getRestaurant() {
 		return restaurant;
 	}
 
-	public void setRestaurant(Restaurant restaurant) {
+	public void setRestaurant(String restaurant) {
 		this.restaurant = restaurant;
 	}
 
@@ -68,11 +68,11 @@ public class Order {
 		this.price = price;
 	}
 
-	public Customer getCustomer() {
+	public String getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
 
