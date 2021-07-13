@@ -306,7 +306,6 @@ public class SparkAppMain {
 			}
 		});
 
-
 		post("/rest/restaurants/sortByName", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(restaurantService.sortByName(g.fromJson(req.body(), FilterDTO.class)));
