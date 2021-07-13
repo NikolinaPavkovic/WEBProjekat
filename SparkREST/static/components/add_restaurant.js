@@ -10,6 +10,18 @@ function cyrilicToLatinic(string) {
     }).join('')
   }
 
+function fillCombobox(arr) {
+  var select = document.getElementById("selectManager");
+
+  for (var i = 0; i < arr.length; i++) {
+    var opt = arr[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+  }
+}
+
 Vue.component("add_restaurant", {
   data: function() {
     return {
@@ -34,7 +46,8 @@ Vue.component("add_restaurant", {
       errorAddress: "",
       formErrorMessage: "",
       restaurantImage: "",
-      restImageForBackend: ""
+      restImageForBackend: "",
+      managers: []
     }
   },
 
@@ -75,6 +88,11 @@ Vue.component("add_restaurant", {
 
       <label> Država: </label>
       <input type="text" id="country" class="input-apt" disabled/> </br>
+
+      <label> Menadžer: </label>
+      <select v-model="managers" id="selectManager">
+        <option> </option>
+      </select>
 
       <div class="restaurant-picture">
         <div>
@@ -117,7 +135,23 @@ Vue.component("add_restaurant", {
       document.querySelector('#latitude').value = e.suggestion.latlng.lat || '';
       document.querySelector('#zipcode').value = e.suggestion.postcode || '';
     });
+
+    axios
+      .get('/rest/managers')
+      .then(response => {
+        this.managers = response.data;
+        var select = document.getElementById("selectManager");
+
+        for (var i = 0; i < this.managers.length; i++) {
+          var opt = this.managers[i].name + this.managers[i].surname;
+          var el = document.createElement("option");
+          el.textContent = opt;
+          el.value = opt;
+          select.appendChild(el);
+      });
+
   },
+
 
   methods: {
 

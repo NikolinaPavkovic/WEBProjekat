@@ -3,6 +3,7 @@ package services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -82,5 +83,43 @@ public class ManagerService {
 		for(Manager m : managerList) {
 			managers.save(m);
 		}
+	}
+	
+	public ArrayList<Manager> getAvailableManagers() throws JsonGenerationException, JsonMappingException, IOException{
+		ArrayList<Manager> availableManagers = new ArrayList<Manager>();
+		for (Manager manager : managers.load()) {
+			if (manager.getRestaurant().getName() == null) {
+				availableManagers.add(manager);
+			} 
+		}
+		
+		return availableManagers;
+	}
+	
+	public Manager findByUsername(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		Manager manager = new Manager();
+		for (Manager m : managers.load()) {
+			if (m.getUsername().equals(username)) {
+				manager = m;
+			}
+		}
+		return manager;
+	}
+	
+	public void saveManager(Manager manager) throws JsonGenerationException, JsonMappingException, IOException {
+		managers.save(manager);
+	}
+	
+	public void removeManager(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Manager> managersFromFile = managers.load();
+		
+		for (Manager m : managersFromFile) {
+			if (m.getUsername().equals(username)) {
+				managersFromFile.remove(m);
+				break;
+			}
+		}
+		managers.emptyFile();
+		managers.saveAll(managersFromFile);
 	}
 }

@@ -51,4 +51,12 @@ public class Managers {
 		mapper.writeValue(new File("./static/files/managers.json"), new ArrayList<Manager>());
 	}
 	
+	public void saveAll(ArrayList<Manager> managers) throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayList<Manager> managersFromFile = load();
+		managersFromFile.addAll(managers);
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.writeValue(new File("./static/files/managers.json"), managersFromFile);
+	}
+	
 }

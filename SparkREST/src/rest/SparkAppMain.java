@@ -18,6 +18,7 @@ import beans.Comment;
 import beans.Customer;
 import beans.Gender;
 import beans.Item;
+import beans.Manager;
 import beans.Restaurant;
 import beans.Role;
 import beans.User;
@@ -351,6 +352,22 @@ public class SparkAppMain {
 			System.out.println(req.body());
 			System.out.println(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
 			return g.toJson(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
+		});
+		
+		get("/rest/getAvailableManagers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(managerService.getAvailableManagers());
+		});
+		
+		post("/rest/addManagerToRestaurant", (req, res) -> {
+			res.type("application/json");
+			Manager fromJson = g.fromJson(req.body(), Manager.class);
+			Manager fromFile = managerService.findByUsername(fromJson.getUsername());
+			Manager newManager = new Manager(fromFile.getUsername(), fromFile.getPassword(), fromFile.getName(), fromFile.getSurname(),
+					fromFile.getGender(), fromFile.getDateOfBirth(), fromFile.getRole(), fromFile.getIsBlocked(), fromFile.isDeleted(), fromJson.getRestaurant());
+			managerService.removeManager(fromFile.getUsername());
+			managerService.saveManager(newManager);
+			return "SUCCESS";
 		});
 		
 	}

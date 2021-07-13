@@ -34,7 +34,9 @@ Vue.component("add_restaurant", {
       errorAddress: "",
       formErrorMessage: "",
       restaurantImage: "",
-      restImageForBackend: ""
+      restImageForBackend: "",
+      managers: [],
+      restaurantManager: ""
     }
   },
 
@@ -75,6 +77,14 @@ Vue.component("add_restaurant", {
 
       <label> Država: </label>
       <input type="text" id="country" class="input-apt" disabled/> </br>
+
+      <div >
+      <label> Menadžer: </label>
+      <select  id="selectManager" v-model="restaurantManager">
+        <option value="" disabled selected> </option>
+        <option v-for="(m, index) in managers" :value="m.username"> {{m.name + " " + m.surname}} </option>
+      </select>
+      </div>
 
       <div class="restaurant-picture">
         <div>
@@ -117,6 +127,12 @@ Vue.component("add_restaurant", {
       document.querySelector('#latitude').value = e.suggestion.latlng.lat || '';
       document.querySelector('#zipcode').value = e.suggestion.postcode || '';
     });
+
+    axios
+      .get('/rest/getAvailableManagers')
+      .then(response => {
+        this.managers = response.data;
+      });
   },
 
   methods: {
@@ -249,8 +265,17 @@ Vue.component("add_restaurant", {
   		    imgPath: this.restaurantImage
         };
 
+        let managerParams = {
+          username: this.restaurantManager,
+          restaurant: restaurantParameters
+        }
+
         axios
           .post('/rest/addRestaurant', JSON.stringify(restaurantParameters))
+          .then(response => (router.push(`/`)));
+
+        axios
+          .post('/rest/addManagerToRestaurant', JSON.stringify(managerParams))
           .then(response => (router.push(`/`)));
       }
     }

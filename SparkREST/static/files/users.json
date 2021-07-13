@@ -78,4 +78,50 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : true
-} ]
+},
+{
+  "username" : "stefan",
+  "password" : "stefanp",
+  "name" : "Stefan",
+  "surname" : "Popovic",
+  "gender" : "male",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+},
+{
+  "username" : "petar",
+  "password" : "petar",
+  "name" : "Petar",
+  "surname" : "Maric",
+  "gender" : "male",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+},
+{
+  "username" : "ana",
+  "password" : "ana",
+  "name" : "Ana",
+  "surname" : "Petrovic",
+  "gender" : "female",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+},
+{
+  "username" : "sofija",
+  "password" : "sofija",
+  "name" : "Sofija",
+  "surname" : "Tasic",
+  "gender" : "female",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+}
+
+]

@@ -19,7 +19,8 @@
       }
     }
   },
-  "imgPath" : "./images/kalem.png"
+  "imgPath" : "./images/kalem.png",
+  "averageGrade" : 0.0
 }, {
   "name" : "Petrus",
   "type" : "italian",
@@ -41,7 +42,8 @@
       }
     }
   },
-  "imgPath" : "./images/petrus.png"
+  "imgPath" : "./images/petrus.png",
+  "averageGrade" : 0.0
 }, {
   "name" : "Masa",
   "type" : "italian",
@@ -63,7 +65,8 @@
       }
     }
   },
-  "imgPath" : "./images/masa.png"
+  "imgPath" : "./images/masa.png",
+  "averageGrade" : 0.0
 }, {
   "name" : "Piatto",
   "type" : "italian",
@@ -85,5 +88,6 @@
       }
     }
   },
-  "imgPath" : "./images/piatto.png"
+  "imgPath" : "./images/piatto.png",
+  "averageGrade" : 0.0
 } ]
