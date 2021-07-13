@@ -13,6 +13,7 @@ const add_item = { template: '<add_item> </add_item>' }
 const search_restaurant = { template: '<search-restaurant> </search-restaurant>' }
 const shoppingCart = { template: '<shopping_cart> </shopping_cart>' }
 const add_manager = { template: '<add_manager> </add_manager>' }
+const customer_orders = { template: '<customer_orders> </customer_orders>' }
 
 
 const router = new VueRouter({
@@ -33,9 +34,10 @@ const router = new VueRouter({
 			{ path: "/add_item", component: add_item},
 			{ path: "/search_restaurant", component: search_restaurant },
 			{ path: "/shoppingCart/:username", component: shoppingCart },
-		  { path: "/search_restaurant", component: search_restaurant },
+		  	{ path: "/search_restaurant", component: search_restaurant },
 			{ path: "/shoppingCart", component: shoppingCart },
-			{ path: "/add_manager", component: add_manager }
+			{ path: "/add_manager", component: add_manager },
+			{ path: '/customer_orders', component: customer_orders }
 		]
 });
 

@@ -32,11 +32,6 @@
 	<classpathentry kind="lib" path="lib/com.fasterxml.jackson.core.jar"/>
 	<classpathentry kind="lib" path="lib/com.fasterxml.jackson.databind.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-annotations-2.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/commons-lang3-3.12.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/commons-lang3-3.12.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/commons-lang3-3.12.0-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/commons-lang3-3.12.0-tests.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nikolina Pavkovic/Documents/GitHub/WEBProjekat/SparkREST/lib/commons-lang3-3.12.0-test-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.12.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.12.0-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.12.0-sources.jar"/>
