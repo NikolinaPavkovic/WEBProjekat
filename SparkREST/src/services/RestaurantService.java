@@ -15,6 +15,12 @@ import beans.Restaurant;
 import beans.RestaurantStatus;
 import dao.Restaurants;
 import dto.SearchDTO;
+import sort.SortByGradeAscending;
+import sort.SortByGradeDescending;
+import sort.SortByLocationAscending;
+import sort.SortByLocationDescending;
+import sort.SortByNameAscending;
+import sort.SortByNameDescending;
 import dto.FilterDTO;
 
 public class RestaurantService {
@@ -69,13 +75,58 @@ public class RestaurantService {
 		return filtered;
 	}
 	
-	public ArrayList<Restaurant> sortByName(FilterDTO fromJson) {
-		ArrayList<Restaurant> sorted = new ArrayList<Restaurant>();
+	public ArrayList<Restaurant> sortByGrade(FilterDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Restaurant> found = fromJson.getRestaurants();
+		ArrayList<Restaurant> sorted = new ArrayList<Restaurant>();
+
+		for (Restaurant r : found) {
+			double avg;
+			int cnt = 0;
+			int sum = 0;
+			for (Comment c : commentService.getComments()) {
+				if (c.getRestaurant().getName().equals(r.getName())) {
+					sum += c.getGrade();
+					cnt++;
+				} 
+			}
+			avg = sum/cnt;
+			r.setAverageGrade(avg);
+			sorted.add(r);
+		}
 		
+		if (fromJson.isAscending()) {
+			Collections.sort(sorted, new SortByGradeAscending());
+		} else if (!fromJson.isAscending()) {
+			Collections.sort(sorted, new SortByGradeDescending());
+		}
 		
 		return sorted;
 	}
+	
+	public ArrayList<Restaurant> sortByName(FilterDTO fromJson) {
+		ArrayList<Restaurant> found = fromJson.getRestaurants();
+		
+		if (fromJson.isAscending()) {
+			Collections.sort(found, new SortByNameAscending());
+		} else if (!fromJson.isAscending()) {
+			Collections.sort(found, new SortByNameDescending());
+		}
+		
+		return found;
+	}
+	
+	public ArrayList<Restaurant> sortByLocation(FilterDTO fromJson) {
+		ArrayList<Restaurant> found = fromJson.getRestaurants();
+		
+		if (fromJson.isAscending()) {
+			Collections.sort(found, new SortByLocationAscending());
+		} else if(!fromJson.isAscending()) {
+			Collections.sort(found, new SortByLocationDescending());
+		}
+		
+		return found;
+	}
+	
 	
 	public ArrayList<Restaurant> findRestaurants(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Restaurant> filteredRestaurants = new ArrayList<Restaurant>();
@@ -123,10 +174,17 @@ public class RestaurantService {
 			} 
 			
 			if (fromJson.getGrade() != 0) {
-				if (fromJson.getGrade() == commentService.countAverageGrade(fromJson.getRestaurantName())) {
+			/*	if (fromJson.getGrade() == commentService.countAverageGrade(fromJson.getRestaurantName())) {
 					canAdd = true;
 				} else {
 					//canAdd = false;
+					continue;
+				} */
+				double avg = commentService.countAverageGrade(r.getName());
+				if (avg == fromJson.getGrade()) {
+					//restaurants.add(r);
+					canAdd = true;
+				} else {
 					continue;
 				}
 			} 

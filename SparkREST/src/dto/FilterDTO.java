@@ -9,20 +9,18 @@ public class FilterDTO {
 	private String status;
 	private ArrayList<Restaurant> restaurants;
 	boolean ascending;
-	boolean descending;
 	
 	public FilterDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FilterDTO(ArrayList<String> type, String status, ArrayList<Restaurant> restaurants, boolean ascending, boolean descending) {
+	public FilterDTO(ArrayList<String> type, String status, ArrayList<Restaurant> restaurants, boolean ascending) {
 		super();
 		this.type = type;
 		this.status = status;
 		this.restaurants = restaurants;
 		this.ascending = ascending;
-		this.descending = descending;
 	}
 
 	public ArrayList<String> getType() {
@@ -55,14 +53,6 @@ public class FilterDTO {
 
 	public void setAscending(boolean ascending) {
 		this.ascending = ascending;
-	}
-
-	public boolean isDescending() {
-		return descending;
-	}
-
-	public void setDescending(boolean descending) {
-		this.descending = descending;
 	}
 
 }

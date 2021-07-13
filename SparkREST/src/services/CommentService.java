@@ -19,7 +19,7 @@ public class CommentService {
 	}
 	
 	public double countAverageGrade(String restaurantName) throws JsonGenerationException, JsonMappingException, IOException{
-		double avg = 0;
+		double avg;
 		int cnt = 0;
 		int sum = 0;
 		for (Comment c : comments.load()) {

@@ -29,13 +29,12 @@ Vue.component("search-restaurant", {
       allLocations: null,
       autocompleteInstance: [],
       showResults: false,
-      message: "",
       filters_show: false,
       filters: false,
       options: [],
       type: [],
-      sort_show: false
-
+      ascending: false,
+      sortBy: ""
     }
   },
 
@@ -79,88 +78,55 @@ Vue.component("search-restaurant", {
         </div> </br>
 
         <a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
-        <div v-bind:hidden="filters_show == false">
+        <div v-bind:hidden="filters_show == false" >
 
           <div v-bind:hidden="filters_show == false">
             <h1 class="filter-restaurants"> Tip restorana: </h1>
             <div class="byType">
             <label class="container"> Italian
-              <input type="checkbox" value="italian" name="type" id="italian">
+              <input v-on:change="filterRestaurants" type="checkbox" value="italian" name="type" id="italian">
               <span class="checkmark"></span>
             </label>
 
             <label class="container"> Chinese
-              <input type="checkbox" value="chinese" name="type" id="chinese">
+              <input v-on:change="filterRestaurants" type="checkbox" value="chinese" name="type" id="chinese">
               <span class="checkmark"></span>
             </label>
 
             <label class="container"> Vegan
-              <input type="checkbox" value="vegan" name="type" id="vegan">
+              <input v-on:change="filterRestaurants" type="checkbox" value="vegan" name="type" id="vegan">
               <span class="checkmark"></span>
             </label>
 
             <label class="container"> Grill
-              <input type="checkbox" value="grill" name="type" id="grill">
+              <input v-on:change="filterRestaurants" type="checkbox" value="grill" name="type" id="grill">
               <span class="checkmark"></span>
             </label>
 
             <label class="container"> Pizza
-              <input type="checkbox" value="pizza" name="type" id="pizza">
+              <input v-on:change="filterRestaurants" type="checkbox" value="pizza" name="type" id="pizza">
               <span class="checkmark"></span>
             </label>
 
             <label class="container"> Mexican
-              <input type="checkbox" value="mexican" name="type" id="mexican">
+              <input v-on:change="filterRestaurants" type="checkbox" value="mexican" name="type" id="mexican">
               <span class="checkmark"></span>
             </label>
             </div>
-              <button class="submit" @click="filterRestaurants"> Pretrazi </button>
           </div>
         </div> </br> </br>
 
-        <a href="#search_restaurant" @click="showSortingMethods" style="margin-left: 41px;"> Sortiraj </a>
-        <div v-bind:hidden="sort_show==false">
-          <h1 class="filter-restaurants"> Po nazivu: </h1>
-          <div class="byType">
-            <label class="container"> rastuce
-              <input type="checkbox" value="rastuce" name="sortByName" id="sortByNameAsc">
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="container"> opadajuce
-              <input type="checkbox" value="opadajuce" name="sortByName" id="sortByNameDesc">
-              <span class="checkmark"></span>
-            </label>
-
-            <h1 class="sort-restaurants"> Po lokaciji: </h1>
-            <label class="container"> rastuce
-              <input type="checkbox" value="rastuce" name="sortByLoc" id="sortByLocAsc">
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="container"> opadajuce
-              <input type="checkbox" value="opadajuce" name="sortByLoc" id="sortByLocDesc">
-              <span class="checkmark"></span>
-            </label>
-
-            <h1 class="sort-restaurants"> Po oceni: </h1>
-            <label class="container"> rastuce
-              <input type="checkbox" value="rastuce" name="sortByGrade" id="sortByGradeAsc">
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="container"> opadajuce
-              <input type="checkbox" value="opadajuce" name="sortByGrade" id="sortByGradeDesc">
-              <span class="checkmark"></span>
-            </label>
-            <div>
-              <button class="submit" @click="sortRestaurants"> Sortiraj </button>
-            </div>
-          </div>
-        </div>
+        <select class="sort-cb" v-model="sortBy" v-on:change="sortRestaurants">
+          <option value="" disabled selected> Sortiraj </option>
+          <option value="nameAsc"> Po nazivu (rastuće) </option>
+          <option value="nameDesc"> Po nazivu (opadajuće) </option>
+          <option value="locAsc"> Po lokaciji (rastuće) </option>
+          <option value="locDesc"> Po lokaciji (opadajuće) </option>
+          <option value="gradeAsc"> Po oceni (rastuće) </option>
+          <option value="gradeDesc"> Po oceni (opadajuće) </option>
+        </select>
       </div>
 
-      <p class="search-message"> {{message}} </p>
           <div class="row-restaurants" v-for="r in restaurants" v-bind:hidden="showResults==false">
             <div class="col-with-pic"> </br>
               <div class="col-picture">
@@ -176,6 +142,7 @@ Vue.component("search-restaurant", {
               <h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
               <h1 class="info"> Tip restorana: {{r.type}} </h1>
               <h1 class="info"> {{r.status}} </h1>
+              <h1 class="info"> {{getAvg(r.name)}} </h1>
             </div>
           </div>
 
@@ -186,6 +153,14 @@ Vue.component("search-restaurant", {
   `,
 
   mounted() {
+
+    this.$forceUpdate();
+
+    axios
+      .get('/rest/getComments')
+      .then(response => {
+        this.comments = response.data;
+      });
 
     var placesCountry = placesAutocompleteDataset({
       algoliasearch: algoliasearch,
@@ -246,6 +221,10 @@ Vue.component("search-restaurant", {
 
   methods: {
 
+      reload() {
+        this.$forceUpdate();
+      },
+
       searchRestaurant: function() {
         this.locationSearch = cyrilicToLatinic(document.querySelector('#autocomplete-dataset').value);
         let city = cyrilicToLatinic(document.querySelector('#city').value);
@@ -301,9 +280,20 @@ Vue.component("search-restaurant", {
           restaurantType: this.restaurantType
         }
 
-        if (this.restaurantName == "") {
-          axios
-            .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
+        if (this.restaurantGrade != "") {
+          if (this.restaurantName == "" && this.locationSearch == "" && this.restaurantType == "") {
+            axios
+              .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
+              .then(response => {
+                this.restaurants = response.data;
+                if (response.data.length == 0) {
+                  this.restaurants = [];
+                  toast("Nema rezultata pretrage");
+                }
+              })
+          } else {
+            axios
+            .post("/rest/restaurants/findRestaurants", JSON.stringify(searchParams))
             .then(response => {
               this.restaurants = response.data;
               if (response.data.length == 0) {
@@ -311,36 +301,25 @@ Vue.component("search-restaurant", {
                 toast("Nema rezultata pretrage");
               }
             })
-        }
-
-        console.log(searchParams.dateFrom);
-
-        axios
+          }
+        } else {
+          axios
           .post("/rest/restaurants/findRestaurants", JSON.stringify(searchParams))
           .then(response => {
             this.restaurants = response.data;
             if (response.data.length == 0) {
               this.restaurants = [];
-              //this.message = "Nema rezultata";
               toast("Nema rezultata pretrage");
             }
           })
+        }
 
         this.showResults = true;
+        console.log(searchParams.dateFrom);
       },
 
       showFilters: function() {
         this.filters_show = !this.filters_show;
-      },
-
-      showSortingMethods: function() {
-        this.sort_show = !this.sort_show;
-      },
-
-      uncheckRadioType: function() {
-        document.getElementById('open').checked = false;
-        document.getElementById('closed').checked = false;
-        this.restaurantStatus = "";
       },
 
       filterRestaurants: function() {
@@ -385,7 +364,6 @@ Vue.component("search-restaurant", {
             this.restaurants = response.data;
             if (response.data.length == 0) {
               this.restaurants = [];
-              //this.message = "Nema rezultata";
               toast("Nema rezultata pretrage");
             }
           })
@@ -394,8 +372,54 @@ Vue.component("search-restaurant", {
 
       sortRestaurants: function() {
 
-      }
-  }
+        if (this.sortBy == "nameAsc" || this.sortBy == "locAsc" || this.sortBy == "gradeAsc") {
+          this.ascending = true;
+        } else if (this.sortBy == "nameDesc" || this.sortBy == "locDesc" || this.sortBy == "gradeDesc") {
+          this.ascending = false;
+        }
 
+        console.log(this.ascending);
+
+        let sortParams = {
+          restaurants: this.restaurants,
+          ascending: this.ascending
+        }
+
+        if (this.sortBy == "nameAsc" || this.sortBy == "nameDesc") {
+          axios
+            .post("/rest/restaurants/sortByName", JSON.stringify(sortParams))
+            .then(response => {
+              this.restaurants = response.data;
+            })
+        } else if (this.sortBy == "locAsc" || this.sortBy == "locDesc") {
+          axios
+            .post("/rest/restaurants/sortByLocation", JSON.stringify(sortParams))
+            .then(response => {
+              this.restaurants = response.data;
+            })
+        } else if (this.sortBy == "gradeAsc" || this.sortBy == "gradeDesc") {
+          axios
+            .post("/rest/restaurants/sortByGrade", JSON.stringify(sortParams))
+            .then(response => {
+              this.restaurants = response.data;
+            })
+        }
+      },
+
+      getAvg: function(name) {
+        let cnt = 0;
+        let avg = 0;
+        let sum = 0;
+        for (let comment of this.comments) {
+          if (comment.restaurant.name == name) {
+            sum += comment.grade;
+            cnt ++;
+          }
+        }
+        avg = sum/cnt;
+        return avg;
+      }
+
+  }
 
 });

@@ -36,7 +36,9 @@ Vue.component("restaurants", {
       filters_show: false,
       type: [],
       avgGrade: "",
-      comments: null
+      comments: null,
+      sortBy: "",
+      ascending: false
 		}
 	},
 	template: `
@@ -118,10 +120,20 @@ Vue.component("restaurants", {
               <input type="checkbox" value="mexican" name="type" id="mexican">
               <span class="checkmark"></span>
             </label>
-            </div> </br>
-              <button class="submit" @click="filterRestaurants"> Pretrazi </button>
+            </div>
+            <button v-on:click="filterRestaurants" style="margin-left: 41px;"> primeni filter </button>
           </div>
-        </div>
+        </div> </br> </br>
+
+        <select class="sort-cb" v-model="sortBy" v-on:change="sortRestaurants">
+          <option value="" disabled selected> Sortiraj </option>
+          <option value="nameAsc"> Po nazivu (rastuće) </option>
+          <option value="nameDesc"> Po nazivu (opadajuće) </option>
+          <option value="locAsc"> Po lokaciji (rastuće) </option>
+          <option value="locDesc"> Po lokaciji (opadajuće) </option>
+          <option value="gradeAsc"> Po oceni (rastuće) </option>
+          <option value="gradeDesc"> Po oceni (opadajuće) </option>
+        </select>
 
 		</div>
 
@@ -341,7 +353,7 @@ Vue.component("restaurants", {
               toast("Nema rezultata pretrage");
             }
           })
-      } 
+      }
 
 			axios
 				.post("/rest/restaurants/findRestaurants", JSON.stringify(searchParams))
@@ -349,7 +361,6 @@ Vue.component("restaurants", {
 					this.restaurants = response.data;
 					if (response.data.length == 0) {
 						this.restaurants = [];
-						//this.message = "Nema rezultata";
             toast("Nema rezultata pretrage");
 					}
 				})
@@ -403,16 +414,25 @@ Vue.component("restaurants", {
           restaurants: this.restaurants
         }
 
-        axios
-          .post("/rest/restaurants/filterRestaurants", JSON.stringify(filterParams))
-          .then(response => {
-            this.restaurants = response.data;
-            if (response.data.length == 0) {
-              this.restaurants = [];
-              //this.message = "Nema rezultata";
-              toast("Nema rezultata pretrage");
-            }
-          })
+        if (document.getElementById('italian').checked == false && document.getElementById('chinese').checked == false && document.getElementById('vegan').checked == false
+            && document.getElementById('grill').checked == false && document.getElementById('pizza').checked == false && document.getElementById('mexican').checked == false) {
+              axios
+                .get('rest/restaurants/')
+                .then(response => (this.restaurants = response.data));
+        } else {
+          axios
+            .post("/rest/restaurants/filterRestaurants", JSON.stringify(filterParams))
+            .then(response => {
+              this.restaurants = response.data;
+              if (response.data.length == 0) {
+                this.restaurants = [];
+                toast("Nema rezultata pretrage");
+              }
+            })
+
+        }
+
+
     },
 
     getAvg: function(name) {
@@ -426,8 +446,43 @@ Vue.component("restaurants", {
         }
       }
       avg = sum/cnt;
-      //this.avgGrade = avg;
       return avg;
+    },
+
+    sortRestaurants: function() {
+
+      if (this.sortBy == "nameAsc" || this.sortBy == "locAsc" || this.sortBy == "gradeAsc") {
+        this.ascending = true;
+      } else if (this.sortBy == "nameDesc" || this.sortBy == "locDesc" || this.sortBy == "gradeDesc") {
+        this.ascending = false;
+      }
+
+      console.log(this.ascending);
+
+      let sortParams = {
+        restaurants: this.restaurants,
+        ascending: this.ascending
+      }
+
+      if (this.sortBy == "nameAsc" || this.sortBy == "nameDesc") {
+        axios
+          .post("/rest/restaurants/sortByName", JSON.stringify(sortParams))
+          .then(response => {
+            this.restaurants = response.data;
+          })
+      } else if (this.sortBy == "locAsc" || this.sortBy == "locDesc") {
+        axios
+          .post("/rest/restaurants/sortByLocation", JSON.stringify(sortParams))
+          .then(response => {
+            this.restaurants = response.data;
+          })
+      } else if (this.sortBy == "gradeAsc" || this.sortBy == "gradeDesc") {
+        axios
+          .post("/rest/restaurants/sortByGrade", JSON.stringify(sortParams))
+          .then(response => {
+            this.restaurants = response.data;
+          })
+      }
     }
 	}
 });
