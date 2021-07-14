@@ -7,6 +7,7 @@ public class Order {
 	private String id;
 	private ArrayList<Item> orderedItems;
 	private String restaurant;
+	private String restLogo;
 	private Date dateAndTime;
 	private double price;
 	private String customer;
@@ -16,12 +17,13 @@ public class Order {
 		super();
 	}
 
-	public Order(String id, ArrayList<Item> orderedItems, String restaurant, Date dateAndTime, double price,
+	public Order(String id, ArrayList<Item> orderedItems, String restaurant, String restLogo, Date dateAndTime, double price,
 			String customer, OrderStatus status) {
 		super();
 		this.id = id;
 		this.orderedItems = orderedItems;
 		this.restaurant = restaurant;
+		this.restLogo = restLogo;
 		this.dateAndTime = dateAndTime;
 		this.price = price;
 		this.customer = customer;
@@ -82,6 +84,14 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public String getRestLogo() {
+		return restLogo;
+	}
+
+	public void setRestLogo(String restLogo) {
+		this.restLogo = restLogo;
 	}
 	
 	

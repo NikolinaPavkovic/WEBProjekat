@@ -50,6 +50,8 @@ Vue.component("restaurants", {
 		<button style="position: absolute; top: 10px; right: 40px;" v-if="mode!='notLogged'" v-on:click="profileInfo">Profil</button>
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
 		<button v-if="mode=='customer'" style="position: absolute; top: 50px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
+		<button v-if="mode=='customer'" style="position: absolute; top: 90px; right: 40px;" v-on:click="viewOrders">Porudžbine</button>
+		
 
 		<div class="search-form" v-bind:hidden="showSearch==true">
 			<div class="row">
@@ -495,6 +497,9 @@ Vue.component("restaurants", {
 						router.push(`/shoppingCart/` + this.user.username);
 					}
 				});
-		}
+		},
+	viewOrders: function() {
+		router.push(`/customer_orders`);
+	}
 	}
 });

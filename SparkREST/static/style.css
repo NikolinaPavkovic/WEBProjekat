@@ -471,7 +471,7 @@ body {
 
 .search-button {
   margin-top: 40px;
-  margin right: 50px;
+  margin-right: 50px;
 }
 
 .filter-restaurants {
@@ -500,7 +500,6 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color:
 }
 
 /* Hide the browser's default checkbox */
@@ -585,3 +584,5 @@ body {
   display: none;
   margin-left: 41px;
 }
+
+

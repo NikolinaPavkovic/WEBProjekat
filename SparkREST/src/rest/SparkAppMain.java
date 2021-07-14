@@ -370,5 +370,12 @@ public class SparkAppMain {
 			return "SUCCESS";
 		});
 		
+		get("/rest/getCustomerOrders", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(orderService.getCustomerOrders(user));
+		});
+		
 	}
 }

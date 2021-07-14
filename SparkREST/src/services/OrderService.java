@@ -43,6 +43,7 @@ public class OrderService {
 		Order newOrder = new Order(generateId(),
 				shoppingCart.getItems(),
 				getRestaurant(shoppingCart),
+				getRestaurantLogo(shoppingCart),
 				new Date(),
 				shoppingCart.getPrice(),
 				customer.getUsername(),
@@ -63,11 +64,18 @@ public class OrderService {
 		return id;
 	}
 	
-	private String getRestaurant(ShoppingCart shoppingCart) throws JsonParseException, JsonMappingException, IOException {
+	private String getRestaurant(ShoppingCart shoppingCart) {
 		Restaurant restaurant = new Restaurant();
 		ArrayList<Item> itemList = shoppingCart.getItems();
 		restaurant = itemList.get(0).getRestaurant();
 		return restaurant.getName();
+	}
+	
+	private String getRestaurantLogo(ShoppingCart shoppingCart) {
+		Restaurant restaurant = new Restaurant();
+		ArrayList<Item> itemList = shoppingCart.getItems();
+		restaurant = itemList.get(0).getRestaurant();
+		return restaurant.getImgPath();
 	}
 	
 	public boolean isCartEmpty(User user) throws JsonGenerationException, JsonMappingException, IOException {
@@ -83,6 +91,18 @@ public class OrderService {
 	
 	private double setPoints(double price, double oldPoints) {
 		return oldPoints + (price/1000*133);
+	}
+	
+	public ArrayList<Order> getCustomerOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Customer> customerList = customers.load();
+		Customer customer = new Customer();
+		for(int i = 0; i < customerList.size(); i++) {
+			if(customerList.get(i).getUsername().equals(user.getUsername())) {
+				customer = customerList.get(i);
+			}
+		}
+		
+		return customer.getOrders();
 	}
 	
 	
