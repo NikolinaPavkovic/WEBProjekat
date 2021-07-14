@@ -263,19 +263,23 @@ Vue.component("restaurants", {
 
 	methods: {
 		login: function() {
+			event.preventDefault();
 			router.push(`/login`);
 		},
 		register: function() {
+			event.preventDefault();
 			router.push(`/registration`);
 		},
 		addEmployee: function() {
+			event.preventDefault();
 			router.push('/addEmployee');
 		},
 		addRestaurant: function() {
-      event.preventDefault();
+      		event.preventDefault();
 			router.push(`/add_restaurant`);
 		},
 		profileInfo: function() {
+			event.preventDefault();
 			router.push(`/profile/`+ this.user.username);
 		},
 		logout: function() {
@@ -284,15 +288,19 @@ Vue.component("restaurants", {
 				.then(response => (this.$router.go()));
 		},
 		getCustomers: function() {
+			event.preventDefault();
 			router.push(`/customers`);
 		},
 		getManagers: function() {
+			event.preventDefault();
 			router.push(`/managers`);
 		},
 		getDeliverers: function() {
+			event.preventDefault();
 			router.push(`/deliverers`);
 		},
 		goToSearch: function() {
+			event.preventDefault();
 			router.push(`/search_restaurant`);
 		},
 		searchRestaurant: function() {
@@ -377,6 +385,7 @@ Vue.component("restaurants", {
     },
 
     goToSearch: function() {
+    	event.preventDefault();
       router.push(`/search_restaurant`);
     },
 
@@ -497,11 +506,13 @@ Vue.component("restaurants", {
 					if(response.data == "YES") {
 						this.emptyCartMessage = "Korpa je prazna!"
 					} else {
+						event.preventDefault();
 						router.push(`/shoppingCart/` + this.user.username);
 					}
 				});
 		},
 	viewOrders: function() {
+		event.preventDefault();
 		router.push(`/customer_orders`);
 	}
 	}

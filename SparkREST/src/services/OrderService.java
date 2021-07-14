@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
@@ -103,6 +102,49 @@ public class OrderService {
 		}
 		
 		return customer.getOrders();
+	}
+	
+	public void cancelOrder(String id) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> orderList = orders.load();
+		String username = "";
+		for(int i = 0; i < orderList.size(); i++) {
+			if(orderList.get(i).getId().equals(id)) {
+				username = orderList.get(i).getCustomer();
+				orderList.remove(i);
+			}
+		}
+		orders.emptyFile();
+		for (Order order : orderList) {
+			orders.save(order);
+		}
+		
+		deleteOrderFromCustomer(username, id);
+		
+	}
+	
+	private void deleteOrderFromCustomer(String username, String id) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Customer> customerList = customers.load();
+		Customer customer = new Customer();
+		for(int i = 0; i < customerList.size(); i++) {
+			if(username.equals(customerList.get(i).getUsername())) {
+				customer = customerList.get(i);
+				customerList.remove(i);
+			}
+		}
+		
+		ArrayList<Order> orderList = customer.getOrders();
+		for(int i = 0; i < orderList.size(); i++) {
+			if(orderList.get(i).getId().equals(id)) {
+				orderList.remove(i);
+				break;
+			}
+		}
+		customer.setOrders(orderList);
+		customerList.add(customer);
+		customers.emptyFile();
+		for (Customer cus : customerList) {
+			customers.save(cus);
+		}
 	}
 	
 	

@@ -394,5 +394,12 @@ public class SparkAppMain {
 			return "SUCCESS";
 		});
 		
+		post("/rest/cancelOrder", (req, res) -> {
+			res.type("application/json");
+			String id = g.fromJson(req.body(), String.class);
+			orderService.cancelOrder(id);
+			return "";
+		});
+		
 	}
 }

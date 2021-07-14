@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Comment;
-import beans.Restaurant;
 
 public class Comments {
 	private HashMap<String, Comment> comments = new HashMap<String, Comment>();

@@ -9,13 +9,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dao.*;
 import beans.Item;
-import beans.Restaurant;
 
 
 public class ItemService {
 	private Items items = new Items();
-	private Restaurants restaurants = new Restaurants();
-	private static RestaurantService restaurantService = new RestaurantService();
 	
 	public Collection<Item> getItems() throws JsonGenerationException, JsonMappingException, IOException {
 		return this.items.load();

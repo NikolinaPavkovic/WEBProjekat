@@ -41,6 +41,16 @@ public class City {
 	public void setState(State state) {
 		this.state = state;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 
 }

@@ -6,6 +6,7 @@ Vue.component("customer_orders", {
 	},
 	template: `
 		<div>
+		  <button style="position: absolute; top: 10px; right: 40px;" v-on:click="getUndeliveredOrders">Nedostavljene porudžbine</button>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -23,7 +24,7 @@ Vue.component("customer_orders", {
 		    </div>
 		    <div>
 	    		</br></br></br></br></br>
-	    		<button v-bind:disabled="isDisabled(o)" v-on:click="cancelOrder(o)"> Otkaži porudžbinu </button>
+	    		<button v-bind:hidden="isDisabled(o)" v-on:click="cancelOrder(o)"> Otkaži porudžbinu </button>
 	    	</div>
 		  </div>		  
 		 </div>
@@ -39,12 +40,17 @@ Vue.component("customer_orders", {
 	methods: {
 		isDisabled: function(order) {
 			if(order.status == 'processing') {
-				return true;
-			} else {
 				return false;
+			} else {
+				return true;
 			}
 		},
-		cancelOrder: function(o) {
+		cancelOrder: function(order) {
+			axios
+				.post('/rest/cancelOrder', order.id)
+				.then(response => (router.push(`/`)));
+		},
+		getUndeliveredOrders: function() {
 		}
 	}
 });
