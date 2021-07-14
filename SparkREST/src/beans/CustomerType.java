@@ -3,10 +3,13 @@ package beans;
 public class CustomerType {
 	private TypeName typeName;
 	private double discount;
-	private int requiredPoints;
+	private double requiredPoints;
 	
 	public CustomerType() {
 		super();
+		this.typeName = TypeName.steel;
+		this.discount = 0.0;
+		this.requiredPoints = 0.0;
 	}
 	
 	public CustomerType(TypeName typeName, double discount, int requiredPoints) {
@@ -32,11 +35,11 @@ public class CustomerType {
 		this.discount = discount;
 	}
 
-	public int getRequiredPoints() {
+	public double getRequiredPoints() {
 		return requiredPoints;
 	}
 
-	public void setRequiredPoints(int requiredPoints) {
+	public void setRequiredPoints(double requiredPoints) {
 		this.requiredPoints = requiredPoints;
 	}
 	

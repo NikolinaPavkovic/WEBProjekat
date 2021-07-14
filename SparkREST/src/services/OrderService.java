@@ -11,11 +11,13 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
+import beans.CustomerType;
 import beans.Item;
 import beans.Order;
 import beans.OrderStatus;
 import beans.Restaurant;
 import beans.ShoppingCart;
+import beans.TypeName;
 import beans.User;
 import dao.Customers;
 import dao.Orders;
@@ -44,18 +46,47 @@ public class OrderService {
 				getRestaurant(shoppingCart),
 				getRestaurantLogo(shoppingCart),
 				new Date(),
-				shoppingCart.getPrice(),
+				calculatePriceWithDiscount(customer, shoppingCart.getPrice()),
 				customer.getUsername(),
 				OrderStatus.processing);
 		orders.save(newOrder);
 		customer.setShoppingCart(new ShoppingCart());
 		customer.getOrders().add(newOrder);
 		customer.setPoints(setPoints(newOrder.getPrice(), customer.getPoints()));
+		customer.setCustomerType(updateCustomerType(customer.getCustomerType(), customer.getPoints()));
 		customerList.add(customer);
 		customers.emptyFile();
 		for(Customer c : customerList) {
 			customers.save(c);
 		}
+	}
+	
+	private double calculatePriceWithDiscount(Customer customer, double price) {
+		double newPrice = 0.0;
+		newPrice = price * ((100.0 - customer.getCustomerType().getDiscount()) / 100);
+		return newPrice;
+	}
+	
+	private CustomerType updateCustomerType(CustomerType ct, double points) {
+		CustomerType customerType = new CustomerType();
+		if(points >= 1500.0 && points < 3000.0) {
+			customerType.setTypeName(TypeName.bronze);
+			customerType.setDiscount(5.0);
+			customerType.setRequiredPoints(3000.0 - points);
+		} else if(points >= 3000.0 && points < 4500.0) {
+			customerType.setTypeName(TypeName.silver);
+			customerType.setDiscount(10.0);
+			customerType.setRequiredPoints(4500.0 - points);
+		} else if(points >= 4500.0) {
+			customerType.setTypeName(TypeName.gold);
+			customerType.setDiscount(15);
+			customerType.setRequiredPoints(0.0);
+		} else {
+			customerType.setTypeName(TypeName.steel);
+			customerType.setDiscount(0.0);
+			customerType.setRequiredPoints(1500.0 - points);
+		}
+		return customerType;
 	}
 	
 	private String generateId() {
@@ -107,9 +138,11 @@ public class OrderService {
 	public void cancelOrder(String id) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> orderList = orders.load();
 		String username = "";
+		double price = 0.0;
 		for(int i = 0; i < orderList.size(); i++) {
 			if(orderList.get(i).getId().equals(id)) {
 				username = orderList.get(i).getCustomer();
+				price = orderList.get(i).getPrice();
 				orderList.remove(i);
 			}
 		}
@@ -118,11 +151,11 @@ public class OrderService {
 			orders.save(order);
 		}
 		
-		deleteOrderFromCustomer(username, id);
+		deleteOrderFromCustomer(username, id, price);
 		
 	}
 	
-	private void deleteOrderFromCustomer(String username, String id) throws JsonGenerationException, JsonMappingException, IOException {
+	private void deleteOrderFromCustomer(String username, String id, double orderPrice) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer customer = new Customer();
 		for(int i = 0; i < customerList.size(); i++) {
@@ -139,12 +172,19 @@ public class OrderService {
 				break;
 			}
 		}
+		double oldPoints = customer.getPoints();
+		customer.setPoints(oldPoints - lostPoints(oldPoints, orderPrice));
+		customer.setCustomerType(updateCustomerType(customer.getCustomerType(), customer.getPoints()));
 		customer.setOrders(orderList);
 		customerList.add(customer);
 		customers.emptyFile();
 		for (Customer cus : customerList) {
 			customers.save(cus);
 		}
+	}
+	
+	private double lostPoints(double oldPoints, double price) {
+		return price/1000*133*4;
 	}
 	
 	
