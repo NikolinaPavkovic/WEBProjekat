@@ -36,7 +36,7 @@ const router = new VueRouter({
 			{ path: "/shoppingCart/:username", component: shoppingCart },
 		  	{ path: "/search_restaurant", component: search_restaurant },
 			{ path: "/shoppingCart", component: shoppingCart },
-			{ path: "/add_manager", component: add_manager },
+			{ path: '/add_manager', component: add_manager },
 			{ path: '/customer_orders', component: customer_orders }
 		]
 });

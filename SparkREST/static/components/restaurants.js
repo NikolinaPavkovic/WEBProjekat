@@ -176,7 +176,9 @@ Vue.component("restaurants", {
 
 		axios
 			.get('rest/restaurants/')
-			.then(response => (this.restaurants = response.data));
+			.then(response => {
+        this.restaurants = response.data;
+      });
 
 
 		axios
@@ -270,6 +272,7 @@ Vue.component("restaurants", {
 			router.push('/addEmployee');
 		},
 		addRestaurant: function() {
+      event.preventDefault();
 			router.push(`/add_restaurant`);
 		},
 		profileInfo: function() {

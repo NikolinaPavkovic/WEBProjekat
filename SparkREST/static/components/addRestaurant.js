@@ -78,17 +78,26 @@ Vue.component("add_restaurant", {
       <label> Država: </label>
       <input type="text" id="country" class="input-apt" disabled/> </br>
 
-      <div >
       <label> Menadžer: </label>
-      <select  id="selectManager" v-model="restaurantManager">
-        <option value="" disabled selected> </option>
-        <option v-for="(m, index) in managers" :value="m.username"> {{m.name + " " + m.surname}} </option>
-      </select>
-      </div>
+      <div class="add-manager">
 
-      <div class="restaurant-picture">
+        <div class="manager-cb">
+
+        <select  id="selectManager" v-model="restaurantManager">
+          <option value="" disabled selected> </option>
+          <option v-for="(m, index) in managers" :value="m.username"> {{m.name + " " + m.surname}} </option>
+        </select>
+        </div>
+        <div class="manager-btn">
+          <input type="submit" value="Dodaj menadžera" v-on:click="newManager"/> </br>
+        </div>
+      </div> </br> </br> </br>
+
+      <div >
+        <div class="restaurant-picture">
+          <img :src="restaurantImage" class="restaurant-image" alt="Restaurant Image">
+        </div> </br>
         <div>
-          <img :src="restaurantImage" class="restaurant-image" alt="Restaurant Image"> </br>
           <input type="button" id="loadFileXml" class="UploadRestaurantImage" value="Dodaj sliku restorana" onclick="document.getElementById('file').click();" />
           <input type="file" style="display: none; border: none;" @change="imageAdded" id="file" name="file"/>
 
@@ -106,6 +115,7 @@ Vue.component("add_restaurant", {
   `,
 
   mounted() {
+
     this.places = places({
       appId: 'plQ4P1ZY8JUZ',
       apiKey: 'bc14d56a6d158cbec4cdf98c18aced26',
@@ -186,6 +196,11 @@ Vue.component("add_restaurant", {
 
     signalChange: function() {
       this.formErrorMessage='';
+    },
+
+    newManager: function() {
+      event.preventDefault();
+      router.push(`/add_manager`);
     },
 
     addRestaurant: function() {
@@ -270,13 +285,19 @@ Vue.component("add_restaurant", {
           restaurant: restaurantParameters
         }
 
-        axios
-          .post('/rest/addRestaurant', JSON.stringify(restaurantParameters))
-          .then(response => (router.push(`/`)));
+        if (this.restaurantManager == '') {
+          axios
+            .post('/rest/addRestaurant', JSON.stringify(restaurantParameters))
+            .then(response => (router.push(`/`)));
+        } else {
+          axios
+            .post('/rest/addManagerToRestaurant', JSON.stringify(managerParams))
+            .then(response => (router.push(`/`)));
 
-        axios
-          .post('/rest/addManagerToRestaurant', JSON.stringify(managerParams))
-          .then(response => (router.push(`/`)));
+          axios
+            .post('/rest/addRestaurant', JSON.stringify(restaurantParameters))
+            .then(response => (router.push(`/`)));
+        }
       }
     }
   }

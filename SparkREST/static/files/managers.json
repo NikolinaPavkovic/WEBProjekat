@@ -17,8 +17,7 @@
     "imgPath" : null,
     "averageGrade" : 0.0
   }
-},
-  {
+}, {
   "username" : "petar",
   "password" : "petar",
   "name" : "Petar",
@@ -37,8 +36,7 @@
     "imgPath" : null,
     "averageGrade" : 0.0
   }
-},
-{
+}, {
   "username" : "stefan",
   "password" : "stefanp",
   "name" : "Stefan",
@@ -72,43 +70,41 @@
     "imgPath" : "./images/kalem.png",
     "averageGrade" : 0.0
   }
-},
-  {
-    "username" : "srdjan",
-    "password" : "srdjan",
-    "name" : "Srdjan",
-    "surname" : "Popovic",
-    "gender" : "male",
-    "dateOfBirth" : 1624831200000,
-    "role" : "manager",
-    "isBlocked" : false,
-    "deleted" : false,
-    "restaurant" : {
-      "name" : "Petrus",
-      "type" : "italian",
-      "items" : null,
-      "status" : "open",
-      "location" : {
-        "latitude" : 45.2544,
-        "longitude" : 19.8471,
-        "address" : {
-          "address" : "Modene",
-          "number" : 0,
-          "city" : {
-            "city" : "Novi Sad",
-            "state" : {
-              "state" : "Serbia",
-              "id" : 0
-            },
-            "zipCode" : 21000.0
-          }
+}, {
+  "username" : "srdjan",
+  "password" : "srdjan",
+  "name" : "Srdjan",
+  "surname" : "Popovic",
+  "gender" : "male",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false,
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "zipCode" : 21000.0
         }
-      },
-      "imgPath" : "./images/petrus.png",
-      "averageGrade" : 0.0
-    }
-},
-{
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  }
+}, {
   "username" : "ana",
   "password" : "ana",
   "name" : "Ana",
@@ -142,9 +138,7 @@
     "imgPath" : "./images/masa.png",
     "averageGrade" : 0.0
   }
-},
-
-{
+}, {
   "username" : "sofija",
   "password" : "sofija",
   "name" : "Sofija",
@@ -178,6 +172,4 @@
     "imgPath" : "./images/piatto.png",
     "averageGrade" : 0.0
   }
-}
-
- ]
+} ]

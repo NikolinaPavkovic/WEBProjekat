@@ -27,6 +27,7 @@ import dto.EditCartDTO;
 import dto.FilterDTO;
 import dto.ItemDTO;
 import dto.LoginDTO;
+import dto.ManagerDTO;
 import dto.RestaurantDTO;
 import dto.SearchDTO;
 import dto.UserDTO;
@@ -375,6 +376,22 @@ public class SparkAppMain {
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(orderService.getCustomerOrders(user));
+		});
+
+		post("/rest/addNewManager", (req, res) -> {
+			res.type("application/json");
+			ManagerDTO fromJson = g.fromJson(req.body(), ManagerDTO.class);
+			Date date;
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			date = (Date) format.parse(fromJson.getDateOfBirth());
+			Restaurant restaurant = new Restaurant();
+			Manager newManager = new Manager(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(),
+					date, fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted(), restaurant);
+			User user = new User(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(), date, 
+					fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted());
+			managerService.saveManager(newManager);
+			userService.addUser(user);
+			return "SUCCESS";
 		});
 		
 	}

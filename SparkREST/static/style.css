@@ -585,4 +585,20 @@ body {
   margin-left: 41px;
 }
 
+.manager-cb {
+  float: left;
+  width: 40%;
+}
 
+.manager-btn {
+  margin-left: 100px;
+  float: right;
+  width: 40%;
+  margin-top: -59px;
+}
+
+.restaurant-picture {
+  margin-left: 70px;
+  margin-right: auto;
+  display: block;
+}
