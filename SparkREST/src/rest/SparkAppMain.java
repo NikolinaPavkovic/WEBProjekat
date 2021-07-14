@@ -380,7 +380,10 @@ public class SparkAppMain {
 			Restaurant restaurant = new Restaurant();
 			Manager newManager = new Manager(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(),
 					date, fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted(), restaurant);
+			User user = new User(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(), date, 
+					fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted());
 			managerService.saveManager(newManager);
+			userService.addUser(user);
 			return "SUCCESS";
 		});
 		
