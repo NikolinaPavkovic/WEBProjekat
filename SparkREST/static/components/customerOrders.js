@@ -52,7 +52,7 @@ Vue.component("customer_orders", {
 		},
 		getUndeliveredOrders: function() {
 			event.preventDefault();
-      		router.push(`/undelivered_orders`);
+      		router.push(`/undelivered_orders_customer`);
 		}
 	}
 });

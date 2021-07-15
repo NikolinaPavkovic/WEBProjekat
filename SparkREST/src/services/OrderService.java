@@ -187,5 +187,26 @@ public class OrderService {
 		return price/1000*133*4;
 	}
 	
+	public ArrayList<Order> getCustomerUndeliveredOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Customer> customerList = customers.load();
+		ArrayList<Order> undeliveredOrders = new ArrayList<Order>();
+		ArrayList<Order> allOrders = new ArrayList<Order>();
+		Customer customer = new Customer();
+		for(int i = 0; i < customerList.size(); i++) {
+			if(customerList.get(i).getUsername().equals(user.getUsername())) {
+				customer = customerList.get(i);
+				allOrders = customer.getOrders();
+			}
+		}
+		
+		for(int i = 0; i < allOrders.size(); i++) {
+			if(allOrders.get(i).getStatus() != OrderStatus.canceled && allOrders.get(i).getStatus() != OrderStatus.delivered ) {
+				undeliveredOrders.add(allOrders.get(i));
+			}
+		}
+		
+		return undeliveredOrders;
+	}
+	
 	
 }

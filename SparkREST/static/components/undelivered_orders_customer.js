@@ -31,7 +31,7 @@ Vue.component("undelivered_orders_customer", {
 	`,
 	mounted() {
 		axios
-			.get('/rest/getCustomerOrders')
+			.get('/rest/getCustomerUndeliveredOrders')
 			.then(response => {
 				this.orders = response.data;
 			});

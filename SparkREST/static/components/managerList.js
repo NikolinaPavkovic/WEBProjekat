@@ -15,6 +15,7 @@ Vue.component("managers", {
                         <th>Ime</th>
                         <th>Prezime</th>
                         <th>Korisničko ime</th>
+                        <th>Restoran</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@ Vue.component("managers", {
                         <td>{{m.name}}</td>
                         <td>{{m.surname}}</td>
                         <td>{{m.username}}</td>
+                        <td>{{m.restaurant.name}}</td>
                         <td><button v-on:click="deleteManager(m)">Obriši<button></td>
                     </tr>
                 </tbody>

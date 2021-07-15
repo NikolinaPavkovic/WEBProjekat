@@ -1,42 +1,4 @@
 [ {
-  "username" : "milana",
-  "password" : "milana",
-  "name" : "Milana",
-  "surname" : "Milic",
-  "gender" : "female",
-  "dateOfBirth" : 1624831200000,
-  "role" : "manager",
-  "isBlocked" : false,
-  "deleted" : false,
-  "restaurant" : {
-    "name" : null,
-    "type" : null,
-    "items" : null,
-    "status" : null,
-    "location" : null,
-    "imgPath" : null,
-    "averageGrade" : 0.0
-  }
-}, {
-  "username" : "petar",
-  "password" : "petar",
-  "name" : "Petar",
-  "surname" : "Maric",
-  "gender" : "male",
-  "dateOfBirth" : 1624831200000,
-  "role" : "manager",
-  "isBlocked" : false,
-  "deleted" : false,
-  "restaurant" : {
-    "name" : null,
-    "type" : null,
-    "items" : null,
-    "status" : null,
-    "location" : null,
-    "imgPath" : null,
-    "averageGrade" : 0.0
-  }
-}, {
   "username" : "stefan",
   "password" : "stefanp",
   "name" : "Stefan",

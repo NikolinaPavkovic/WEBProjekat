@@ -418,6 +418,13 @@ public class SparkAppMain {
 			itemService.editItem(oldItem, newItem);
 			return "";
 		});
+		
+		get("/rest/getCustomerUndeliveredOrders", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(orderService.getCustomerUndeliveredOrders(user));
+		});
 
 	}
 }
