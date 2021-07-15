@@ -215,4 +215,27 @@ public class RestaurantService {
 		return restaurants;
 	}
 	
+	public ArrayList<Restaurant> getOpenRestaurants() throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Restaurant> openRestaurants = new ArrayList<Restaurant>();
+		for (Restaurant r : restaurants.load()) {
+			if (r.getStatus().equals(RestaurantStatus.open)) openRestaurants.add(r);
+		}
+		return openRestaurants;
+	}
+	
+	public ArrayList<Restaurant> getClosedRestaurants() throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Restaurant> closedRestaurants = new ArrayList<Restaurant>();
+		for (Restaurant r : restaurants.load()) {
+			if (r.getStatus().equals(RestaurantStatus.closed)) closedRestaurants.add(r);
+		}
+		return closedRestaurants;
+	}
+	
+	public ArrayList<Restaurant> getRestaurantsOC() throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Restaurant> allRestaurants = new ArrayList<Restaurant>();
+		allRestaurants.addAll(getOpenRestaurants());
+		allRestaurants.addAll(getClosedRestaurants());
+		return allRestaurants;
+	}
+	
 }

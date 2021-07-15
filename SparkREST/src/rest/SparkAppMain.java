@@ -59,7 +59,7 @@ public class SparkAppMain {
 
 		get("rest/restaurants/", (req, res) -> {
 			res.type("application/json");
-			return g.toJson(restaurantService.getRestaurants());
+			return g.toJson(restaurantService.getRestaurantsOC());
 		});
 
 		post("/rest/register", (req, res) -> {
@@ -408,6 +408,7 @@ public class SparkAppMain {
 			return g.toJson(managerService.getManagerRestaurant(username));
 
 		});
+		
 
 	}
 }
