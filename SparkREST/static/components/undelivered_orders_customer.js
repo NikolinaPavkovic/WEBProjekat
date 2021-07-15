@@ -1,4 +1,4 @@
-Vue.component("customer_orders", {
+Vue.component("undelivered_orders_customer", {
 	data: function() {
 		return {
 			orders: null
@@ -6,7 +6,7 @@ Vue.component("customer_orders", {
 	},
 	template: `
 		<div>
-		  <button style="position: absolute; top: 10px; right: 40px;" v-on:click="getUndeliveredOrders">Nedostavljene porudžbine</button>
+		<h1>Nedostavljene porudžbine</h1>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -49,10 +49,6 @@ Vue.component("customer_orders", {
 			axios
 				.post('/rest/cancelOrder', order.id)
 				.then(response => (router.push(`/`)));
-		},
-		getUndeliveredOrders: function() {
-			event.preventDefault();
-      		router.push(`/undelivered_orders`);
 		}
 	}
 });

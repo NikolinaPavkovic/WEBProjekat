@@ -105,7 +105,8 @@ Vue.component("shopping_cart", {
 		},
 		createOrder: function() {
 			axios
-				.post('/rest/createOrder');
+				.post('/rest/createOrder')
+				.then(response => (router.push(`/`)));
 		}
 	}
 });

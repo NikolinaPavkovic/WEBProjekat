@@ -520,6 +520,7 @@ Vue.component("restaurants", {
 	   },
 
     addItem: function() {
+      event.preventDefault();
       router.push(`/add_item`);
     }
 
