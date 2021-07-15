@@ -400,7 +400,8 @@ public class SparkAppMain {
 			String id = g.fromJson(req.body(), String.class);
 			orderService.cancelOrder(id);
 			return "";
-
+		});
+		
 		get("/rest/getManagerRestaurant/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");

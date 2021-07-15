@@ -514,11 +514,10 @@ Vue.component("restaurants", {
 				});
 		},
 
-	viewOrders: function() {
-		event.preventDefault();
-		router.push(`/customer_orders`);
-	},
-
+	   viewOrders: function() {
+		     event.preventDefault();
+		     router.push(`/customer_orders`);
+	   },
 
     addItem: function() {
       router.push(`/add_item`);
