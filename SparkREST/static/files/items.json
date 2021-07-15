@@ -23,7 +23,8 @@
         }
       }
     },
-    "imgPath" : "./images/petrus.png"
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
   },
   "amount" : 0.0,
   "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
@@ -53,7 +54,8 @@
         }
       }
     },
-    "imgPath" : "./images/petrus.png"
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
   },
   "amount" : 0.0,
   "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",

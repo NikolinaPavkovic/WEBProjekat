@@ -57,7 +57,6 @@ Vue.component("restaurant_info", {
   </div>
 
   </br> </br> </br> </br> </br> </br> </br> </br> </br>
-  <button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
 
   <div class="row-items" v-for="(i, index) in items">
     <div class="col-with-pic"> </br>
@@ -131,9 +130,6 @@ Vue.component("restaurant_info", {
 
   methods: {
 
-		addItem: function() {
-			router.push(`/add_item`);
-		},
 		addToCart: function(item, index) {
 			var amountInput = document.getElementById(index).innerHTML;
 			if(amountInput < 1) {
@@ -151,7 +147,7 @@ Vue.component("restaurant_info", {
 				axios
 					.post('/rest/addToCart', JSON.stringify(itemParameters));
 				document.getElementById(index).innerHTML = '0';
-				
+
 				this.errorMessage = "Artikal dodat u korpu!";
 			}
 		},

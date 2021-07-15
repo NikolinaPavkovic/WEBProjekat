@@ -310,7 +310,7 @@ public class SparkAppMain {
 				return "NO";
 			}
 		});
-		
+
 		put("/rest/editShoppingCart", (req, res) -> {
 			res.type("application/json");
 			EditCartDTO dto = g.fromJson(req.body(), EditCartDTO.class);
@@ -318,7 +318,7 @@ public class SparkAppMain {
 			User user = session.attribute("user");
 			return g.toJson(customerService.editShoppingCart(user, dto).getPrice());
 		});
-		
+
 		post("/rest/createOrder", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -326,7 +326,7 @@ public class SparkAppMain {
 			orderService.createOrder(user);
 			return "";
 		});
-		
+
 		get("/rest/isCartEmpty", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -354,12 +354,12 @@ public class SparkAppMain {
 			System.out.println(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
 			return g.toJson(restaurantService.sortByGrade(g.fromJson(req.body(), FilterDTO.class)));
 		});
-		
+
 		get("/rest/getAvailableManagers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(managerService.getAvailableManagers());
 		});
-		
+
 		post("/rest/addManagerToRestaurant", (req, res) -> {
 			res.type("application/json");
 			Manager fromJson = g.fromJson(req.body(), Manager.class);
@@ -367,10 +367,10 @@ public class SparkAppMain {
 			Manager newManager = new Manager(fromFile.getUsername(), fromFile.getPassword(), fromFile.getName(), fromFile.getSurname(),
 					fromFile.getGender(), fromFile.getDateOfBirth(), fromFile.getRole(), fromFile.getIsBlocked(), fromFile.isDeleted(), fromJson.getRestaurant());
 			managerService.removeManager(fromFile.getUsername());
-			managerService.saveManager(newManager);
+			managerService.addManager(newManager);
 			return "SUCCESS";
 		});
-		
+
 		get("/rest/getCustomerOrders", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -387,19 +387,26 @@ public class SparkAppMain {
 			Restaurant restaurant = new Restaurant();
 			Manager newManager = new Manager(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(),
 					date, fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted(), restaurant);
-			User user = new User(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(), date, 
+			User user = new User(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(), date,
 					fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted());
-			managerService.saveManager(newManager);
+			managerService.addManager(newManager);
 			userService.addUser(user);
 			return "SUCCESS";
 		});
-		
+
+
 		post("/rest/cancelOrder", (req, res) -> {
 			res.type("application/json");
 			String id = g.fromJson(req.body(), String.class);
 			orderService.cancelOrder(id);
 			return "";
+
+		get("/rest/getManagerRestaurant/:username", (req, res) -> {
+			res.type("application/json");
+			String username = req.params("username");
+			return g.toJson(managerService.getManagerRestaurant(username));
+
 		});
-		
+
 	}
 }

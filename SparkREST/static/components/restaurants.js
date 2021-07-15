@@ -51,7 +51,7 @@ Vue.component("restaurants", {
 		<button style="position: absolute; top: 10px; right: 170px;" v-if="mode!='notLogged'" v-on:click="logout">Log out</button></br> </br>
 		<button v-if="mode=='customer'" style="position: absolute; top: 50px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
 		<button v-if="mode=='customer'" style="position: absolute; top: 90px; right: 40px;" v-on:click="viewOrders">Porudžbine</button>
-		
+
 
 		<div class="search-form" v-bind:hidden="showSearch==true">
 			<div class="row">
@@ -169,6 +169,7 @@ Vue.component("restaurants", {
 		<button v-if="mode=='admin'" v-on:click="getCustomers"> Pregled kupaca </button>
 		<button v-if="mode=='admin'" v-on:click="getManagers"> Pregled menadžera </button>
 		<button v-if="mode=='admin'" v-on:click="getDeliverers"> Pregled dostavljača </button>
+    <button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
 		<button v-on:click="goToSearch"> search </button>
 	</div>
 	`,
@@ -191,6 +192,7 @@ Vue.component("restaurants", {
 					this.mode = "notLogged";
 				}
 			});
+
 
       axios
         .get('/rest/getComments')
@@ -511,9 +513,16 @@ Vue.component("restaurants", {
 					}
 				});
 		},
+
 	viewOrders: function() {
 		event.preventDefault();
 		router.push(`/customer_orders`);
-	}
+	},
+
+
+    addItem: function() {
+      router.push(`/add_item`);
+    }
+
 	}
 });

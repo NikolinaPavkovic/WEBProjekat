@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Manager;
+import beans.Restaurant;
 import beans.User;
 import dao.Managers;
 
@@ -105,7 +106,7 @@ public class ManagerService {
 		return manager;
 	}
 	
-	public void saveManager(Manager manager) throws JsonGenerationException, JsonMappingException, IOException {
+	public void addManager(Manager manager) throws JsonGenerationException, JsonMappingException, IOException {
 		managers.save(manager);
 	}
 	
@@ -121,4 +122,16 @@ public class ManagerService {
 		managers.emptyFile();
 		managers.saveAll(managersFromFile);
 	}
+	
+	public ArrayList<Restaurant> getManagerRestaurant(String username) throws JsonGenerationException, JsonMappingException, IOException{
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		for (Manager m : managers.load()) {
+			if(m.getUsername().equals(username)) {
+				restaurants.add(m.getRestaurant()) ;
+			}
+		}
+		
+		return restaurants;
+	}
+	
 }

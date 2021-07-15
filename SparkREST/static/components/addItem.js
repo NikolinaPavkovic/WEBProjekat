@@ -16,7 +16,12 @@ Vue.component("add_item", {
       itemImage: "",
       itemImageForBackend: "",
       restaurantName: '',
-      formErrorMessage: ""
+      formErrorMessage: "",
+      mode: "",
+      user: null,
+      username: "",
+      restaurants: [] ,
+      managerRestaurant: ""
     }
   },
 
@@ -40,13 +45,10 @@ Vue.component("add_item", {
       <p style="color: red;"> {{errorPrice}} </p>
 
       <label> Restoran: </label>
-      <select v-model="restaurantName">
-        <option value="petrus"> Petrus </option>
-        <option value="masa"> Maša </option>
-        <option value="piatto"> Piatto </option>
-        <option value="kalem"> Kalem </option>
+      <select id="selectRestaurant" v-model="restaurantName">
+        <option value="" disabled selected> </option>
+        <option v-for="r in restaurants" :value="r.name"> {{r.name}} </option>
       </select>
-      <input type="text" v-model="restaurant"/>
       <p style="color: red;"> {{errorRestaurant}} </p>
 
       <label> Količina: </label>
@@ -72,6 +74,26 @@ Vue.component("add_item", {
   </div>
 
   `,
+
+  mounted() {
+
+    axios
+      .get('/rest/isLogged')
+      .then(response => {
+        if(response.data != null) {
+          this.mode = response.data.role;
+          this.user = response.data;
+          this.username = response.data.username;
+          axios
+            .get('/rest/getManagerRestaurant/' + this.username)
+            .then(response => {
+              this.restaurants = response.data;
+            });
+        } else {
+          this.mode = "notLogged";
+        }
+      });
+  },
 
   methods: {
 
@@ -126,16 +148,6 @@ Vue.component("add_item", {
           this.itemType = "food";
         } else {
           this.itemType = "drink";
-        }
-
-        if (this.restaurantName === 'petrus') {
-          this.restaurantName = "Petrus";
-        }
-        if (this.restaurantName === 'masa') {
-          this.restaurantName = "Maša";
-        }
-        if (this.restaurantName === 'kalem') {
-          this.restaurantName = "Kalem";
         }
 
         let restaurantCurr = {
