@@ -17,7 +17,19 @@ Vue.component("restaurant_info", {
       selectedItem: null,
       amount: 0,
       errorMessage: "",
-      emptyCartMessage: ""
+      emptyCartMessage: "",
+      canEdit: false,
+      managerRestaurant: null,
+      editMode: false,
+      itemName: "",
+      itemType: "",
+      itemPrice: "",
+      restaurantName: "",
+      itemAmount: "",
+      itemDescription: "",
+      itemImage: "",
+      itemImageForBackend: "",
+      oldItem: null
     }
   },
 
@@ -58,30 +70,77 @@ Vue.component("restaurant_info", {
 
   </br> </br> </br> </br> </br> </br> </br> </br> </br>
 
-  <div class="row-items" v-for="(i, index) in items">
-    <div class="col-with-pic"> </br>
-      <div class="col-picture">
-        <div>
-          <img :src="i.imagePath" class="restaurant-image" alt="i.name"> </br> </br>
+  <div v-bind:hidden="editMode==true">
+    <div class="row-items" v-for="(i, index) in items">
+      <div class="col-with-pic"> </br>
+        <div class="col-picture">
+          <div>
+            <img :src="i.imagePath" class="restaurant-image" alt="i.name"> </br> </br>
+          </div>
         </div>
+      </div>
+
+      <div class="col-information">
+        <h1 class="item-name"> {{i.name}} </h1>
+        <h1 class="description"> {{i.description}} </h1>
+        <h1 class="price"> {{i.price}},00 RSD </h1>
+      </div>
+      <div>
+      	</br></br></br></br></br>
+      	<span>
+  	    	<button v-if="mode=='customer'" v-on:click="increment(i.name)" >+</button>
+  	    	<label v-bind:id="i.name" v-if="mode=='customer'">0</label>
+  	    	<button v-if="mode=='customer'" v-on:click="decrement(i.name)">-</button>
+  	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
+          <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button>
+  	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
+      	</span>
+      </div>
+    </div>
+  </div>
+
+  <div v-bind:hidden="editMode==false">
+  <form class="add-form">
+    <label> Naziv artikla: </label>
+    <input type="text" v-model="itemName" name="name"/>
+    <p style="color: red;"> {{errorName}} </p>
+
+    <label> Tip artikla: </label>
+    <select v-model="itemType">
+      <option value="food"> Food </option>
+      <option value="drink"> Drink </option>
+    </select>
+    <p style="color: red;"> {{errorType}} </p>
+
+    <label> Cena: </label>
+    <input type="number" v-model="itemPrice"/>
+    <p style="color: red;"> {{errorPrice}} </p>
+
+    <label> Restoran: </label>
+    <select id="selectRestaurant" v-model="restaurantName">
+      <option value="" disabled selected> </option>
+      <option :value="restaurant.name"> {{restaurant.name}} </option>
+    </select>
+    <p style="color: red;"> {{errorRestaurant}} </p>
+
+    <label> Količina: </label>
+    <input type="number" v-model="itemAmount"/>
+    <p style="color: red;"> {{errorAmount}} </p>
+
+    <label> Opis: </label>
+    <input type="text" v-model="itemDescription"/> </br>
+    <p style="color: red;"> {{errorDescription}} </p>
+
+    <div class="item-picture">
+      <div>
+        <img :src="itemImage" class="item-image" alt="Item Image"> </br>
+        <input type="button" id="loadFileXml" class="UploadItemImage" value="Dodaj sliku artikla" onclick="document.getElementById('file').click();" />
+        <input type="file" style="display: none; border: none;" @change="imageAdded" id="file" name="file"/>
       </div>
     </div>
 
-    <div class="col-information">
-      <h1 class="item-name"> {{i.name}} </h1>
-      <h1 class="description"> {{i.description}} </h1>
-      <h1 class="price"> {{i.price}},00 RSD </h1>
-    </div>
-    <div>
-    	</br></br></br></br></br>
-    	<span>
-	    	<button v-if="mode=='customer'" v-on:click="increment(i.name)" >+</button>
-	    	<label v-bind:id="i.name" v-if="mode=='customer'">0</label>
-	    	<button v-if="mode=='customer'" v-on:click="decrement(i.name)">-</button>
-	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
-	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
-    	</span>
-    </div>
+    <input type="submit" v-on:click="editItem" value="Izmeni artikal"/>
+  </form>
   </div>
 
   </div>
@@ -96,18 +155,27 @@ Vue.component("restaurant_info", {
 		    this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
         this.items = response.data.items;
+        axios
+          .get('/rest/isLogged')
+          .then(response => {
+            if(response.data != null) {
+              this.mode = response.data.role;
+              this.user = response.data;
+              axios
+                .get('/rest/getManagerRestaurant/' + this.user.username)
+                .then(response => {
+                  this.managerRestaurant = response.data;
+                  if (this.restaurant.name == this.managerRestaurant.name) {
+                    this.canEdit = true;
+                  } else {
+                    this.canEdit = false;
+                  }
+                });
+            } else {
+              this.mode = "notLogged";
+            }
+          });
       });
-
-	  axios
-			.get('/rest/isLogged')
-			.then(response => {
-				if(response.data != null) {
-					this.mode = response.data.role;
-					this.user = response.data;
-				} else {
-					this.mode = "notLogged";
-				}
-			});
 
     axios
       .get('/rest/getComments')
@@ -129,6 +197,22 @@ Vue.component("restaurant_info", {
   },
 
   methods: {
+
+    imageAdded(e) {
+      const file = e.target.files[0];
+      this.createBase64Image(file);
+      this.itemImage = URL.createObjectURL(file);
+    },
+
+    createBase64Image(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        let img = e.target.result;
+        console.log(img);
+        this.itemImageForBackend = img;
+      }
+      reader.readAsDataURL(file);
+    },
 
 		addToCart: function(item, index) {
 			var amountInput = document.getElementById(index).innerHTML;
@@ -175,7 +259,42 @@ Vue.component("restaurant_info", {
 						router.push(`/shoppingCart/` + this.user.username);
 					}
 				});
-		}
+		},
+
+    changeMode: function(item) {
+      this.editMode = true;
+      this.itemName = item.name;
+      this.itemPrice = item.price;
+      this.itemType = item.type;
+      this.restaurantName = item.restaurant.name;
+      this.itemAmount = item.amount;
+      this.itemDescription = item.description;
+      this.oldItem = item;
+    },
+
+    editItem: function() {
+      event.preventDefault();
+
+      let restaurantCurr = {
+        name: this.restaurantName
+      };
+
+      let itemParams = {
+        name: this.itemName,
+        price: this.itemPrice,
+        type: this.itemType,
+        restaurant: restaurantCurr,
+        amount: this.itemAmount,
+        description: this.itemDescription,
+        imagePath: this.itemImage,
+        oldItem: this.oldItem
+      };
+
+      axios
+        .put('/rest/editItem', JSON.stringify(itemParams));
+
+      this.editMode = false;
+    }
   }
 
 });

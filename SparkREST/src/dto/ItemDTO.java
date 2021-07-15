@@ -10,6 +10,7 @@ public class ItemDTO {
 	private double amount;
 	private String description;
 	private String imagePath;
+	private Item oldItem;
 	
 	public ItemDTO() {
 		super();
@@ -83,5 +84,15 @@ public class ItemDTO {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+
+	public Item getOldItem() {
+		return oldItem;
+	}
+
+	public void setOldItem(Item oldItem) {
+		this.oldItem = oldItem;
+	}
+	
+	
 
 }

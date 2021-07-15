@@ -409,6 +409,15 @@ public class SparkAppMain {
 
 		});
 		
+		put("/rest/editItem", (req, res) ->{
+			res.type("application/json");
+			ItemDTO fromJson = g.fromJson(req.body(), ItemDTO.class);
+			Item oldItem = fromJson.getOldItem();
+			Item newItem = new Item(fromJson.getName(), fromJson.getPrice(), fromJson.getType(), restaurantService.getRestaurantByName(fromJson.getRestaurant().getName()), fromJson.getAmount(),
+					fromJson.getDescription(), fromJson.getImagePath());
+			itemService.editItem(oldItem, newItem);
+			return "";
+		});
 
 	}
 }
