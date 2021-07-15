@@ -45,4 +45,10 @@ public class Items {
 		
 		return itemsFromFile;
 	}
+	
+	public void emptyFile() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.writeValue(new File("./static/files/items.json"), new ArrayList<Item>());
+	}
 }

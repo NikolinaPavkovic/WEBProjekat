@@ -59,7 +59,7 @@ public class SparkAppMain {
 
 		get("rest/restaurants/", (req, res) -> {
 			res.type("application/json");
-			return g.toJson(restaurantService.getRestaurants());
+			return g.toJson(restaurantService.getRestaurantsOC());
 		});
 
 		post("/rest/register", (req, res) -> {
@@ -407,6 +407,16 @@ public class SparkAppMain {
 			String username = req.params("username");
 			return g.toJson(managerService.getManagerRestaurant(username));
 
+		});
+		
+		put("/rest/editItem", (req, res) ->{
+			res.type("application/json");
+			ItemDTO fromJson = g.fromJson(req.body(), ItemDTO.class);
+			Item oldItem = fromJson.getOldItem();
+			Item newItem = new Item(fromJson.getName(), fromJson.getPrice(), fromJson.getType(), restaurantService.getRestaurantByName(fromJson.getRestaurant().getName()), fromJson.getAmount(),
+					fromJson.getDescription(), fromJson.getImagePath());
+			itemService.editItem(oldItem, newItem);
+			return "";
 		});
 
 	}

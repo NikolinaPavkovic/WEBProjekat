@@ -38,7 +38,9 @@ Vue.component("restaurants", {
       avgGrade: "",
       comments: null,
       sortBy: "",
-      ascending: false
+      ascending: false,
+      openRestaurants: null,
+      closedRestaurants:null
 		}
 	},
 	template: `
@@ -147,8 +149,6 @@ Vue.component("restaurants", {
 						<img :src="r.imgPath" class="restaurant-image" alt="r.name"> </br> </br>
 					</div>
 					<button class="see-more"><a :href="'#/details?name=' + r.name" class="link" > Pregledaj restoran </a> </button>
-
-
 				</div>
 			</div>
 
@@ -180,7 +180,6 @@ Vue.component("restaurants", {
 			.then(response => {
         this.restaurants = response.data;
       });
-
 
 		axios
 			.get('/rest/isLogged')
@@ -359,7 +358,7 @@ Vue.component("restaurants", {
 				restaurantType: this.restaurantType
 			}
 
-      if (this.restaurantName == "") {
+      if (this.restaurantName == "" && this.restaurantType == "") {
         axios
           .post("/rest/restaurants/findByGrade", JSON.stringify(searchParams))
           .then(response => {
@@ -368,7 +367,7 @@ Vue.component("restaurants", {
               this.restaurants = [];
               toast("Nema rezultata pretrage");
             }
-          })
+          });
       }
 
 			axios
@@ -379,7 +378,7 @@ Vue.component("restaurants", {
 						this.restaurants = [];
             toast("Nema rezultata pretrage");
 					}
-				})
+				});
 		},
 
     enableSearch: function() {

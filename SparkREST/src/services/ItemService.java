@@ -34,4 +34,20 @@ public class ItemService {
 		
 		return restaurantItems;
 	}
+	
+	public void editItem(Item oldItem, Item newItem) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Item> itemsFromFile = items.load();
+		
+		for (int i = 0; i < itemsFromFile.size(); i++) {
+			if (itemsFromFile.get(i).getName().equals(oldItem.getName())) {
+				itemsFromFile.remove(i);
+			}
+		}
+		
+		itemsFromFile.add(newItem);
+		items.emptyFile();
+		for (Item item : itemsFromFile) {
+			items.save(item);
+		}
+	}
 }

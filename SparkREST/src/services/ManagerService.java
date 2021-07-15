@@ -123,15 +123,16 @@ public class ManagerService {
 		managers.saveAll(managersFromFile);
 	}
 	
-	public ArrayList<Restaurant> getManagerRestaurant(String username) throws JsonGenerationException, JsonMappingException, IOException{
-		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+	public Restaurant getManagerRestaurant(String username) throws JsonGenerationException, JsonMappingException, IOException{
+		//ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		Restaurant restaurant = new Restaurant();
 		for (Manager m : managers.load()) {
 			if(m.getUsername().equals(username)) {
-				restaurants.add(m.getRestaurant()) ;
+				restaurant = m.getRestaurant();
 			}
 		}
 		
-		return restaurants;
+		return restaurant;
 	}
 	
 }

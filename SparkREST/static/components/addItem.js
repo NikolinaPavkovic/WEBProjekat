@@ -20,7 +20,7 @@ Vue.component("add_item", {
       mode: "",
       user: null,
       username: "",
-      restaurants: [] ,
+      restaurant: null ,
       managerRestaurant: ""
     }
   },
@@ -47,7 +47,7 @@ Vue.component("add_item", {
       <label> Restoran: </label>
       <select id="selectRestaurant" v-model="restaurantName">
         <option value="" disabled selected> </option>
-        <option v-for="r in restaurants" :value="r.name"> {{r.name}} </option>
+        <option :value="restaurant.name"> {{restaurant.name}} </option>
       </select>
       <p style="color: red;"> {{errorRestaurant}} </p>
 
@@ -87,7 +87,7 @@ Vue.component("add_item", {
           axios
             .get('/rest/getManagerRestaurant/' + this.username)
             .then(response => {
-              this.restaurants = response.data;
+              this.restaurant = response.data;
             });
         } else {
           this.mode = "notLogged";

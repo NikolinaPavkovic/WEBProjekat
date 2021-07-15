@@ -48,7 +48,7 @@
   "name" : "Masa",
   "type" : "italian",
   "items" : null,
-  "status" : "open",
+  "status" : "closed",
   "location" : {
     "latitude" : 45.2406,
     "longitude" : 19.624,
