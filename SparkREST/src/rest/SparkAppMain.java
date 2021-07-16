@@ -19,6 +19,7 @@ import beans.Customer;
 import beans.Gender;
 import beans.Item;
 import beans.Manager;
+import beans.OrderStatus;
 import beans.Restaurant;
 import beans.Role;
 import beans.User;
@@ -424,6 +425,30 @@ public class SparkAppMain {
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(orderService.getCustomerUndeliveredOrders(user));
+		});
+		
+		get("/rest/getManagerOrders", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(orderService.getManagerOrders(user));
+		});
+		
+		post("/rest/changeStatusToPreparing", (req, res) -> {
+			String id = g.fromJson(req.body(), String.class);
+			orderService.changeOrderStatus(id, OrderStatus.preparing);
+			return "";
+		});
+		
+		post("/rest/changeStatusToWaiting", (req, res) -> {
+			String id = g.fromJson(req.body(), String.class);
+			orderService.changeOrderStatus(id, OrderStatus.waiting);
+			return "";
+		});
+		
+		get("/rest/getWaitingOrders", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.getWaitingOrders());
 		});
 
 	}

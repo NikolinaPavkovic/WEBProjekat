@@ -169,8 +169,11 @@ Vue.component("restaurants", {
 		<button v-if="mode=='admin'" v-on:click="getCustomers"> Pregled kupaca </button>
 		<button v-if="mode=='admin'" v-on:click="getManagers"> Pregled menadžera </button>
 		<button v-if="mode=='admin'" v-on:click="getDeliverers"> Pregled dostavljača </button>
-    <button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
+    	<button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
 		<button v-on:click="goToSearch"> search </button>
+		<button v-if="mode=='manager'" v-on:click="getManagerOrders"> Pregled porudžbina </button>
+		<button v-if="mode=='deliverer'" v-on:click="getWaitingOrders"> Porudžbine na čekanju </button>
+		<button v-if="mode=='deliverer'" v-on:click="getDelivererOrders"> Moje porudžbine </button>
 	</div>
 	`,
 	mounted() {
@@ -521,6 +524,17 @@ Vue.component("restaurants", {
     addItem: function() {
       event.preventDefault();
       router.push(`/add_item`);
+    },
+    
+    getManagerOrders: function() {
+    	event.preventDefault();
+    	router.push(`/manager_order_list`);
+    },
+    getWaitingOrders: function() {
+    	event.preventDefault();
+    	router.push(`/waiting_orders`);
+    },
+    getDelivererOrders: function() {
     }
 
 	}

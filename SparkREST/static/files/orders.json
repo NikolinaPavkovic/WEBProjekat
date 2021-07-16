@@ -38,5 +38,5 @@
   "dateAndTime" : 1626285999712,
   "price" : 1425.0,
   "customer" : "vanja",
-  "status" : "processing"
+  "status" : "waiting"
 } ]

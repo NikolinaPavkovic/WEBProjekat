@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import beans.Customer;
 import beans.CustomerType;
 import beans.Item;
+import beans.Manager;
 import beans.Order;
 import beans.OrderStatus;
 import beans.Restaurant;
@@ -20,11 +21,13 @@ import beans.ShoppingCart;
 import beans.TypeName;
 import beans.User;
 import dao.Customers;
+import dao.Managers;
 import dao.Orders;
 
 public class OrderService {
 	private Orders orders = new Orders();
 	private Customers customers = new Customers();
+	private Managers managers = new Managers();
 	
 	public Collection<Order> getOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		return orders.load();
@@ -208,5 +211,83 @@ public class OrderService {
 		return undeliveredOrders;
 	}
 	
+	public ArrayList<Order> getManagerOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> managerOrders = new ArrayList<Order>();
+		ArrayList<Manager> managerList = managers.load();
+		Manager manager = new Manager();
+		for(int i = 0; i < managerList.size(); i++) {
+			if(managerList.get(i).getUsername().equals(user.getUsername())) {
+				manager = managerList.get(i);
+			}
+		}
+		
+		Restaurant restaurant = manager.getRestaurant();
+		ArrayList<Order> orderList = orders.load();
+		for(int i = 0; i < orderList.size(); i++) {
+			if(orderList.get(i).getRestaurant().equals(restaurant.getName())) {
+				managerOrders.add(orderList.get(i));
+			}
+		}
+		return managerOrders;
+	}
+	
+	public void changeOrderStatus(String id, OrderStatus status) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> orderList = orders.load();
+		Order order = new Order();
+		for(int i = 0; i < orderList.size(); i++) {
+			if(orderList.get(i).getId().equals(id)) {
+				order = orderList.get(i);
+				orderList.remove(i);
+			}
+		}
+		
+		order.setStatus(status);
+		orderList.add(order);
+		orders.emptyFile();
+		for (Order order1 : orderList) {
+			orders.save(order1);
+		}
+		
+		changeOrderStatusCustomer(status, order.getId(), order.getCustomer());
+	}
+	
+	private void changeOrderStatusCustomer(OrderStatus status, String orderId, String username) throws JsonGenerationException, JsonMappingException, IOException{
+		ArrayList<Customer> customerList = customers.load();
+		Customer customer = new Customer();
+		for(int i = 0; i < customerList.size(); i++) {
+			if(customerList.get(i).getUsername().equals(username)) {
+				customer = customerList.get(i);
+				customerList.remove(i);
+			}
+		}
+		ArrayList<Order> customerOrders = customer.getOrders();
+		Order order = new Order();
+		for(int i = 0; i < customerOrders.size(); i++) {
+			if(customerOrders.get(i).getId().equals(orderId)) {
+				order = customerOrders.get(i);
+				customerOrders.remove(i);
+			}
+		}
+		
+		order.setStatus(status);
+		customerOrders.add(order);
+		customer.setOrders(customerOrders);
+		customerList.add(customer);
+		customers.emptyFile();
+		for (Customer c : customerList) {
+			customers.save(c);
+		}
+	}
+	
+	public ArrayList<Order> getWaitingOrders() throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> allOrders = orders.load();
+		ArrayList<Order> waitingOrders = new ArrayList<Order>();
+		for(int i = 0; i < allOrders.size(); i++) {
+			if(allOrders.get(i).getStatus() == OrderStatus.waiting) {
+				waitingOrders.add(allOrders.get(i));
+			}
+		}
+		return waitingOrders;
+	}
 	
 }
