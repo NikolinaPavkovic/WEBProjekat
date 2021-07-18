@@ -72,6 +72,10 @@ Vue.component("add_restaurant", {
       <input type="search" id="address" v-on:change="signalChange"/>
       <p style="color: red;"> {{errorAddress}} </p>
 
+      <div class="map-div">
+        <div id="map"> </div>
+      </div>
+
       <label> Grad: </label>
       <input type="text" id="city" class="input-apt" disabled/>
 
@@ -111,38 +115,64 @@ Vue.component("add_restaurant", {
 	  <input class="hidden" id="latitude" hidden/>
     <input class="hidden" id="longitude" hidden/>
     <input class="hidden" id="zipcode" hidden/>
+
+
   </div>
   `,
 
   mounted() {
-
-    this.places = places({
-      appId: 'plQ4P1ZY8JUZ',
-      apiKey: 'bc14d56a6d158cbec4cdf98c18aced26',
-      container: document.querySelector('#address'),
-      templates: {
-        value: function(suggestion) {
-          return suggestion.name;
-        }
-      }
-    }).configure({
-      type: 'address'
-    });
-
-    this.places.on('change', function getLocationData(e) {
-      document.querySelector('#address').value = e.suggestion.value || '';
-      document.querySelector('#country').value = e.suggestion.country || '';
-      document.querySelector('#city').value = e.suggestion.city || '';
-      document.querySelector('#longitude').value = e.suggestion.latlng.lng || '';
-      document.querySelector('#latitude').value = e.suggestion.latlng.lat || '';
-      document.querySelector('#zipcode').value = e.suggestion.postcode || '';
-    });
-
+    
     axios
       .get('/rest/getAvailableManagers')
       .then(response => {
         this.managers = response.data;
       });
+
+      const map = new ol.Map({ target: "map" });
+
+      map.setView(
+        new ol.View({
+          center: ol.proj.fromLonLat([19.7245,45.2889]),
+          zoom: 12
+        })
+      );
+
+      const apiKey = "AAPK8cad6fdb843d461b83eff8dfd08b20dcBLf02R4yV5jXllwflSmWOdjsqUK-9v-etIhDJdP7et4xmJgOD9xBn2FDg-DOwbvs";
+      const basemapId = "ArcGIS:Navigation";
+      const basemapURL = "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/" + basemapId + "?type=style&token=" + apiKey;
+
+      olms(map, basemapURL);
+
+      const popup = new Popup();
+      map.addOverlay(popup);
+
+      map.on("click", (e) => {
+        const coords = ol.proj.transform(e.coordinate, "EPSG:3857", "EPSG:4326");
+
+        const authentication = new arcgisRest.ApiKey({
+          key: apiKey
+        });
+
+      arcgisRest
+      .reverseGeocode(coords, { authentication })
+      .then((result) => {
+        const message = `${result.address.LongLabel}<br>` + `${result.location.x.toLocaleString()}, ${result.location.y.toLocaleString()}`;
+        document.querySelector('#address').value = cyrilicToLatinic(result.address.Address);
+        document.querySelector('#country').value = cyrilicToLatinic(result.address.CountryCode);
+        document.querySelector('#city').value = cyrilicToLatinic(result.address.City);
+        document.querySelector('#longitude').value = result.location.x.toLocaleString();
+        document.querySelector('#latitude').value = result.location.y.toLocaleString();
+        document.querySelector('#zipcode').value = result.address.Postal;
+        popup.show(e.coordinate, message);
+
+      })
+
+      .catch((error) => {
+        popup.hide();
+        console.error(error);
+      })
+    });
+
   },
 
   methods: {

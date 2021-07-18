@@ -365,13 +365,14 @@ body {
     align-items: center;
     color: #cce6ff;
     font-size: 0.9rem;
+
 }
 
 .table-all {
     border-collapse: collapse;
     box-shadow: 20px 10px 20px 0px;
     background-color: white;
-    text-align: left;
+    text-align: center;
 }
 
 .table-all th {
@@ -381,6 +382,10 @@ body {
     letter-spacing: 0.1rem;
     font-size: 0.7rem;
     font-weight: 900;
+}
+
+.table-all th:hover {
+  cursor: pointer;
 }
 
 .table-all td {
@@ -601,4 +606,36 @@ body {
   margin-left: 70px;
   margin-right: auto;
   display: block;
+}
+
+#search-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 18px 10px 25px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.search-div {
+  width: 90%;
+	margin: 20px auto;
+	background: white;
+	text-align: left;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+#map {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #323232;
+}
+
+.map-div {
+  height: 420px;
+  width: 420px;
 }
