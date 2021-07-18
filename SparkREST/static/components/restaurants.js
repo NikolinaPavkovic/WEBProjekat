@@ -535,6 +535,7 @@ Vue.component("restaurants", {
     	router.push(`/waiting_orders`);
     },
     getDelivererOrders: function() {
+    	
     }
 
 	}

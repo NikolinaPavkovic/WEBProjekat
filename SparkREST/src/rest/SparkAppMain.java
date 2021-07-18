@@ -19,7 +19,9 @@ import beans.Customer;
 import beans.Gender;
 import beans.Item;
 import beans.Manager;
+import beans.Order;
 import beans.OrderStatus;
+import beans.Request;
 import beans.Restaurant;
 import beans.Role;
 import beans.User;
@@ -29,6 +31,7 @@ import dto.FilterDTO;
 import dto.ItemDTO;
 import dto.LoginDTO;
 import dto.ManagerDTO;
+import dto.RequestDTO;
 import dto.RestaurantDTO;
 import dto.SearchDTO;
 import dto.UserDTO;
@@ -449,6 +452,42 @@ public class SparkAppMain {
 		get("/rest/getWaitingOrders", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(orderService.getWaitingOrders());
+		});
+		
+		post("/rest/newRequest", (req, res) -> {
+			res.type("application/json");
+			Order order = g.fromJson(req.body(), Order.class);
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			Request request = new Request(user.getUsername(), order, false);
+			Request r = new Request();
+			r = orderService.newRequest(request);
+			if(r == null) {
+				return "Already sent!";
+			} else {
+				return "OK";
+			}
+			
+		});
+		
+		get("/rest/getManagerRequests", (req, res) -> {
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			if(orderService.getManagerRequests(user).size() == 0) {
+				return "Empty request list";
+			} else {
+				return g.toJson(orderService.getManagerRequestsDTO(user));
+			}
+		});
+		
+		put("/rest/acceptRequest", (req, res) -> {
+			RequestDTO dto = g.fromJson(req.body(), RequestDTO.class);
+			orderService.acceptRequest(dto);
+			return "";
+		});
+		
+		put("/rest/rejectRequest", (req, res) -> {
+			return "";
 		});
 
 	}

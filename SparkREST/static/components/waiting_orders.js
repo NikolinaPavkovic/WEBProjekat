@@ -1,7 +1,8 @@
 Vue.component("waiting_orders", {
 	data: function() {
 		return {
-			orders: null
+			orders: null,
+			error: ""
 		}
 	},
 	template: `
@@ -25,6 +26,7 @@ Vue.component("waiting_orders", {
 		    <div>
 	    		</br></br></br>
 	    		<button v-bind:hidden="isDisabledRequest(o)" v-on:click="sendRequest(o)"> Pošalji zahtev za isporuku </button>
+	    		<p>{{this.error}}</p>
 	    	</div>
 		  </div>		  
 		 </div>
@@ -53,6 +55,16 @@ Vue.component("waiting_orders", {
 			}
 		},
 		sendRequest: function(order) {
+			axios
+				.post('/rest/newRequest', order)
+				.then(response => 
+				{
+					if(response.data == 'OK') {
+						router.push(`/`);
+					} else {
+						this.error = "Već ste poslali zahtev";
+					}
+				});
 		}
 	}
 });

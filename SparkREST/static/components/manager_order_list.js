@@ -73,6 +73,8 @@ Vue.component("manager_order_list", {
 				.then(response => (router.push(`/`)));
 		},
 		viewRequests: function() {
+			event.preventDefault();
+			router.push(`/requests`);
 		}
 	}
 });

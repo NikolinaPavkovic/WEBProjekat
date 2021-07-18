@@ -12,22 +12,29 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
 import beans.CustomerType;
+import beans.Deliverer;
 import beans.Item;
 import beans.Manager;
 import beans.Order;
 import beans.OrderStatus;
+import beans.Request;
 import beans.Restaurant;
 import beans.ShoppingCart;
 import beans.TypeName;
 import beans.User;
 import dao.Customers;
+import dao.Deliverers;
 import dao.Managers;
 import dao.Orders;
+import dao.Requests;
+import dto.RequestDTO;
 
 public class OrderService {
 	private Orders orders = new Orders();
 	private Customers customers = new Customers();
 	private Managers managers = new Managers();
+	private Requests requests = new Requests();
+	private Deliverers deliverers = new Deliverers();
 	
 	public Collection<Order> getOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		return orders.load();
@@ -288,6 +295,122 @@ public class OrderService {
 			}
 		}
 		return waitingOrders;
+	}
+	
+	public Request newRequest(Request request) throws JsonMappingException, JsonGenerationException, IOException {
+		ArrayList<Request> allRequests = requests.load();
+		for (int i = 0; i < allRequests.size(); i++) {
+			if(allRequests.get(i).getDeliverer().equals(request.getDeliverer()) &&
+					allRequests.get(i).getOrder().getId().equals(request.getOrder().getId())) {
+				return null;
+			}
+		}
+		requests.save(request);
+		return request;
+	}
+	
+	public ArrayList<Request> getManagerRequests(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Request> allRequests = requests.load();
+		ArrayList<Manager> allManagers = managers.load();
+		ArrayList<Request> managerRequests = new ArrayList<Request>();
+		Manager manager = new Manager();
+		for(Manager m : allManagers) {
+			if(user.getUsername().equals(m.getUsername())) {
+				manager = m;
+			}
+		}
+		for(int i = 0; i < allRequests.size(); i++) {
+			if(allRequests.get(i).getOrder().getRestaurant().equals(manager.getRestaurant().getName())) {
+				managerRequests.add(allRequests.get(i));
+			}
+		}
+		return managerRequests;
+	}
+	
+	public ArrayList<RequestDTO> getManagerRequestsDTO(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<RequestDTO> list = new ArrayList<RequestDTO>();
+		RequestDTO requestDTO = new RequestDTO();
+		ArrayList<Request> managerReq = getManagerRequests(user);
+		for (Request request : managerReq) {
+			requestDTO = new RequestDTO(request.getOrder().getRestaurant(), request.getOrder().getPrice(), request.getDeliverer(), request.getOrder().getId());
+			list.add(requestDTO);
+		}
+		return list;
+	}
+	
+	public void acceptRequest(RequestDTO dto) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Request> requestList = requests.load();
+		ArrayList<Deliverer> delivererList = deliverers.load();
+		ArrayList<Customer> customerList = customers.load();
+		ArrayList<Order> orderList = orders.load();
+		Request validRequest = new Request();
+		Deliverer deliverer = new Deliverer();
+		Customer customer = new Customer();
+		for(int i = 0; i < requestList.size(); i++) {
+			if(requestList.get(i).getDeliverer().equals(dto.getDeliverer()) && requestList.get(i).getOrder().getId().equals(dto.getOrderId())) {
+				validRequest = requestList.get(i);
+				requestList.remove(i);
+				break;
+			}
+		}
+		
+		for(int i = 0; i < delivererList.size(); i++) {
+			if(delivererList.get(i).getUsername().equals(dto.getDeliverer())) {
+				deliverer = delivererList.get(i);
+				delivererList.remove(i);
+				break;
+			}
+		}
+		
+		Order order = validRequest.getOrder();
+		order.setStatus(OrderStatus.transport);
+		deliverer.getOrders().add(order);
+		
+		for(int i = 0; i < orderList.size(); i++) {
+			if(orderList.get(i).getId().equals(order.getId())) {
+				orderList.remove(i);
+				orderList.add(order);
+				break;
+			}
+		}
+		
+		for(int i = 0; i < customerList.size(); i++) {
+			if(customerList.get(i).getUsername().equals(order.getCustomer())) {
+				customer = customerList.get(i);
+				customerList.remove(i);
+				break;
+			}
+		}
+		
+		ArrayList<Order> customerOrders = customer.getOrders();
+		for(int i = 0; i < customerOrders.size(); i++) {
+			if(order.getId().equals(customerOrders.get(i).getId())) {
+				customerOrders.remove(i);
+				break;
+			}
+		}
+		customerOrders.add(order);
+		customer.setOrders(customerOrders);
+		
+		delivererList.add(deliverer);
+		customerList.add(customer);
+		
+		requests.emptyFile();
+		deliverers.emptyFile();
+		customers.emptyFile();
+		
+		for (Request r : requestList) {
+			requests.save(r);
+		}
+		
+		for (Deliverer d : delivererList) {
+			deliverers.save(d);
+		}
+		
+		for(Customer c : customerList) {
+			customers.save(c);
+		}
+		
 	}
 	
 }
