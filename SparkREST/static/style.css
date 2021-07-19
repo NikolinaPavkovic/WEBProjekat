@@ -639,3 +639,9 @@ body {
   height: 420px;
   width: 420px;
 }
+
+.map-div-search {
+  height: 420px;
+  width: 660px;
+  margin-left: 41px;
+}

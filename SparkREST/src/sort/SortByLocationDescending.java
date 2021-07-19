@@ -8,6 +8,6 @@ public class SortByLocationDescending implements Comparator<Restaurant> {
 
 	@Override
 	public int compare(Restaurant o1, Restaurant o2) {
-		return -(o1.getLocation().toString().compareTo(o2.getLocation().toString()));
+		return -(o1.getLocation().getAddress().getCity().getCity().compareTo(o2.getLocation().getAddress().getCity().getCity()));
 	}
 }

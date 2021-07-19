@@ -48,8 +48,9 @@ Vue.component("search-restaurant", {
             <input type="search" v-model="restaurantName" placeholder="Naziv restorana" name="name"/>
           </div>
           <div class="column">
-            <input type="search" id="autocomplete-dataset" placeholder="Lokacija restorana" name="location"/>
+            <input type="search" id="city" placeholder="Lokacija restorana" name="location"/>
           </div>
+
           <div class="column">
             <select v-model="restaurantType">
               <option value="" disabled selected> Tip </option>
@@ -76,6 +77,10 @@ Vue.component("search-restaurant", {
           </div>
           <button v-on:click="searchRestaurant" class="search-button"> <img class="search-image" src="./images/search.png"> </button>
         </div> </br>
+
+        <div class="map-div-search">
+          <div id="map"> </div>
+        </div> <br>
 
         <a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
         <div v-bind:hidden="filters_show == false" >
@@ -141,82 +146,72 @@ Vue.component("search-restaurant", {
               <h1 class="restaurant-name"> {{r.name}} </h1>
               <h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
               <h1 class="info"> Tip restorana: {{r.type}} </h1>
-              <h1 class="info"> {{r.status}} </h1>
+              <h1 class="info"> {{isOpen()}} </h1>
               <h1 class="info"> {{getAvg(r.name)}} </h1>
             </div>
           </div>
 
-      <input type="text" class="hidden" id="city" hidden/>
+      <input type="text" class="hidden" id="address" hidden/>
       <input type="text" class="hidden" id="country" hidden/>
+      <input type="text" class="hidden" id="longitude" hidden/>
+      <input type="text" class="hidden" id="latitude" hidden/>
+      <input type="text" class="hidden" id="zipcode" hidden/>
 
     </div>
   `,
 
   mounted() {
 
-    this.$forceUpdate();
+    const map = new ol.Map({ target: "map" });
+
+    map.setView(
+      new ol.View({
+        center: ol.proj.fromLonLat([19.7245,45.2889]),
+        zoom: 12
+      })
+    );
+
+    const apiKey = "AAPK8cad6fdb843d461b83eff8dfd08b20dcBLf02R4yV5jXllwflSmWOdjsqUK-9v-etIhDJdP7et4xmJgOD9xBn2FDg-DOwbvs";
+    const basemapId = "ArcGIS:Navigation";
+    const basemapURL = "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/" + basemapId + "?type=style&token=" + apiKey;
+
+    olms(map, basemapURL);
+
+    const popup = new Popup();
+    map.addOverlay(popup);
+
+    map.on("click", (e) => {
+      const coords = ol.proj.transform(e.coordinate, "EPSG:3857", "EPSG:4326");
+
+      const authentication = new arcgisRest.ApiKey({
+        key: apiKey
+      });
+
+    arcgisRest
+    .reverseGeocode(coords, { authentication })
+    .then((result) => {
+      const message = `${result.address.LongLabel}<br>` + `${result.location.x.toLocaleString()}, ${result.location.y.toLocaleString()}`;
+      document.querySelector('#address').value = cyrilicToLatinic(result.address.Address);
+      document.querySelector('#country').value = cyrilicToLatinic(result.address.CountryCode);
+      document.querySelector('#city').value = cyrilicToLatinic(result.address.City);
+      document.querySelector('#longitude').value = result.location.x.toLocaleString();
+      document.querySelector('#latitude').value = result.location.y.toLocaleString();
+      this.locationSearch = cyrilicToLatinic(result.address.LongLabel);
+      document.querySelector('#zipcode').value = result.address.Postal;
+
+    })
+
+    .catch((error) => {
+      popup.hide();
+      console.error(error);
+    })
+  });
 
     axios
       .get('/rest/getComments')
       .then(response => {
         this.comments = response.data;
       });
-
-    var placesCountry = placesAutocompleteDataset({
-      algoliasearch: algoliasearch,
-      templates: {
-        header: '<div class="ad-example-header"> Drzave </div>',
-        footer: '<div class="ad-example_footer"/>'
-      },
-      hitsPerPage: 3,
-      type: ["country"],
-      getRankingInfo: true
-    });
-
-    var placesCity = placesAutocompleteDataset({
-      algoliasearch: algoliasearch,
-      templates: {
-        header: '<div class="ad-example-header"> Gradovi </div>'
-      },
-      hitsPerPage: 3,
-      type: ["city"],
-      getRankingInfo: true
-    });
-
-    var autocompleteInstance = autocomplete(
-      document.querySelector("#autocomplete-dataset"),
-      {
-        hint: false,
-        debug: true,
-        cssClasses: { prefix: "ad-example"}
-      },
-      [placesCountry, placesCity]
-    );
-
-    var autocompleteChangeEvents = ["selected", "close"];
-
-    autocompleteChangeEvents.forEach(function(eventName) {
-      autocompleteInstance.on("autocomplete:" + eventName, function (
-        event,
-        suggestion,
-        datasetName
-      ) {
-        console.log(datasetName, suggestion);
-
-        if(suggestion.type === 'city') {
-          document.querySelector("#city").value = suggestion.name || '';
-          document.querySelector("#country").value = suggestion.country || '';
-        } else if (suggestion.type === 'country') {
-          document.querySelector("#city").value = '';
-          document.querySelector("#country").value = suggestion.value || '';
-        }
-        document.querySelector('#autocomplete-dataset').value = suggestion.value || '';
-      });
-    });
-
-    document.querySelector("#autocomplete-dataset").on("change", evt => {
-      document.querySelector('#autocomplete-dataset').value = e.suggestion.value || '';
-    });
   },
 
   methods: {
@@ -226,10 +221,8 @@ Vue.component("search-restaurant", {
       },
 
       searchRestaurant: function() {
-        this.locationSearch = cyrilicToLatinic(document.querySelector('#autocomplete-dataset').value);
         let city = cyrilicToLatinic(document.querySelector('#city').value);
         let country = cyrilicToLatinic(document.querySelector('#country').value);
-        console.log(this.locationSearch);
 
         if (this.restaurantType === 'chinese') {
           this.restaurantType = "chinese";
@@ -350,11 +343,11 @@ Vue.component("search-restaurant", {
         }
 
         console.log(this.type);
-        this.restaurantStatus = "open";
+        //this.restaurantStatus = "open";
 
         let filterParams = {
           type: this.type,
-          status: this.restaurantStatus,
+          status: isOpen(),
           restaurants: this.restaurants
         }
 
@@ -418,6 +411,17 @@ Vue.component("search-restaurant", {
         }
         avg = sum/cnt;
         return avg;
+      },
+
+      isOpen: function() {
+        var today = new Date();
+        var hours = today.getHours();
+
+        if (hours >= 8 && hours <= 19) {
+          return "open";
+        } else {
+          return "closed";
+        }
       }
 
   }

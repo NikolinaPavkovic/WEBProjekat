@@ -29,7 +29,8 @@ Vue.component("restaurant_info", {
       itemDescription: "",
       itemImage: "",
       itemImageForBackend: "",
-      oldItem: null
+      oldItem: null,
+      open: false
     }
   },
 
@@ -60,7 +61,7 @@ Vue.component("restaurant_info", {
             </div>
             <div class="data">
               <h4> Status: </h4>
-              <p> {{restaurant.status}} </p>
+              <p> {{isOpen()}} </p>
             </div>
             </div>
         </div>
@@ -88,10 +89,10 @@ Vue.component("restaurant_info", {
       <div>
       	</br></br></br></br></br>
       	<span>
-  	    	<button v-if="mode=='customer'" v-on:click="increment(i.name)" >+</button>
-  	    	<label v-bind:id="i.name" v-if="mode=='customer'">0</label>
-  	    	<button v-if="mode=='customer'" v-on:click="decrement(i.name)">-</button>
-  	    	<button v-if="mode=='customer'" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
+  	    	<button v-if="mode=='customer' && open==true" v-on:click="increment(i.name)">+</button>
+  	    	<label v-bind:id="i.name" v-if="mode=='customer' && open==true">0</label>
+  	    	<button v-if="mode=='customer' && open==true" v-on:click="decrement(i.name)">-</button>
+  	    	<button v-if="mode=='customer' && open==true" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
           <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button>
   	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
       	</span>
@@ -294,6 +295,21 @@ Vue.component("restaurant_info", {
         .put('/rest/editItem', JSON.stringify(itemParams));
 
       this.editMode = false;
+    },
+
+    isOpen: function() {
+      var today = new Date();
+      var hours = today.getHours();
+
+      if (hours >= 8 && hours <= 19) {
+        this.open = true;
+        return "open";
+      } else {
+        this.open = false;
+        return "closed";
+      }
+
+      console.log(this.open);
     }
   }
 

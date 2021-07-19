@@ -16,6 +16,17 @@ function removeFromArray(arr, value) {
     });
   }
 
+function isOpen() {
+  var today = new Date();
+  var hours = today.getHours();
+
+  if (hours >= 8 && hours <= 19) {
+    return "open";
+  } else {
+    return "closed";
+  }
+}
+
 Vue.component("restaurants", {
 	data: function() {
 		return {
@@ -40,7 +51,8 @@ Vue.component("restaurants", {
       sortBy: "",
       ascending: false,
       openRestaurants: null,
-      closedRestaurants:null
+      closedRestaurants:null,
+      restaurantStatus: ""
 		}
 	},
 	template: `
@@ -156,7 +168,7 @@ Vue.component("restaurants", {
 			  <h1 class="restaurant-name"> {{r.name}} </h1>
 				<h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
 				<h1 class="info"> Tip restorana: {{r.type}} </h1>
-				<h1 class="info"> {{r.status}} </h1>
+				<h1 class="info"> {{isOpen()}} </h1>
         <h1 class="info"> {{getAvg(r.name)}} </h1>
 			</div>
 		</div>
@@ -425,11 +437,11 @@ Vue.component("restaurants", {
         }
 
         console.log(this.type);
-        this.restaurantStatus = "open";
+        //this.restaurantStatus = "open";
 
         let filterParams = {
           type: this.type,
-          status: this.restaurantStatus,
+          status: isOpen(),
           restaurants: this.restaurants
         }
 
@@ -525,7 +537,7 @@ Vue.component("restaurants", {
       event.preventDefault();
       router.push(`/add_item`);
     },
-    
+
     getManagerOrders: function() {
     	event.preventDefault();
     	router.push(`/manager_order_list`);
@@ -535,7 +547,19 @@ Vue.component("restaurants", {
     	router.push(`/waiting_orders`);
     },
     getDelivererOrders: function() {
-    	
+
+    },
+    
+    isOpen: function() {
+      var today = new Date();
+      var hours = today.getHours();
+
+      if (hours >= 8 && hours <= 19) {
+        return "open";
+      } else {
+        return "closed";
+      }
+
     }
 
 	}
