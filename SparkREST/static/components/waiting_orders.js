@@ -17,16 +17,15 @@ Vue.component("waiting_orders", {
 	        </div>
 		    <div class="col-information">
 		      <h1 class="item-name"> {{o.restaurant}}</h1>
-		      <h1 class="price"> {{o.price}},00 RSD </h1>
+		      <h1 class="price"> {{o.price}},00 RSD</h1>
 		      <h1 class="price"> {{o.status}} </h1>
 		      <div v-for="(i, index) in o.orderedItems" >
 		  		 <label>&nbsp; &nbsp; &nbsp; &nbsp;{{i.name}} x{{i.amount}}</label>
 		  	  </div>
 		    </div>
 		    <div>
-	    		</br></br></br>
+	    		</br></br></br></br></br>
 	    		<button v-bind:hidden="isDisabledRequest(o)" v-on:click="sendRequest(o)"> Pošalji zahtev za isporuku </button>
-	    		<p>{{this.error}}</p>
 	    	</div>
 		  </div>		  
 		 </div>

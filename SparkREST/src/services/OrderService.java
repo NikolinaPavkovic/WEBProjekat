@@ -15,6 +15,7 @@ import beans.CustomerType;
 import beans.Deliverer;
 import beans.Item;
 import beans.Manager;
+import beans.Notification;
 import beans.Order;
 import beans.OrderStatus;
 import beans.Request;
@@ -25,6 +26,7 @@ import beans.User;
 import dao.Customers;
 import dao.Deliverers;
 import dao.Managers;
+import dao.Notifications;
 import dao.Orders;
 import dao.Requests;
 import dto.RequestDTO;
@@ -35,6 +37,7 @@ public class OrderService {
 	private Managers managers = new Managers();
 	private Requests requests = new Requests();
 	private Deliverers deliverers = new Deliverers();
+	private Notifications notifications = new Notifications();
 	
 	public Collection<Order> getOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		return orders.load();
@@ -286,6 +289,23 @@ public class OrderService {
 		}
 	}
 	
+	private void changeOrderStatusRequest(String deliverer, String orderId) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Request> allRequests = requests.load();
+		Request request = new Request();
+		for(int i = 0; i < allRequests.size(); i++) {
+			if(allRequests.get(i).getDeliverer().equals(deliverer) && allRequests.get(i).getOrder().getId().equals(orderId)) {
+				request = allRequests.get(i);
+				allRequests.remove(i);
+			}
+		}
+		request.getOrder().setStatus(OrderStatus.delivered);
+		allRequests.add(request);
+		requests.emptyFile();
+		for (Request r : allRequests) {
+			requests.save(r);
+		}
+	}
+	
 	public void changeOrderStatusDeliverer(Order order, User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Deliverer> allDeliverers = deliverers.load();
 		Deliverer deliverer = new Deliverer();
@@ -311,6 +331,7 @@ public class OrderService {
 		}
 		
 		changeOrderStatus(order.getId(), OrderStatus.delivered);
+		changeOrderStatusRequest(deliverer.getUsername(), order.getId());
 	}
 	
 	public ArrayList<Order> getWaitingOrders() throws JsonGenerationException, JsonMappingException, IOException {
@@ -350,7 +371,7 @@ public class OrderService {
 			}
 		}
 		for(int i = 0; i < allRequests.size(); i++) {
-			if(allRequests.get(i).getOrder().getRestaurant().equals(manager.getRestaurant().getName())) {
+			if(allRequests.get(i).getOrder().getRestaurant().equals(manager.getRestaurant().getName()) && allRequests.get(i).isDeleted() == false) {
 				managerRequests.add(allRequests.get(i));
 			}
 		}
@@ -382,6 +403,8 @@ public class OrderService {
 		for(int i = 0; i < requestList.size(); i++) {
 			if(requestList.get(i).getDeliverer().equals(dto.getDeliverer()) && requestList.get(i).getOrder().getId().equals(dto.getOrderId())) {
 				validRequest = requestList.get(i);
+				validRequest.setAccepted(true);
+				validRequest.setDeleted(true);
 				requestList.remove(i);
 				break;
 			}
@@ -422,6 +445,10 @@ public class OrderService {
 				break;
 			}
 		}
+		
+		validRequest.setOrder(order);
+		requestList.add(validRequest);
+		
 		customerOrders.add(order);
 		customer.setOrders(customerOrders);
 		
@@ -431,6 +458,7 @@ public class OrderService {
 		requests.emptyFile();
 		deliverers.emptyFile();
 		customers.emptyFile();
+		orders.emptyFile();
 		
 		for (Request r : requestList) {
 			requests.save(r);
@@ -444,6 +472,32 @@ public class OrderService {
 			customers.save(c);
 		}
 		
+		for (Order o : orderList) {
+			orders.save(o);
+		}
+		
+		Notification notification = new Notification(deliverer.getUsername(), order.getId(), "Vaš zahtev je prihvaćen!", false);
+		notifications.save(notification);
+	}
+	
+	public void rejectRequest(RequestDTO dto) throws JsonMappingException, JsonGenerationException, IOException {
+		Notification notification = new Notification(dto.getDeliverer(), dto.getOrderId(), "Vaš zahtev je odbijen!", false);
+		notifications.save(notification);
+		ArrayList<Request> allRequests = requests.load();
+		Request request = new Request();
+		for(int i = 0; i < allRequests.size(); i++) {
+			if(allRequests.get(i).getDeliverer().equals(dto.getDeliverer()) &&
+					allRequests.get(i).getOrder().getId().equals(dto.getOrderId())) {
+				request = allRequests.get(i);
+				allRequests.remove(i);
+			}
+		}
+		request.setDeleted(true);
+		allRequests.add(request);
+		requests.emptyFile();
+		for (Request r : allRequests) {
+			requests.save(r);
+		}
 	}
 	
 }

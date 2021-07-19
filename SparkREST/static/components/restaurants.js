@@ -186,6 +186,7 @@ Vue.component("restaurants", {
 		<button v-if="mode=='manager'" v-on:click="getManagerOrders"> Pregled porudžbina </button>
 		<button v-if="mode=='deliverer'" v-on:click="getWaitingOrders"> Porudžbine na čekanju </button>
 		<button v-if="mode=='deliverer'" v-on:click="getDelivererOrders"> Moje porudžbine </button>
+		<button v-if="mode=='deliverer'" v-on:click="viewNotifications">Obaveštenja</button>
 	</div>
 	`,
 	mounted() {
@@ -558,9 +559,13 @@ Vue.component("restaurants", {
       if (hours >= 8 && hours <= 19) {
         return "open";
       } else {
-        return "closed";
+        return "open";
       }
 
+    },
+    viewNotifications: function() {
+    	event.preventDefault();
+    	router.push(`/delivererNotifications`);
     }
 
 	}

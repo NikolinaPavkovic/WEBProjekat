@@ -8,12 +8,15 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Deliverer;
+import beans.Notification;
 import beans.Order;
 import beans.User;
 import dao.Deliverers;
+import dao.Notifications;
 
 public class DelivererService {
 	private Deliverers deliverers = new Deliverers();
+	private Notifications notifications = new Notifications();
 	
 	public Collection<Deliverer> getDeliverers() throws JsonGenerationException, JsonMappingException, IOException {
 		return deliverers.load();
@@ -92,5 +95,32 @@ public class DelivererService {
 			}
 		}
 		return deliverer.getOrders();
+	}
+	
+	public ArrayList<Notification> getDelivererNotifications(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Notification> allNotifications = notifications.load();
+		ArrayList<Notification> delivererNotifications = new ArrayList<Notification>();
+		for(int i = 0; i < allNotifications.size(); i++) {
+			if(allNotifications.get(i).getDeliverer().equals(user.getUsername()) && allNotifications.get(i).isDeleted() == false) {
+				delivererNotifications.add(allNotifications.get(i));
+			}
+		}
+		return delivererNotifications;
+	}
+	
+	public void editNotificationStatus(Notification notification) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Notification> allNotifications = notifications.load();
+		for(int i = 0; i < allNotifications.size(); i++) {
+			if(notification.getDeliverer().equals(allNotifications.get(i).getDeliverer()) &&
+					notification.getOrderId().equals(allNotifications.get(i).getOrderId())) {
+				allNotifications.remove(i);
+			}
+		}
+		notification.setDeleted(true);
+		allNotifications.add(notification);
+		notifications.emptyFile();
+		for (Notification notification2 : allNotifications) {
+			notifications.save(notification2);
+		}
 	}
 }

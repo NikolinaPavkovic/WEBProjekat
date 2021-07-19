@@ -19,6 +19,7 @@ import beans.Customer;
 import beans.Gender;
 import beans.Item;
 import beans.Manager;
+import beans.Notification;
 import beans.Order;
 import beans.OrderStatus;
 import beans.Request;
@@ -467,7 +468,7 @@ public class SparkAppMain {
 			Order order = g.fromJson(req.body(), Order.class);
 			Session session = req.session(true);
 			User user = session.attribute("user");
-			Request request = new Request(user.getUsername(), order, false);
+			Request request = new Request(user.getUsername(), order, false, false);
 			Request r = new Request();
 			r = orderService.newRequest(request);
 			if(r == null) {
@@ -498,6 +499,8 @@ public class SparkAppMain {
 		
 		put("/rest/rejectRequest", (req, res) -> {
 			res.type("application/json");
+			RequestDTO dto = g.fromJson(req.body(), RequestDTO.class);
+			orderService.rejectRequest(dto);
 			return "";
 		});
 		
@@ -506,6 +509,24 @@ public class SparkAppMain {
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(delivererService.getDelivererOrders(user));
+		});
+		
+		
+		get("/rest/getDelivererNotifications", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			if(delivererService.getDelivererNotifications(user).size() == 0) {
+				return "Empty";
+			}
+			return g.toJson(delivererService.getDelivererNotifications(user));
+		});
+		
+		put("/rest/editNotificationStatus", (req, res) -> {
+			res.type("application/json");
+			Notification notification = g.fromJson(req.body(), Notification.class);
+			delivererService.editNotificationStatus(notification);
+			return "";
 		});
 
 	}

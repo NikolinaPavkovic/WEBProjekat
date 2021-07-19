@@ -47,7 +47,7 @@ Vue.component("requests", {
 		},
 		rejectRequest: function(requestDTO) {
 			axios
-				.put('/rest/rejectRequest')
+				.put('/rest/rejectRequest', requestDTO)
 				.then(response => (router.push(`/`)));
 		}
 	}

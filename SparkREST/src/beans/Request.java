@@ -4,17 +4,19 @@ public class Request {
 	private String deliverer;
 	private Order order;
 	private boolean accepted;
+	private boolean deleted;
 	
 	public Request() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Request(String deliverer, Order order, boolean accepted) {
+	public Request(String deliverer, Order order, boolean accepted, boolean deleted) {
 		super();
 		this.deliverer = deliverer;
 		this.order = order;
 		this.accepted = accepted;
+		this.deleted = deleted;
 	}
 
 	public String getDeliverer() {
@@ -39,6 +41,14 @@ public class Request {
 
 	public void setAccepted(boolean accepted) {
 		this.accepted = accepted;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 }
