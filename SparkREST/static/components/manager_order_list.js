@@ -29,7 +29,7 @@ Vue.component("manager_order_list", {
 	    		<button v-bind:hidden="isDisabledPrepare(o)" v-on:click="changeStatusToPreparing(o)"> U pripremi </button>
 	    		<button v-bind:hidden="isDisabledWait(o)" v-on:click="changeStatusToWaiting(o)"> Čeka dostavljača </button>
 	    	</div>
-		  </div>	  
+		  </div>
 		 </div>
 	`,
 	mounted() {

@@ -286,6 +286,33 @@ public class OrderService {
 		}
 	}
 	
+	public void changeOrderStatusDeliverer(Order order, User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Deliverer> allDeliverers = deliverers.load();
+		Deliverer deliverer = new Deliverer();
+		for(int i = 0; i < allDeliverers.size(); i++) {
+			if(allDeliverers.get(i).getUsername().equals(user.getUsername())) {
+				deliverer = allDeliverers.get(i);
+				allDeliverers.remove(i);
+			}
+		}
+		
+		ArrayList<Order> delivererOrders = deliverer.getOrders();
+		for(int i = 0; i < delivererOrders.size(); i++) {
+			if(order.getId().equals(delivererOrders.get(i).getId())) {
+				delivererOrders.remove(i);
+			}
+		}
+		order.setStatus(OrderStatus.delivered);
+		delivererOrders.add(order);
+		allDeliverers.add(deliverer);
+		deliverers.emptyFile();
+		for (Deliverer d : allDeliverers) {
+			deliverers.save(d);
+		}
+		
+		changeOrderStatus(order.getId(), OrderStatus.delivered);
+	}
+	
 	public ArrayList<Order> getWaitingOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> allOrders = orders.load();
 		ArrayList<Order> waitingOrders = new ArrayList<Order>();
@@ -314,6 +341,9 @@ public class OrderService {
 		ArrayList<Manager> allManagers = managers.load();
 		ArrayList<Request> managerRequests = new ArrayList<Request>();
 		Manager manager = new Manager();
+		if(allRequests.size() == 0) {
+			return managerRequests;
+		}
 		for(Manager m : allManagers) {
 			if(user.getUsername().equals(m.getUsername())) {
 				manager = m;
@@ -331,6 +361,9 @@ public class OrderService {
 		ArrayList<RequestDTO> list = new ArrayList<RequestDTO>();
 		RequestDTO requestDTO = new RequestDTO();
 		ArrayList<Request> managerReq = getManagerRequests(user);
+		if(managerReq.size() == 0) {
+			return list;
+		}
 		for (Request request : managerReq) {
 			requestDTO = new RequestDTO(request.getOrder().getRestaurant(), request.getOrder().getPrice(), request.getDeliverer(), request.getOrder().getId());
 			list.add(requestDTO);

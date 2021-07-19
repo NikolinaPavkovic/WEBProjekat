@@ -92,7 +92,7 @@
     "dateAndTime" : 1626285999000,
     "price" : 1425.0,
     "customer" : "vanja",
-    "status" : "transport"
+    "status" : "delivered"
   } ],
   "shoppingCart" : {
     "items" : [ ],

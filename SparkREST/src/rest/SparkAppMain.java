@@ -449,6 +449,14 @@ public class SparkAppMain {
 			return "";
 		});
 		
+		post("/rest/changeStatusToDelivered", (req, res) -> {
+			Order order = g.fromJson(req.body(), Order.class);
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			orderService.changeOrderStatusDeliverer(order, user);
+			return "";
+		});
+		
 		get("/rest/getWaitingOrders", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(orderService.getWaitingOrders());
@@ -471,6 +479,7 @@ public class SparkAppMain {
 		});
 		
 		get("/rest/getManagerRequests", (req, res) -> {
+			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			if(orderService.getManagerRequests(user).size() == 0) {
@@ -481,13 +490,22 @@ public class SparkAppMain {
 		});
 		
 		put("/rest/acceptRequest", (req, res) -> {
+			res.type("application/json");
 			RequestDTO dto = g.fromJson(req.body(), RequestDTO.class);
 			orderService.acceptRequest(dto);
 			return "";
 		});
 		
 		put("/rest/rejectRequest", (req, res) -> {
+			res.type("application/json");
 			return "";
+		});
+		
+		get("/rest/getDelivererOrders", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(delivererService.getDelivererOrders(user));
 		});
 
 	}

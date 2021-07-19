@@ -1,7 +1,8 @@
 Vue.component("requests", {
 	data: function() {
 		return {
-			requests: null
+			requests: null,
+			empty: ""
 		}
 	},
 	template: `
@@ -17,6 +18,13 @@ Vue.component("requests", {
 	    		<button v-on:click="acceptRequest(r)"> Prihvati zahtev </button>
 	    		<button v-on:click="rejectRequest(r)"> Odbij zahtev </button>
 	    	</div>
+		  </div>
+		  <div>
+		  	<div class="row-items">
+			    <div class="col-information">
+			      <h1 class="item-name"> {{this.empty}}</h1>
+			    </div>
+		    </div>
 		  </div>		  
 		 </div>
 	`,
@@ -24,7 +32,11 @@ Vue.component("requests", {
 		axios
 			.get('/rest/getManagerRequests')
 			.then(response => {
-				this.requests = response.data;
+				if(response.data == 'Empty request list') {
+					this.empty = "Nemate novih zahteva";
+				} else {
+					this.requests = response.data;
+				}
 			});
 	},
 	methods: {
