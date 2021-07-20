@@ -178,4 +178,26 @@
     "discount" : 0.0,
     "requiredPoints" : 1120.95
   }
+}, {
+  "username" : "milka",
+  "password" : "milka",
+  "name" : "Milka",
+  "surname" : "Milkic",
+  "gender" : "female",
+  "dateOfBirth" : 1625608800000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false,
+  "orders" : [ ],
+  "shoppingCart" : {
+    "items" : [ ],
+    "customer" : null,
+    "price" : 0.0
+  },
+  "points" : 0.0,
+  "customerType" : {
+    "typeName" : "steel",
+    "discount" : 0.0,
+    "requiredPoints" : 0.0
+  }
 } ]

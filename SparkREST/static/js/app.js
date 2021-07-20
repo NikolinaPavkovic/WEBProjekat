@@ -5,7 +5,6 @@ const addEmployee = { template: '<addEmployee> </addEmployee>'}
 const add_restaurant = { template: '<add_restaurant> </add_restaurant>' }
 const userProfile = { template: '<profile></profile>' }
 const restaurant_info = { template: '<restaurant_info> </restaurant_info>' }
-const editProfile = { template: '<edit_profile> </edit_profile>'}
 const customers = { template: '<customers> </customers>'}
 const managers = { template: '<managers> </managers>'}
 const deliverers = { template: '<deliverers> </deliverers>' }
@@ -30,17 +29,13 @@ const router = new VueRouter({
 			{ path: '/addEmployee', component: addEmployee},
 			{ path: '/add_restaurant', component: add_restaurant },
 			{ path: '/profile/:username', component: userProfile },
-			{ path: "/details", component: restaurant_info },
-			{ path: '/restaurantInfo', component: restaurant_info },
-			{ path: '/edit_profile/:username', component: editProfile},
+			{ path: '/details', component: restaurant_info },
 			{ path: '/customers', component: customers},
 			{ path: '/managers', component: managers },
 			{ path: '/deliverers', component: deliverers },
-			{ path: "/add_item", component: add_item},
-			{ path: "/search_restaurant", component: search_restaurant },
-			{ path: "/shoppingCart/:username", component: shoppingCart },
-		  	{ path: "/search_restaurant", component: search_restaurant },
-			{ path: "/shoppingCart", component: shoppingCart },
+			{ path: '/add_item', component: add_item},
+			{ path: '/search_restaurant', component: search_restaurant },
+			{ path: '/shoppingCart/:username', component: shoppingCart },
 			{ path: '/add_manager', component: add_manager },
 			{ path: '/customer_orders', component: customer_orders },
 			{ path: '/undelivered_orders_customer', component: undelivered_orders_customer },
