@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import beans.Deliverer;
 import beans.Notification;
 import beans.Order;
+import beans.OrderStatus;
 import beans.User;
 import dao.Deliverers;
 import dao.Notifications;
@@ -122,5 +123,25 @@ public class DelivererService {
 		for (Notification notification2 : allNotifications) {
 			notifications.save(notification2);
 		}
+	}
+	
+	public ArrayList<Order> getUndeliveredOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Deliverer> alldeliverers = deliverers.load();
+		ArrayList<Order> undeliveredOrders = new ArrayList<Order>();
+		Deliverer deliverer = new Deliverer();
+		for(int i = 0; i < alldeliverers.size(); i++) {
+			if(alldeliverers.get(i).getUsername().equals(user.getUsername())) {
+				deliverer = alldeliverers.get(i);
+			}
+		}
+		
+		ArrayList<Order> delivererOrders = deliverer.getOrders();
+		for(int i = 0; i < delivererOrders.size(); i++) {
+			if(delivererOrders.get(i).getStatus() != OrderStatus.delivered) {
+				undeliveredOrders.add(delivererOrders.get(i));
+			}
+		}
+		
+		return undeliveredOrders;
 	}
 }

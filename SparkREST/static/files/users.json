@@ -138,4 +138,14 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
-} ]
+} , {
+  "username" : "srdjan",
+  "password" : "srdjan",
+  "name" : "Srdjan",
+  "surname" : "Popovic",
+  "gender" : "male",
+  "dateOfBirth" : 1624831200000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+}]

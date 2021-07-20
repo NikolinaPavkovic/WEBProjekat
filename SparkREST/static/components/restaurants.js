@@ -185,6 +185,7 @@ Vue.component("restaurants", {
     	<button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
 		<button v-on:click="goToSearch"> search </button>
 		<button v-if="mode=='manager'" v-on:click="getManagerOrders"> Pregled porudžbina </button>
+		<button v-if="mode=='manager'" v-on:click="getCustomersManager"> Pregled kupaca </button>
 		<button v-if="mode=='deliverer'" v-on:click="getWaitingOrders"> Porudžbine na čekanju </button>
 		<button v-if="mode=='deliverer'" v-on:click="getDelivererOrders"> Moje porudžbine </button>
 		<button v-if="mode=='deliverer'" v-on:click="viewNotifications">Obaveštenja</button>
@@ -571,6 +572,11 @@ Vue.component("restaurants", {
     getSuspiciousCustomers: function() {
     	event.preventDefault();
     	router.push(`/suspiciousCustomers`);
+    },
+    getCustomersManager: function() {
+    	event.preventDefault();
+    	router.push(`/customersForManager`);
+    	
     }
 
 	}

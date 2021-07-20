@@ -550,6 +550,20 @@ public class SparkAppMain {
 			userService.blockUser(username);
 			return "";
 		});
+		
+		get("/rest/getUndeliveredOrdersDeliverer", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(delivererService.getUndeliveredOrders(user));
+		});
+		
+		get("/rest/getCustomersForManager", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(customerService.getCustomersForManager(user));
+		});
 
 	}
 }

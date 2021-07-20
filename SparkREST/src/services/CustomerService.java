@@ -9,15 +9,19 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Customer;
 import beans.Item;
+import beans.Manager;
+import beans.Order;
 import beans.ShoppingCart;
 import beans.User;
 import dao.Customers;
 import dao.Items;
+import dao.Managers;
 import dto.EditCartDTO;
 
 public class CustomerService {
 	private Customers customers = new Customers();
 	private Items items = new Items();
+	private Managers managers = new Managers();
 	
 	public Collection<Customer> getCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		return this.customers.load();
@@ -266,6 +270,30 @@ public class CustomerService {
 			 }
 		 }
 		 return suspiciousCustomers;
+	 }
+	 
+	 public ArrayList<Customer> getCustomersForManager(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Customer> allCustomers = customers.load();
+		 ArrayList<Manager> allManagers = managers.load();
+		 Manager manager = new Manager();
+		 ArrayList<Customer> customersForManager = new ArrayList<Customer>();
+		 ArrayList<Order> customerOrders = new ArrayList<Order>();
+		 for(int i = 0; i < allManagers.size(); i++) {
+			 if(user.getUsername().equals(allManagers.get(i).getUsername())) {
+				 manager = allManagers.get(i);
+			 }
+		 }
+		 
+		 for(int i = 0; i < allCustomers.size(); i++) {
+			 customerOrders = allCustomers.get(i).getOrders();
+			 for(int j = 0; j < customerOrders.size(); j++) {
+				 if(customerOrders.get(j).getRestaurant().equals(manager.getRestaurant().getName())) {
+					 customersForManager.add(allCustomers.get(i));
+					 break;
+				 }
+			 }
+		 }
+		 return customersForManager;
 	 }
 
 }

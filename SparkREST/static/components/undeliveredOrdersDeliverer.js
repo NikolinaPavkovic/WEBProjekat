@@ -1,4 +1,4 @@
-Vue.component("delivererOrders", {
+Vue.component("undeliveredOrdersDeliverer", {
 	data: function() {
 		return {
 			orders: null
@@ -6,7 +6,6 @@ Vue.component("delivererOrders", {
 	},
 	template: `
 		<div>
-		  <button style="position: absolute; top: 10px; right: 40px;" v-on:click="seeUndeliveredOrders">Nedostavljene porudžbine</button>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -33,7 +32,7 @@ Vue.component("delivererOrders", {
 	`,
 	mounted() {
 		axios
-			.get('/rest/getDelivererOrders')
+			.get('/rest/getUndeliveredOrdersDeliverer')
 			.then(response => {
 				this.orders = response.data;
 			});
@@ -57,10 +56,6 @@ Vue.component("delivererOrders", {
 			} else {
 				return true;
 			}
-		},
-		seeUndeliveredOrders: function() {
-			event.preventDefault();
-    		router.push(`/undeliveredOrdersDeliverer`);
 		}
 	}
 });

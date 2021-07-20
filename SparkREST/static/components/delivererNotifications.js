@@ -13,7 +13,7 @@ Vue.component("delivererNotifications", {
 				<h1 class="item-name"> {{this.empty}}</h1>
 	  		</div>
 			<table class="table-all" id="customer-table" v-bind:hidden="isEmpty(this.empty)">
-                <thead >
+                <thead>
                     <tr class="header">
                         <th>ID porudžbine</th>
                         <th>Sadržaj</th>
@@ -32,11 +32,12 @@ Vue.component("delivererNotifications", {
 	</div>
 	`,
 	mounted() {
+		event.preventDefault();
 		axios
 			.get('/rest/getDelivererNotifications')
 			.then(response => {
 				if(response.data == 'Empty') {
-					this.empty = "Nemate novih obaveštenja";
+					this.empty = "Nemate novih obaveštenja.";
 				} else {
 					this.notifications = response.data;
 				}
@@ -44,6 +45,7 @@ Vue.component("delivererNotifications", {
 	},
 	methods: {
 		editNotificationStatus: function(notification) {
+			event.preventDefault();
 			axios
 				.put('/rest/editNotificationStatus', notification)
 				.then(response => (this.$router.go()));
