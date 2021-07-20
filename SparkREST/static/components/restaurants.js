@@ -181,6 +181,7 @@ Vue.component("restaurants", {
 		<button v-if="mode=='admin'" v-on:click="getCustomers"> Pregled kupaca </button>
 		<button v-if="mode=='admin'" v-on:click="getManagers"> Pregled menadžera </button>
 		<button v-if="mode=='admin'" v-on:click="getDeliverers"> Pregled dostavljača </button>
+		<button v-if="mode=='admin'" v-on:click="getSuspiciousCustomers"> Pregled sumnjivih korisnika </button>
     	<button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
 		<button v-on:click="goToSearch"> search </button>
 		<button v-if="mode=='manager'" v-on:click="getManagerOrders"> Pregled porudžbina </button>
@@ -559,13 +560,17 @@ Vue.component("restaurants", {
       if (hours >= 8 && hours <= 19) {
         return "open";
       } else {
-        return "open";
+        return "closed";
       }
 
     },
     viewNotifications: function() {
     	event.preventDefault();
     	router.push(`/delivererNotifications`);
+    },
+    getSuspiciousCustomers: function() {
+    	event.preventDefault();
+    	router.push(`/suspiciousCustomers`);
     }
 
 	}

@@ -7,9 +7,8 @@ Vue.component("delivererNotifications", {
 	},
 	template: `
 	<div>
+		<img class="logo" src="./images/logo1.png">
 		<div class="table-body">
-			</br></br></br>
-			<img class="logo" alt="" src="./images/logo1.png">
 			<div>
 				<h1 class="item-name"> {{this.empty}}</h1>
 	  		</div>
@@ -37,9 +36,9 @@ Vue.component("delivererNotifications", {
 			.get('/rest/getDelivererNotifications')
 			.then(response => {
 				if(response.data == 'Empty') {
-					this.empty = "Nemate novih obaveštenja"
+					this.empty = "Nemate novih obaveštenja";
 				} else {
-					this.notifications = response.data
+					this.notifications = response.data;
 				}
 			});
 	},

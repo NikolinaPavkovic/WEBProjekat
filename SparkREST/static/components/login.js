@@ -46,8 +46,16 @@ Vue.component("login", {
 			axios
 				.get('/rest/isDeleted/' + this.usernameInput)
 				.then(response => {
-					if(response.data == "YES") {
+					if(response.data == 'YES') {
 						this.errorMessage = "Nalog deaktiviran!";
+					}
+				});
+				
+			axios
+				.get('/rest/isBlocked/' + this.usernameInput)
+				.then(response => {
+					if(response.data == 'YES') {
+						this.errorMessage = "Blokirani ste!";
 					}
 				});
 

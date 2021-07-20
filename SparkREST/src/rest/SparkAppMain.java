@@ -309,7 +309,17 @@ public class SparkAppMain {
 		get("/rest/isDeleted/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");
-			if(userService.isUserDeleted(username) == true) {
+			if(userService.isUserDeleted(username)) {
+				return "YES";
+			} else {
+				return "NO";
+			}
+		});
+		
+		get("/rest/isBlocked/:username", (req, res) -> {
+			res.type("application/json");
+			String username = req.params("username");
+			if(userService.isUserBlocked(username)) {
 				return "YES";
 			} else {
 				return "NO";
@@ -526,6 +536,18 @@ public class SparkAppMain {
 			res.type("application/json");
 			Notification notification = g.fromJson(req.body(), Notification.class);
 			delivererService.editNotificationStatus(notification);
+			return "";
+		});
+		
+		get("/rest/suspiciousCustomers", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(customerService.getSuspiciousCustomers());
+		});
+		
+		put("/rest/blockUser", (req, res) -> {
+			res.type("application/json");
+			String username = g.fromJson(req.body(), String.class);
+			userService.blockUser(username);
 			return "";
 		});
 

@@ -41,7 +41,10 @@ public class CustomerService {
 						customerList.get(i).getOrders(),
 						customerList.get(i).getShoppingCart(),
 						customerList.get(i).getPoints(),
-						customerList.get(i).getCustomerType());
+						customerList.get(i).getCustomerType(),
+						customerList.get(i).getStartCheck(),
+						customerList.get(i).getEndCheck(),
+						customerList.get(i).getActions());
 				break;
 			}
 		}
@@ -57,7 +60,10 @@ public class CustomerService {
 				oldCustomer.getOrders(),
 				oldCustomer.getShoppingCart(),
 				oldCustomer.getPoints(),
-				oldCustomer.getCustomerType());
+				oldCustomer.getCustomerType(),
+				oldCustomer.getStartCheck(),
+				oldCustomer.getEndCheck(),
+				oldCustomer.getActions());
 		customerList.add(newCustomer);
 		customers.emptyFile();
 		for(Customer customer : customerList) {
@@ -191,6 +197,23 @@ public class CustomerService {
 		}
 	 }
 	 
+	 public void blockCustomer(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Customer> customerList = customers.load();
+		 Customer customer = new Customer();
+		 for(int i = 0; i < customerList.size(); i++) {
+			 if(customerList.get(i).getUsername().equals(username)) {
+				 customer = customerList.get(i);
+				 customerList.remove(i);
+			 }
+		 }
+		 customer.setIsBlocked(true);
+		 customerList.add(customer);
+		 customers.emptyFile();
+		 for (Customer c : customerList) {
+			customers.save(c);
+		}
+	 }
+	 
 	 public ArrayList<Customer> getActiveCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> activeCustomers = new ArrayList<Customer>();
 		 ArrayList<Customer> allCustomers = customers.load();
@@ -232,6 +255,17 @@ public class CustomerService {
 		 return customer.getShoppingCart();
 	 }
 	 
-	 
+	 public ArrayList<Customer> getSuspiciousCustomers() throws JsonGenerationException, JsonMappingException, IOException {
+		 ArrayList<Customer> allCustomers = customers.load();
+		 ArrayList<Customer> suspiciousCustomers = new ArrayList<Customer>();
+		 for(int i = 0; i < allCustomers.size(); i++) {
+			 if(allCustomers.get(i).getActions() >= 5 && 
+					 !allCustomers.get(i).getIsBlocked() &&
+					 !allCustomers.get(i).isDeleted()) {
+				 suspiciousCustomers.add(allCustomers.get(i));
+			 }
+		 }
+		 return suspiciousCustomers;
+	 }
 
 }

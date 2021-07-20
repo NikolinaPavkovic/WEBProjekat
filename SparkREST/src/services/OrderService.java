@@ -186,7 +186,9 @@ public class OrderService {
 			}
 		}
 		double oldPoints = customer.getPoints();
+		int oldActions = customer.getActions();
 		customer.setPoints(oldPoints - lostPoints(oldPoints, orderPrice));
+		customer.setActions(oldActions+1);
 		customer.setCustomerType(updateCustomerType(customer.getCustomerType(), customer.getPoints()));
 		customer.setOrders(orderList);
 		customerList.add(customer);

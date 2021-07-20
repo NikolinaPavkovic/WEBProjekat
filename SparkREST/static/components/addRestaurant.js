@@ -112,7 +112,7 @@ Vue.component("add_restaurant", {
       <input type="submit" v-on:click="addRestaurant" value="Dodaj restoran"/>
     </form>
 
-	  <input class="hidden" id="latitude" hidden/>
+	<input class="hidden" id="latitude" hidden/>
     <input class="hidden" id="longitude" hidden/>
     <input class="hidden" id="zipcode" hidden/>
 

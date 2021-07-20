@@ -49,36 +49,6 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "goran",
-  "password" : "goran",
-  "name" : "Goran",
-  "surname" : "Goranovic",
-  "gender" : "male",
-  "dateOfBirth" : 1419894000000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
-  "username" : "vanja",
-  "password" : "vanja",
-  "name" : "Vanja",
-  "surname" : "Veljic",
-  "gender" : "female",
-  "dateOfBirth" : 957564000000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
-  "username" : "sima",
-  "password" : "sima",
-  "name" : "Sima",
-  "surname" : "Simic",
-  "gender" : "male",
-  "dateOfBirth" : 1625781600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : true
-}, {
   "username" : "stefan",
   "password" : "stefanp",
   "name" : "Stefan",
@@ -119,13 +89,33 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "srdjan",
-  "password" : "srdjan",
-  "name" : "Srdjan",
-  "surname" : "Popovic",
+  "username" : "zoran",
+  "password" : "zoran",
+  "name" : "Zoran",
+  "surname" : "Zoric",
   "gender" : "male",
-  "dateOfBirth" : 1624831200000,
-  "role" : "manager",
+  "dateOfBirth" : 1625004000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "vanja",
+  "password" : "vanja",
+  "name" : "Vanja",
+  "surname" : "Veljic",
+  "gender" : "female",
+  "dateOfBirth" : 1625781600000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "sima",
+  "password" : "sima",
+  "name" : "Sima",
+  "surname" : "Simic",
+  "gender" : "male",
+  "dateOfBirth" : 1625090400000,
+  "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
 }, {
@@ -134,7 +124,17 @@
   "name" : "Milka",
   "surname" : "Milkic",
   "gender" : "female",
-  "dateOfBirth" : 1625608800000,
+  "dateOfBirth" : 1559772000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "goran",
+  "password" : "goran",
+  "name" : "Goran",
+  "surname" : "Goranovic",
+  "gender" : "male",
+  "dateOfBirth" : 1625263200000,
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
