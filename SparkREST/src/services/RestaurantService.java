@@ -128,7 +128,7 @@ public class RestaurantService {
 	
 	
 	public ArrayList<Restaurant> findRestaurants(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
-		ArrayList<Restaurant> filteredRestaurants = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> foundRestaurants = new ArrayList<Restaurant>();
 		ArrayList<Restaurant> allRestaurants = this.restaurants.load();
 		boolean canAdd = false;
 		
@@ -194,10 +194,10 @@ public class RestaurantService {
 					items.add(i);
 				}
 				r.setItems(items);
-				filteredRestaurants.add(r);
+				foundRestaurants.add(r);
 			}
 		}
-		return filteredRestaurants;
+		return foundRestaurants;
 	}
 	
 	public ArrayList<Restaurant> getRestaurantsByGrade(SearchDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException{
@@ -236,6 +236,16 @@ public class RestaurantService {
 		allRestaurants.addAll(getOpenRestaurants());
 		allRestaurants.addAll(getClosedRestaurants());
 		return allRestaurants;
+	}
+	
+	public String getRestaurantType(String name) throws JsonGenerationException, JsonMappingException, IOException {
+		String type = "";
+		for (Restaurant r : restaurants.load()) {
+			if (r.getName().equals(name)) {
+				type = r.getType().toString();
+			}
+		}
+		return type;
 	}
 	
 }

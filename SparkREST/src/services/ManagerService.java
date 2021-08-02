@@ -106,6 +106,16 @@ public class ManagerService {
 		return manager;
 	}
 	
+	public Manager findManager(User user) throws JsonGenerationException, JsonMappingException, IOException {
+		Manager manager = new Manager();
+		for (Manager m : managers.load()) {
+			if (m.getUsername().equals(user.getUsername())) {
+				manager = m;
+			}
+		}
+		return manager;
+	}
+	
 	public void addManager(Manager manager) throws JsonGenerationException, JsonMappingException, IOException {
 		managers.save(manager);
 	}

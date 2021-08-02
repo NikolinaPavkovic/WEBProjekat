@@ -30,7 +30,9 @@ Vue.component("restaurant_info", {
       itemImage: "",
       itemImageForBackend: "",
       oldItem: null,
-      open: false
+      open: false,
+      approvedComments: null,
+      commentMessage: ""
     }
   },
 
@@ -143,6 +145,17 @@ Vue.component("restaurant_info", {
     <input type="submit" v-on:click="editItem" value="Izmeni artikal"/>
   </form>
   </div>
+  <div class="comments">
+    <h2 class="comments-header"> Comments </h2>
+  </div>
+  <div class="row-items" v-for="(c, index) in approvedComments">
+    <div class="col-comments">
+      <h1 class="customer-ns"> {{c.customer.name + " " +c.customer.surname}}</h1>
+      <h1 class="text-comment"> {{c.text}} </h1>
+      <h1 class="grade-comment"> {{c.grade}}</h1>
+      <h1 class="item-name"> {{commentMessage}} </h1>
+    </div>
+  </div>
 
   </div>
   `,
@@ -176,6 +189,15 @@ Vue.component("restaurant_info", {
               this.mode = "notLogged";
             }
           });
+          axios
+            .get('/getRestaurantComments/' + this.name)
+            .then(response => {
+              if (response.data != null) {
+                this.approvedComments = response.data;
+              } else {
+                this.commentMessage = "Nema komentara.";
+              }
+            });
       });
 
     axios

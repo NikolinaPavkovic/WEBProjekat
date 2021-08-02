@@ -27,6 +27,7 @@ import beans.Restaurant;
 import beans.Role;
 import beans.User;
 import dao.Comments;
+import dto.CommentDTO;
 import dto.EditCartDTO;
 import dto.FilterDTO;
 import dto.ItemDTO;
@@ -36,6 +37,7 @@ import dto.RequestDTO;
 import dto.RestaurantDTO;
 import dto.SearchDTO;
 import dto.UserDTO;
+import services.CommentService;
 import services.CustomerService;
 import services.DelivererService;
 import services.ItemService;
@@ -56,6 +58,7 @@ public class SparkAppMain {
 	private static ItemService itemService = new ItemService();
 	private static Comments comments = new Comments();
 	private static OrderService orderService = new OrderService();
+	private static CommentService commentService = new CommentService();
 
 	public static void main(String[] args) throws Exception {
 		port(8080);
@@ -277,7 +280,6 @@ public class SparkAppMain {
 			return "";
 		});
 
-
 		post("/rest/restaurants/filterRestaurants", (req, res) -> {
 			res.type("application/json");
 			System.out.println(req.body());
@@ -315,7 +317,7 @@ public class SparkAppMain {
 				return "NO";
 			}
 		});
-		
+
 		get("/rest/isBlocked/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");
@@ -416,14 +418,14 @@ public class SparkAppMain {
 			orderService.cancelOrder(id);
 			return "";
 		});
-		
+
 		get("/rest/getManagerRestaurant/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");
 			return g.toJson(managerService.getManagerRestaurant(username));
 
 		});
-		
+
 		put("/rest/editItem", (req, res) ->{
 			res.type("application/json");
 			ItemDTO fromJson = g.fromJson(req.body(), ItemDTO.class);
@@ -433,33 +435,33 @@ public class SparkAppMain {
 			itemService.editItem(oldItem, newItem);
 			return "";
 		});
-		
+
 		get("/rest/getCustomerUndeliveredOrders", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(orderService.getCustomerUndeliveredOrders(user));
 		});
-		
+
 		get("/rest/getManagerOrders", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(orderService.getManagerOrders(user));
 		});
-		
+
 		post("/rest/changeStatusToPreparing", (req, res) -> {
 			String id = g.fromJson(req.body(), String.class);
 			orderService.changeOrderStatus(id, OrderStatus.preparing);
 			return "";
 		});
-		
+
 		post("/rest/changeStatusToWaiting", (req, res) -> {
 			String id = g.fromJson(req.body(), String.class);
 			orderService.changeOrderStatus(id, OrderStatus.waiting);
 			return "";
 		});
-		
+
 		post("/rest/changeStatusToDelivered", (req, res) -> {
 			Order order = g.fromJson(req.body(), Order.class);
 			Session session = req.session(true);
@@ -467,12 +469,12 @@ public class SparkAppMain {
 			orderService.changeOrderStatusDeliverer(order, user);
 			return "";
 		});
-		
+
 		get("/rest/getWaitingOrders", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(orderService.getWaitingOrders());
 		});
-		
+
 		post("/rest/newRequest", (req, res) -> {
 			res.type("application/json");
 			Order order = g.fromJson(req.body(), Order.class);
@@ -486,9 +488,9 @@ public class SparkAppMain {
 			} else {
 				return "OK";
 			}
-			
+
 		});
-		
+
 		get("/rest/getManagerRequests", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -499,29 +501,28 @@ public class SparkAppMain {
 				return g.toJson(orderService.getManagerRequestsDTO(user));
 			}
 		});
-		
+
 		put("/rest/acceptRequest", (req, res) -> {
 			res.type("application/json");
 			RequestDTO dto = g.fromJson(req.body(), RequestDTO.class);
 			orderService.acceptRequest(dto);
 			return "";
 		});
-		
+
 		put("/rest/rejectRequest", (req, res) -> {
 			res.type("application/json");
 			RequestDTO dto = g.fromJson(req.body(), RequestDTO.class);
 			orderService.rejectRequest(dto);
 			return "";
 		});
-		
+
 		get("/rest/getDelivererOrders", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(delivererService.getDelivererOrders(user));
 		});
-		
-		
+
 		get("/rest/getDelivererNotifications", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
@@ -531,38 +532,120 @@ public class SparkAppMain {
 			}
 			return g.toJson(delivererService.getDelivererNotifications(user));
 		});
-		
+
 		put("/rest/editNotificationStatus", (req, res) -> {
 			res.type("application/json");
 			Notification notification = g.fromJson(req.body(), Notification.class);
 			delivererService.editNotificationStatus(notification);
 			return "";
 		});
-		
+
 		get("/rest/suspiciousCustomers", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(customerService.getSuspiciousCustomers());
 		});
-		
+
 		put("/rest/blockUser", (req, res) -> {
 			res.type("application/json");
 			String username = g.fromJson(req.body(), String.class);
 			userService.blockUser(username);
 			return "";
 		});
-		
+
 		get("/rest/getUndeliveredOrdersDeliverer", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(delivererService.getUndeliveredOrders(user));
 		});
-		
+
 		get("/rest/getCustomersForManager", (req, res) -> {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
 			return g.toJson(customerService.getCustomersForManager(user));
+		});
+
+
+		get("/rest/customerOrders/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			System.out.println(name);
+			Restaurant restaurant = restaurantService.getRestaurantByName(name);
+			return g.toJson(restaurant);
+		});
+
+		post("/addComment", (req, res) -> {
+			res.type("application/json");
+			CommentDTO fromJson = g.fromJson(req.body(), CommentDTO.class);
+			System.out.println(fromJson.getCustomerUsername());
+			Comment comment = new Comment(customerService.findCustomer(fromJson.getCustomerUsername()), fromJson.getRestaurant(), fromJson.getText(), fromJson.getGrade());
+			commentService.addComment(comment);
+			return "SUCCESS";
+		});
+
+		post("/searchCustomerOrders", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.findOrders(g.fromJson(req.body(), SearchDTO.class)));
+		});
+
+		post("/sortOrdersByName", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.sortByRestaurantName(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/sortOrdersByPrice", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.sortByPrice(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/sortOrdersByDate", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.sortByDate(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/searchManagerOrders", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.findOrdersForManager(g.fromJson(req.body(), SearchDTO.class)));
+		});
+
+		post("/filterOrders", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.filterOrders(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/filterOrdersByStatus", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.filterByStatus(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		post("/filterOrdersByType", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(orderService.filterByType(g.fromJson(req.body(), FilterDTO.class)));
+		});
+
+		get("/getAllComments", (req, res) -> {
+			res.type("application/json");
+			Session session = req.session(true);
+			User user = session.attribute("user");
+			return g.toJson(commentService.getAllComments(user));
+		});
+
+		post("/approveComment", (req, res) -> {
+			Comment approved = g.fromJson(req.body(), Comment.class);
+			commentService.approveComment(approved);
+			return "";
+		});
+
+		get("/getRestaurantComments/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			return g.toJson(commentService.getRestaurantComments(name));
+		});
+
+		get("/getCommentsForAdmin", (req, res) -> {
+			res.type("application/json");
+			return g.toJson(commentService.getCommentsForAdmin());
 		});
 
 	}

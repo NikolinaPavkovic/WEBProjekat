@@ -22,11 +22,11 @@ public class CustomerService {
 	private Customers customers = new Customers();
 	private Items items = new Items();
 	private Managers managers = new Managers();
-	
+
 	public Collection<Customer> getCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		return this.customers.load();
 	}
-	
+
 	 public Customer editProfile(User oldUser, User newUser) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer oldCustomer = new Customer();
@@ -75,13 +75,13 @@ public class CustomerService {
 		}
 		return null;
 	}
-	 
+
 	 public void addItemToShoppingCart(User user, Item item) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
 		 ArrayList<Item> items = new ArrayList<Item>();
 		 Customer newCustomer = new Customer();
 		 int brojac = 0;
-		 
+
 		 for (int i = 0; i < customerList.size(); i++) {
 			if(user.getUsername().equals(customerList.get(i).getUsername())) {
 				newCustomer = customerList.get(i);
@@ -113,7 +113,7 @@ public class CustomerService {
 		}
 		 setShoppingCart(user);
 	 }
-	 
+
 	 public void setShoppingCart(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
 		 Customer customer = new Customer();
@@ -134,7 +134,7 @@ public class CustomerService {
 			customers.save(customer2);
 		}
 	 }
-	 
+
 	 public Customer getCustomer(User user) throws JsonGenerationException, JsonMappingException, IOException  {
 		ArrayList<Customer> customerList = customers.load();
 		for(int i = 0; i < customerList.size(); i++) {
@@ -144,7 +144,7 @@ public class CustomerService {
 		}
 		return null;
 	}
-	 
+
 	 public void removeFromCart(User user, Item item) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
 		 Customer customer = new Customer();
@@ -155,24 +155,24 @@ public class CustomerService {
 				 customerList.remove(i);
 			 }
 		 }
-		 
+
 		 items = customer.getShoppingCart().getItems();
 		 for(int i = 0; i < items.size(); i++) {
 			 if(item.getName().equals(items.get(i).getName())) {
 				 items.remove(i);
 			 }
 		 }
-		 
+
 		 customer.getShoppingCart().setItems(items);
 		 customerList.add(customer);
 		 customers.emptyFile();
 		 for (Customer customer1 : customerList) {
 			customers.save(customer1);
 		}
-		 
+
 		 setShoppingCart(user);
 	 }
-	 
+
 	 public Item findItem(String name) throws JsonGenerationException, JsonMappingException, IOException {
 		 Item item = new Item();
 		 ArrayList<Item> itemList = items.load();
@@ -183,7 +183,7 @@ public class CustomerService {
 		}
 		 return item;
 	 }
-	 
+
 	 public void deleteCustomer(String username) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
 		 Customer customer = new Customer();
@@ -200,7 +200,7 @@ public class CustomerService {
 			customers.save(c);
 		}
 	 }
-	 
+
 	 public void blockCustomer(String username) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> customerList = customers.load();
 		 Customer customer = new Customer();
@@ -217,7 +217,7 @@ public class CustomerService {
 			customers.save(c);
 		}
 	 }
-	 
+
 	 public ArrayList<Customer> getActiveCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> activeCustomers = new ArrayList<Customer>();
 		 ArrayList<Customer> allCustomers = customers.load();
@@ -228,7 +228,7 @@ public class CustomerService {
 		}
 		 return activeCustomers;
 	 }
-	 
+
 	 public ShoppingCart editShoppingCart(User user, EditCartDTO editDTO) throws JsonGenerationException, JsonMappingException, IOException {
 		 Customer customer = new Customer();
 		 ArrayList<Customer> customerList = customers.load();
@@ -258,12 +258,13 @@ public class CustomerService {
 		 setShoppingCart(user);
 		 return customer.getShoppingCart();
 	 }
-	 
+
+
 	 public ArrayList<Customer> getSuspiciousCustomers() throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> allCustomers = customers.load();
 		 ArrayList<Customer> suspiciousCustomers = new ArrayList<Customer>();
 		 for(int i = 0; i < allCustomers.size(); i++) {
-			 if(allCustomers.get(i).getActions() >= 5 && 
+			 if(allCustomers.get(i).getActions() >= 5 &&
 					 !allCustomers.get(i).getIsBlocked() &&
 					 !allCustomers.get(i).isDeleted()) {
 				 suspiciousCustomers.add(allCustomers.get(i));
@@ -271,7 +272,7 @@ public class CustomerService {
 		 }
 		 return suspiciousCustomers;
 	 }
-	 
+
 	 public ArrayList<Customer> getCustomersForManager(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		 ArrayList<Customer> allCustomers = customers.load();
 		 ArrayList<Manager> allManagers = managers.load();
@@ -283,7 +284,7 @@ public class CustomerService {
 				 manager = allManagers.get(i);
 			 }
 		 }
-		 
+
 		 for(int i = 0; i < allCustomers.size(); i++) {
 			 customerOrders = allCustomers.get(i).getOrders();
 			 for(int j = 0; j < customerOrders.size(); j++) {
@@ -294,6 +295,17 @@ public class CustomerService {
 			 }
 		 }
 		 return customersForManager;
+	 }
+
+	 public Customer findCustomer(String username) throws JsonGenerationException, JsonMappingException, IOException {
+		 Customer found = new Customer();
+		 for (Customer c : this.customers.load()) {
+			 if (c.getUsername().equals(username)) {
+				 found = c;
+			 }
+		 }
+		 return found;
+
 	 }
 
 }

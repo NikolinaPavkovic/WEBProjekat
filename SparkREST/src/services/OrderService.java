@@ -3,8 +3,11 @@ package services;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -29,7 +32,15 @@ import dao.Managers;
 import dao.Notifications;
 import dao.Orders;
 import dao.Requests;
+import dto.FilterDTO;
 import dto.RequestDTO;
+import dto.SearchDTO;
+import sort.SortByDateAscending;
+import sort.SortByDateDescending;
+import sort.SortByPriceAscending;
+import sort.SortByPriceDescending;
+import sort.SortByRestaurantNameAscending;
+import sort.SortByRestaurantNameDescending;
 
 public class OrderService {
 	private Orders orders = new Orders();
@@ -37,12 +48,16 @@ public class OrderService {
 	private Managers managers = new Managers();
 	private Requests requests = new Requests();
 	private Deliverers deliverers = new Deliverers();
+
 	private Notifications notifications = new Notifications();
-	
+
+	private static RestaurantService restaurantService = new RestaurantService();
+
+
 	public Collection<Order> getOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		return orders.load();
 	}
-	
+
 	public void createOrder(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer customer = new Customer();
@@ -73,13 +88,13 @@ public class OrderService {
 			customers.save(c);
 		}
 	}
-	
+
 	private double calculatePriceWithDiscount(Customer customer, double price) {
 		double newPrice = 0.0;
 		newPrice = price * ((100.0 - customer.getCustomerType().getDiscount()) / 100);
 		return newPrice;
 	}
-	
+
 	private CustomerType updateCustomerType(CustomerType ct, double points) {
 		CustomerType customerType = new CustomerType();
 		if(points >= 1500.0 && points < 3000.0) {
@@ -101,26 +116,26 @@ public class OrderService {
 		}
 		return customerType;
 	}
-	
+
 	private String generateId() {
 		String id = RandomStringUtils.randomAlphanumeric(10);
 		return id;
 	}
-	
+
 	private String getRestaurant(ShoppingCart shoppingCart) {
 		Restaurant restaurant = new Restaurant();
 		ArrayList<Item> itemList = shoppingCart.getItems();
 		restaurant = itemList.get(0).getRestaurant();
 		return restaurant.getName();
 	}
-	
+
 	private String getRestaurantLogo(ShoppingCart shoppingCart) {
 		Restaurant restaurant = new Restaurant();
 		ArrayList<Item> itemList = shoppingCart.getItems();
 		restaurant = itemList.get(0).getRestaurant();
 		return restaurant.getImgPath();
 	}
-	
+
 	public boolean isCartEmpty(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		ShoppingCart shoppingCart = new ShoppingCart();
@@ -131,11 +146,11 @@ public class OrderService {
 		}
 		return shoppingCart.getItems().isEmpty();
 	}
-	
+
 	private double setPoints(double price, double oldPoints) {
 		return oldPoints + (price/1000*133);
 	}
-	
+
 	public ArrayList<Order> getCustomerOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer customer = new Customer();
@@ -144,10 +159,10 @@ public class OrderService {
 				customer = customerList.get(i);
 			}
 		}
-		
+
 		return customer.getOrders();
 	}
-	
+
 	public void cancelOrder(String id) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> orderList = orders.load();
 		String username = "";
@@ -163,11 +178,11 @@ public class OrderService {
 		for (Order order : orderList) {
 			orders.save(order);
 		}
-		
+
 		deleteOrderFromCustomer(username, id, price);
-		
+
 	}
-	
+
 	private void deleteOrderFromCustomer(String username, String id, double orderPrice) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		Customer customer = new Customer();
@@ -177,7 +192,7 @@ public class OrderService {
 				customerList.remove(i);
 			}
 		}
-		
+
 		ArrayList<Order> orderList = customer.getOrders();
 		for(int i = 0; i < orderList.size(); i++) {
 			if(orderList.get(i).getId().equals(id)) {
@@ -197,11 +212,11 @@ public class OrderService {
 			customers.save(cus);
 		}
 	}
-	
+
 	private double lostPoints(double oldPoints, double price) {
 		return price/1000*133*4;
 	}
-	
+
 	public ArrayList<Order> getCustomerUndeliveredOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Customer> customerList = customers.load();
 		ArrayList<Order> undeliveredOrders = new ArrayList<Order>();
@@ -213,16 +228,16 @@ public class OrderService {
 				allOrders = customer.getOrders();
 			}
 		}
-		
+
 		for(int i = 0; i < allOrders.size(); i++) {
 			if(allOrders.get(i).getStatus() != OrderStatus.canceled && allOrders.get(i).getStatus() != OrderStatus.delivered ) {
 				undeliveredOrders.add(allOrders.get(i));
 			}
 		}
-		
+
 		return undeliveredOrders;
 	}
-	
+
 	public ArrayList<Order> getManagerOrders(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> managerOrders = new ArrayList<Order>();
 		ArrayList<Manager> managerList = managers.load();
@@ -232,7 +247,7 @@ public class OrderService {
 				manager = managerList.get(i);
 			}
 		}
-		
+
 		Restaurant restaurant = manager.getRestaurant();
 		ArrayList<Order> orderList = orders.load();
 		for(int i = 0; i < orderList.size(); i++) {
@@ -242,7 +257,7 @@ public class OrderService {
 		}
 		return managerOrders;
 	}
-	
+
 	public void changeOrderStatus(String id, OrderStatus status) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> orderList = orders.load();
 		Order order = new Order();
@@ -252,17 +267,17 @@ public class OrderService {
 				orderList.remove(i);
 			}
 		}
-		
+
 		order.setStatus(status);
 		orderList.add(order);
 		orders.emptyFile();
 		for (Order order1 : orderList) {
 			orders.save(order1);
 		}
-		
+
 		changeOrderStatusCustomer(status, order.getId(), order.getCustomer());
 	}
-	
+
 	private void changeOrderStatusCustomer(OrderStatus status, String orderId, String username) throws JsonGenerationException, JsonMappingException, IOException{
 		ArrayList<Customer> customerList = customers.load();
 		Customer customer = new Customer();
@@ -280,7 +295,7 @@ public class OrderService {
 				customerOrders.remove(i);
 			}
 		}
-		
+
 		order.setStatus(status);
 		customerOrders.add(order);
 		customer.setOrders(customerOrders);
@@ -290,7 +305,7 @@ public class OrderService {
 			customers.save(c);
 		}
 	}
-	
+
 	private void changeOrderStatusRequest(String deliverer, String orderId) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Request> allRequests = requests.load();
 		Request request = new Request();
@@ -307,7 +322,7 @@ public class OrderService {
 			requests.save(r);
 		}
 	}
-	
+
 	public void changeOrderStatusDeliverer(Order order, User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Deliverer> allDeliverers = deliverers.load();
 		Deliverer deliverer = new Deliverer();
@@ -317,7 +332,7 @@ public class OrderService {
 				allDeliverers.remove(i);
 			}
 		}
-		
+
 		ArrayList<Order> delivererOrders = deliverer.getOrders();
 		for(int i = 0; i < delivererOrders.size(); i++) {
 			if(order.getId().equals(delivererOrders.get(i).getId())) {
@@ -331,11 +346,11 @@ public class OrderService {
 		for (Deliverer d : allDeliverers) {
 			deliverers.save(d);
 		}
-		
+
 		changeOrderStatus(order.getId(), OrderStatus.delivered);
 		changeOrderStatusRequest(deliverer.getUsername(), order.getId());
 	}
-	
+
 	public ArrayList<Order> getWaitingOrders() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Order> allOrders = orders.load();
 		ArrayList<Order> waitingOrders = new ArrayList<Order>();
@@ -346,7 +361,7 @@ public class OrderService {
 		}
 		return waitingOrders;
 	}
-	
+
 	public Request newRequest(Request request) throws JsonMappingException, JsonGenerationException, IOException {
 		ArrayList<Request> allRequests = requests.load();
 		for (int i = 0; i < allRequests.size(); i++) {
@@ -358,7 +373,7 @@ public class OrderService {
 		requests.save(request);
 		return request;
 	}
-	
+
 	public ArrayList<Request> getManagerRequests(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Request> allRequests = requests.load();
 		ArrayList<Manager> allManagers = managers.load();
@@ -379,7 +394,7 @@ public class OrderService {
 		}
 		return managerRequests;
 	}
-	
+
 	public ArrayList<RequestDTO> getManagerRequestsDTO(User user) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<RequestDTO> list = new ArrayList<RequestDTO>();
 		RequestDTO requestDTO = new RequestDTO();
@@ -393,7 +408,7 @@ public class OrderService {
 		}
 		return list;
 	}
-	
+
 	public void acceptRequest(RequestDTO dto) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Request> requestList = requests.load();
 		ArrayList<Deliverer> delivererList = deliverers.load();
@@ -411,7 +426,7 @@ public class OrderService {
 				break;
 			}
 		}
-		
+
 		for(int i = 0; i < delivererList.size(); i++) {
 			if(delivererList.get(i).getUsername().equals(dto.getDeliverer())) {
 				deliverer = delivererList.get(i);
@@ -419,11 +434,11 @@ public class OrderService {
 				break;
 			}
 		}
-		
+
 		Order order = validRequest.getOrder();
 		order.setStatus(OrderStatus.transport);
 		deliverer.getOrders().add(order);
-		
+
 		for(int i = 0; i < orderList.size(); i++) {
 			if(orderList.get(i).getId().equals(order.getId())) {
 				orderList.remove(i);
@@ -431,7 +446,7 @@ public class OrderService {
 				break;
 			}
 		}
-		
+
 		for(int i = 0; i < customerList.size(); i++) {
 			if(customerList.get(i).getUsername().equals(order.getCustomer())) {
 				customer = customerList.get(i);
@@ -439,7 +454,7 @@ public class OrderService {
 				break;
 			}
 		}
-		
+
 		ArrayList<Order> customerOrders = customer.getOrders();
 		for(int i = 0; i < customerOrders.size(); i++) {
 			if(order.getId().equals(customerOrders.get(i).getId())) {
@@ -447,41 +462,41 @@ public class OrderService {
 				break;
 			}
 		}
-		
+
 		validRequest.setOrder(order);
 		requestList.add(validRequest);
-		
+
 		customerOrders.add(order);
 		customer.setOrders(customerOrders);
-		
+
 		delivererList.add(deliverer);
 		customerList.add(customer);
-		
+
 		requests.emptyFile();
 		deliverers.emptyFile();
 		customers.emptyFile();
 		orders.emptyFile();
-		
+
 		for (Request r : requestList) {
 			requests.save(r);
 		}
-		
+
 		for (Deliverer d : delivererList) {
 			deliverers.save(d);
 		}
-		
+
 		for(Customer c : customerList) {
 			customers.save(c);
 		}
-		
+
 		for (Order o : orderList) {
 			orders.save(o);
 		}
-		
+
 		Notification notification = new Notification(deliverer.getUsername(), order.getId(), "Vaš zahtev je prihvaćen!", false);
 		notifications.save(notification);
 	}
-	
+
 	public void rejectRequest(RequestDTO dto) throws JsonMappingException, JsonGenerationException, IOException {
 		Notification notification = new Notification(dto.getDeliverer(), dto.getOrderId(), "Vaš zahtev je odbijen!", false);
 		notifications.save(notification);
@@ -501,5 +516,198 @@ public class OrderService {
 			requests.save(r);
 		}
 	}
-	
+
+	public ArrayList<Order> sortByPrice(FilterDTO fromJson) {
+		ArrayList<Order> found = fromJson.getOrders();
+
+		if (fromJson.isAscending()) {
+			Collections.sort(found, new SortByPriceAscending());
+		} else if (!fromJson.isAscending()) {
+			Collections.sort(found, new SortByPriceDescending());
+		}
+
+		return found;
+	}
+
+	public ArrayList<Order> sortByDate(FilterDTO fromJson) {
+		ArrayList<Order> found = fromJson.getOrders();
+
+		if (fromJson.isAscending()) {
+			Collections.sort(found, new SortByDateAscending());
+		} else if (!fromJson.isAscending()) {
+			Collections.sort(found, new SortByDateDescending());
+		}
+
+		return found;
+	}
+
+	public ArrayList<Order> sortByRestaurantName(FilterDTO fromJson) {
+		ArrayList<Order> found = fromJson.getOrders();
+
+		if (fromJson.isAscending()) {
+			Collections.sort(found, new SortByRestaurantNameAscending());
+		} else if (!fromJson.isAscending()) {
+			Collections.sort(found, new SortByRestaurantNameDescending());
+		}
+
+		return found;
+	}
+
+	public ArrayList<Order> findOrders(SearchDTO fromJson) throws ParseException {
+		ArrayList<Order> foundOrders = new ArrayList<Order>();
+		ArrayList<Order> userOrders = fromJson.getOrders();
+		boolean canAdd = false;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (Order o : userOrders) {
+
+			if (!fromJson.getRestaurantName().isEmpty()) {
+				if (fromJson.getRestaurantName().equals(o.getRestaurant())) {
+					canAdd = true;
+				} else {
+					continue;
+				}
+			}
+
+			if (fromJson.getStartPrice() != 0 && fromJson.getEndPrice() != 0) {
+				if (o.getPrice() <= fromJson.getEndPrice() && o.getPrice() >= fromJson.getStartPrice()) {
+					canAdd = true;
+				} else {
+					continue;
+				}
+			}
+
+			if (!fromJson.getStartDate().isEmpty() && !fromJson.getEndDate().isEmpty()) {
+				Date startDate = (Date) format.parse(fromJson.getStartDate());
+				Date endDate = (Date) format.parse(fromJson.getEndDate());
+				if (o.getDateAndTime().before(endDate) && o.getDateAndTime().after(startDate)) {
+					canAdd = true;
+				} else {
+					continue;
+				}
+			}
+
+			if (canAdd) {
+				foundOrders.add(o);
+			}
+		}
+
+		return foundOrders;
+	}
+
+	public ArrayList<Order> findOrdersForManager(SearchDTO fromJson) throws ParseException {
+		ArrayList<Order> foundOrders = new ArrayList<Order>();
+		ArrayList<Order> userOrders = fromJson.getOrders();
+		boolean canAdd = false;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (Order o : userOrders) {
+
+			if (fromJson.getStartPrice() != 0 && fromJson.getEndPrice() != 0) {
+				if (o.getPrice() <= fromJson.getEndPrice() && o.getPrice() >= fromJson.getStartPrice()) {
+					canAdd = true;
+				} else {
+					continue;
+				}
+			}
+
+			if (!fromJson.getStartDate().isEmpty() && !fromJson.getEndDate().isEmpty()) {
+				Date startDate = (Date) format.parse(fromJson.getStartDate());
+				Date endDate = (Date) format.parse(fromJson.getEndDate());
+				if (o.getDateAndTime().before(endDate) && o.getDateAndTime().after(startDate)) {
+					canAdd = true;
+				} else {
+					continue;
+				}
+			}
+
+			if (canAdd) {
+				foundOrders.add(o);
+			}
+		}
+
+		return foundOrders;
+	}
+
+	public ArrayList<Order> filterOrders(FilterDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> filtered = new ArrayList<Order>();
+		ArrayList<Order> found = fromJson.getOrders();
+		boolean canAdd = false;
+
+		for (Order o : found) {
+			if (fromJson.getType() != null) {
+				if (fromJson.getOrderStatus() != null) {
+					for (String s : fromJson.getOrderStatus()) {
+						for (String t : fromJson.getType()) {
+							if (s.equals(o.getStatus().toString()) && t.equals(restaurantService.getRestaurantType(o.getRestaurant())) ) {
+								//filtered.add(o);
+								canAdd = true;
+							}
+						}
+					}
+				} else {
+					for (String s : fromJson.getType()) {
+						if (s.equals(restaurantService.getRestaurantType(o.getRestaurant()))) {
+							//filtered.add(o);
+							canAdd = true;
+						}
+					}
+				}
+
+				if (canAdd) {
+					filtered.add(o);
+				}
+
+			} else {
+				if (fromJson.getOrderStatus() != null) {
+					for (String s : fromJson.getOrderStatus()) {
+						if (s.equals(o.getStatus().toString())) {
+							filtered.add(o);
+							canAdd = true;
+						}
+					}
+				} else {
+					continue;
+				}
+
+				if (canAdd) {
+					filtered.add(o);
+				}
+			}
+
+		}
+		return filtered;
+	}
+
+	public ArrayList<Order> filterByStatus(FilterDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> filtered = new ArrayList<Order>();
+		ArrayList<Order> found = fromJson.getOrders();
+
+		for (Order o : found) {
+			if (fromJson.getOrderStatus() != null) {
+				for (String s : fromJson.getOrderStatus()) {
+					if (s.equals(o.getStatus().toString())) {
+						filtered.add(o);
+					}
+				}
+			}
+		}
+		return filtered;
+	}
+
+	public ArrayList<Order> filterByType(FilterDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Order> filtered = new ArrayList<Order>();
+		ArrayList<Order> found = fromJson.getOrders();
+
+		for (Order o : found) {
+			if (fromJson.getType() != null) {
+				for (String s : fromJson.getType()) {
+					if (s.equals(restaurantService.getRestaurantType(o.getRestaurant()))) {
+						filtered.add(o);
+					}
+				}
+			}
+		}
+		return filtered;
+	}
 }

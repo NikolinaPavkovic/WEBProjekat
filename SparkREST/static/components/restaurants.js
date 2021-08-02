@@ -188,7 +188,11 @@ Vue.component("restaurants", {
 		<button v-if="mode=='manager'" v-on:click="getCustomersManager"> Pregled kupaca </button>
 		<button v-if="mode=='deliverer'" v-on:click="getWaitingOrders"> Porudžbine na čekanju </button>
 		<button v-if="mode=='deliverer'" v-on:click="getDelivererOrders"> Moje porudžbine </button>
+
 		<button v-if="mode=='deliverer'" v-on:click="viewNotifications">Obaveštenja</button>
+
+    <button v-if="mode=='manager' || mode=='admin'" v-on:click="getAllComments"> Pregled komentara </button>
+
 	</div>
 	`,
 	mounted() {
@@ -553,7 +557,7 @@ Vue.component("restaurants", {
 		event.preventDefault();
     	router.push(`/delivererOrders`);
     },
-    
+
     isOpen: function() {
       var today = new Date();
       var hours = today.getHours();
@@ -565,6 +569,7 @@ Vue.component("restaurants", {
       }
 
     },
+
     viewNotifications: function() {
     	event.preventDefault();
     	router.push(`/delivererNotifications`);
@@ -576,7 +581,11 @@ Vue.component("restaurants", {
     getCustomersManager: function() {
     	event.preventDefault();
     	router.push(`/customersForManager`);
-    	
+    },
+
+    getAllComments: function() {
+      event.preventDefault();
+      router.push(`/allComments`);
     }
 
 	}

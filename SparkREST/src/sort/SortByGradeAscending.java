@@ -4,8 +4,6 @@ import java.util.Comparator;
 import beans.Restaurant;
 
 public class SortByGradeAscending implements Comparator<Restaurant> {
-	
-	//private static CommentService commentService = new CommentService();
 
 	@Override
 	public int compare(Restaurant o1, Restaurant o2) {

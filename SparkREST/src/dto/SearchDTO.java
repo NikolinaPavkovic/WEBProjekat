@@ -1,5 +1,11 @@
 package dto;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import beans.Order;
+import beans.User;
+
 public class SearchDTO {
 	private String restaurantName;
 	private String city;
@@ -7,6 +13,13 @@ public class SearchDTO {
 	private String country;
 	private double grade;
 	private String restaurantType;
+	private User user;
+	private ArrayList<Order> orders;
+	private double startPrice;
+	private double endPrice;
+	private String startDate;
+	private String endDate;
+	
 	
 	public SearchDTO() {
 		super();
@@ -72,4 +85,52 @@ public class SearchDTO {
 		this.restaurantType = restaurantType;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
+	}
+
+	public double getStartPrice() {
+		return startPrice;
+	}
+
+	public void setStartPrice(double startPrice) {
+		this.startPrice = startPrice;
+	}
+
+	public double getEndPrice() {
+		return endPrice;
+	}
+
+	public void setEndPrice(double endPrice) {
+		this.endPrice = endPrice;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+		
 }

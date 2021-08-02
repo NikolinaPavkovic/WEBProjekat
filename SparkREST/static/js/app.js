@@ -22,6 +22,9 @@ const delivererNotifications = { template: '<delivererNotifications> </deliverer
 const suspiciousCustomers = { template: '<suspiciousCustomers></suspiciousCustomers>' }
 const undeliveredOrdersDeliverer = { template: '<undeliveredOrdersDeliverer></undeliveredOrdersDeliverer>' }
 const customersForManager = { template: '<customersForManager></customersForManager>' }
+const addComment = { template: '<addComment> </addComment>'}
+const allComments = { template: '<allComments> </allComments>' }
+
 
 const router = new VueRouter({
 	mode: 'hash',
@@ -39,6 +42,10 @@ const router = new VueRouter({
 			{ path: '/add_item', component: add_item},
 			{ path: '/search_restaurant', component: search_restaurant },
 			{ path: '/shoppingCart/:username', component: shoppingCart },
+			{ path: "/search_restaurant", component: search_restaurant },
+			{ path: "/shoppingCart/:username", component: shoppingCart },
+		  { path: "/search_restaurant", component: search_restaurant },
+			{ path: "/shoppingCart", component: shoppingCart },
 			{ path: '/add_manager', component: add_manager },
 			{ path: '/customer_orders', component: customer_orders },
 			{ path: '/undelivered_orders_customer', component: undelivered_orders_customer },
@@ -49,7 +56,10 @@ const router = new VueRouter({
 			{ path: '/delivererNotifications', component: delivererNotifications },
 			{ path: '/suspiciousCustomers', component: suspiciousCustomers },
 			{ path: '/undeliveredOrdersDeliverer', component: undeliveredOrdersDeliverer },
-			{ path: '/customersForManager', component: customersForManager }
+			{ path: '/customersForManager', component: customersForManager },
+			{ path: '/addComment', component: addComment },
+			{ path: '/allComments', component: allComments }
+
 		]
 });
 
