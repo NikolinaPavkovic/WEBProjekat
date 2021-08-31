@@ -226,6 +226,9 @@ public class SparkAppMain {
 			Item item = g.fromJson(req.body(), Item.class);
 			Session session = req.session(true);
 			User user = session.attribute("user");
+			double amount = item.getAmount();
+			System.out.println(amount);
+			System.out.println(item.getName());
 			customerService.addItemToShoppingCart(user, item);
 			return "";
 		});

@@ -89,6 +89,7 @@ public class UserService {
 			customer.setActions(0);
 			allCustomers.remove(index);
 			allCustomers.add(customer);
+			customers.emptyFile();
 			for (Customer c : allCustomers) {
 				customers.save(c);
 			}

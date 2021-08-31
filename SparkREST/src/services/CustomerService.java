@@ -81,30 +81,36 @@ public class CustomerService {
 		 ArrayList<Item> items = new ArrayList<Item>();
 		 Customer newCustomer = new Customer();
 		 int brojac = 0;
-		 
 		 for (int i = 0; i < customerList.size(); i++) {
 			if(user.getUsername().equals(customerList.get(i).getUsername())) {
 				newCustomer = customerList.get(i);
+				System.out.println(newCustomer.getName());
 				if(newCustomer.getShoppingCart().getItems() == null) {
 					newCustomer.getShoppingCart().setItems(new ArrayList<Item>());
 				}
 				items = newCustomer.getShoppingCart().getItems();
+				System.out.println(items.size());
 				for(int j = 0; j < items.size(); j++) {
 					if(items.get(j).getName().equals(item.getName())) {
 						brojac++;
 						double amount = item.getAmount();
+						System.out.println(amount);
 						amount += items.get(j).getAmount();
+						System.out.println(amount);
 						item.setAmount(amount);
 						items.remove(j);
 						items.add(item);
+						break;
 					}
 				}
 				if(brojac == 0) {
 					items.add(item);
+					System.out.println("OK");
 				}
 				newCustomer.getShoppingCart().setItems(items);
 				customerList.remove(i);
 				customerList.add(newCustomer);
+				break;
 			}
 		 }
 		 customers.emptyFile();

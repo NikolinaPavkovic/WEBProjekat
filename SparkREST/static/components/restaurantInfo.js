@@ -93,7 +93,7 @@ Vue.component("restaurant_info", {
   	    	<label v-bind:id="i.name" v-if="mode=='customer' && open==true">0</label>
   	    	<button v-if="mode=='customer' && open==true" v-on:click="decrement(i.name)">-</button>
   	    	<button v-if="mode=='customer' && open==true" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
-          <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button>
+            <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button>
   	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
       	</span>
       </div>
@@ -305,7 +305,7 @@ Vue.component("restaurant_info", {
         this.open = true;
         return "open";
       } else {
-        this.open = true;
+        this.open = false;
         return "closed";
       }
 
