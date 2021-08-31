@@ -99,16 +99,6 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "vanja",
-  "password" : "vanja",
-  "name" : "Vanja",
-  "surname" : "Veljic",
-  "gender" : "female",
-  "dateOfBirth" : 1625781600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
   "username" : "sima",
   "password" : "sima",
   "name" : "Sima",
@@ -138,7 +128,7 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
-} , {
+}, {
   "username" : "srdjan",
   "password" : "srdjan",
   "name" : "Srdjan",
@@ -148,4 +138,14 @@
   "role" : "manager",
   "isBlocked" : false,
   "deleted" : false
-}]
+}, {
+  "username" : "vanja",
+  "password" : "vanja",
+  "name" : "Vanja",
+  "surname" : "Veljic",
+  "gender" : "female",
+  "dateOfBirth" : 1625781600000,
+  "role" : "customer",
+  "isBlocked" : true,
+  "deleted" : false
+} ]

@@ -174,5 +174,46 @@
     "price" : 450.0,
     "customer" : "vanja",
     "status" : "delivered"
+  }, {
+    "id" : "Z17wkqchyt",
+    "orderedItems" : [ {
+      "name" : "Ham sandwich",
+      "price" : 300.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 4.0,
+      "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
+      "imagePath" : "./images/items/sandwich.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1630438448000,
+    "price" : 1200.0,
+    "customer" : "vanja",
+    "status" : "delivered"
   } ]
 } ]

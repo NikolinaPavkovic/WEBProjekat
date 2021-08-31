@@ -327,7 +327,7 @@ Vue.component("restaurant_info", {
         this.open = true;
         return "open";
       } else {
-        this.open = false;
+        this.open = true;
         return "closed";
       }
 

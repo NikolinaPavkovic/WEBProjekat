@@ -106,7 +106,7 @@
   "gender" : "female",
   "dateOfBirth" : 1625781600000,
   "role" : "customer",
-  "isBlocked" : false,
+  "isBlocked" : true,
   "deleted" : false,
   "orders" : [ {
     "id" : "8hZHb9vKcw",
@@ -304,9 +304,9 @@
     "price" : 900.0,
     "customer" : "vanja",
     "status" : "processing"
-  } ],
-  "shoppingCart" : {
-    "items" : [ {
+  }, {
+    "id" : "Z17wkqchyt",
+    "orderedItems" : [ {
       "name" : "Ham sandwich",
       "price" : 300.0,
       "type" : "food",
@@ -335,20 +335,29 @@
         "imgPath" : "./images/petrus.png",
         "averageGrade" : 0.0
       },
-      "amount" : 1.0,
+      "amount" : 4.0,
       "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
       "imagePath" : "./images/items/sandwich.jpg"
     } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1630438448000,
+    "price" : 1200.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  } ],
+  "shoppingCart" : {
+    "items" : [ ],
     "customer" : null,
-    "price" : 300.0
+    "price" : 0.0
   },
-  "points" : 977.5500000000001,
+  "points" : -1011.4649999999998,
   "customerType" : {
     "typeName" : "steel",
     "discount" : 0.0,
-    "requiredPoints" : 522.4499999999999
+    "requiredPoints" : 2511.4649999999997
   },
   "startCheck" : 1630438193251,
   "endCheck" : 1633030193251,
-  "actions" : 0
+  "actions" : 6
 } ]
