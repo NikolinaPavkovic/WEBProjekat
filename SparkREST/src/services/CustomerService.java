@@ -97,6 +97,7 @@ public class CustomerService {
 						item.setAmount(amount);
 						items.remove(j);
 						items.add(item);
+						break;
 					}
 				}
 				if(brojac == 0) {
@@ -105,6 +106,7 @@ public class CustomerService {
 				newCustomer.getShoppingCart().setItems(items);
 				customerList.remove(i);
 				customerList.add(newCustomer);
+				break;
 			}
 		 }
 		 customers.emptyFile();
