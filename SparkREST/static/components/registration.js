@@ -8,7 +8,8 @@ Vue.component("registration", {
 			roleInput: '',
 			dateOfBirthInput: '',
 			passwordInput: '',
-			genderInput: ''
+			genderInput: '',
+			errorMessage: ''
 		}
 	},
 	template: `
@@ -32,6 +33,7 @@ Vue.component("registration", {
 
 				<label>Korisničko ime:</label>
 				<input type="text" v-model="usernameInput" name="username" required />
+				<p style="color:red;text-transform:none;">{{errorMessage}}</p>
 
 				<label>Lozinka:</label>
 				<input type="password" v-model="passwordInput" name="password" required />
@@ -52,9 +54,16 @@ Vue.component("registration", {
 				role: this.roleInput,
 				dateOfBirth: this.dateOfBirthInput
 			};
+			
 			axios
 			.post('/rest/register', JSON.stringify(registrationParameters))
-			.then(response => (router.push(`/`)));
+			.then(response => {
+					if(response.data == 'USERNAME EXISTS') {
+						this.errorMessage = "Korisničko ime je već u upotrebi!";
+					} else {
+						router.push(`/`);
+					}
+			});
 		}
 	}
 });

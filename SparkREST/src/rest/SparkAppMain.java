@@ -83,13 +83,23 @@ public class SparkAppMain {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			date = (Date) format.parse(userDTO.getDateOfBirth());
 			User user = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getName(), userDTO.getSurname(), gender, date, Role.customer, false, false);
-			userService.addUser(user);
-			Session session = req.session(true);
+			User u = userService.addUser(user);
+			if(u != null) {
+				Session session = req.session(true);
+				User isLoggedIn = session.attribute("user");
+				if(isLoggedIn == null) {
+					session.attribute("user", user);
+				}
+				return "SUCCESS";
+			} else {
+				return "USERNAME EXISTS";
+			}
+			/*Session session = req.session(true);
 			User isLoggedIn = session.attribute("user");
 			if(isLoggedIn == null) {
 				session.attribute("user", user);
 			}
-			return "SUCCESS";
+			return "SUCCESS";*/
 		});
 
 
