@@ -701,3 +701,30 @@ body {
   margin-bottom: 10px;
   margin-left: 40px;
 }
+
+.welcome-header {
+	color: #99CCFF;
+	font-family: 'Droid serif', serif;
+	font-size: 100px;
+	font-weight: 400;
+	font-style: italic;
+	line-height: 44px;
+	margin: 0 0 12px;
+	text-align: center;
+	background: white;
+}
+
+.see-offer {
+	margin: auto;
+	background: #fbfbd0;
+	font-weight: bold;
+	width: 300px;  
+	height: 70px;
+	font-size: 25px; 
+}
+
+.container {
+	width: 1450px;  
+	height: 200px; 
+	display: grid; 
+}
