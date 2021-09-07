@@ -146,6 +146,6 @@
   "gender" : "female",
   "dateOfBirth" : 1625781600000,
   "role" : "customer",
-  "isBlocked" : true,
+  "isBlocked" : false,
   "deleted" : false
 } ]

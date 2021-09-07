@@ -32,7 +32,7 @@ Vue.component("customer_orders", {
 				<input type="number" placeholder="Cena (do)" v-model="endPrice"/>
 				<button v-on:click="searchOrders" class="search-button"> <img class="search-image" src="./images/search.png"> </button> <br>
 
-				<a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
+				<a href="#customer_orders" @click="showFilters" style="margin-left: 41px;"> Filteri </a>
 				<div v-bind:hidden="filters_show == false">
 				<div v-bind:hidden="filters_show == false">
 					<h1 class="filter-restaurants"> Tip restorana: </h1>
@@ -134,7 +134,7 @@ Vue.component("customer_orders", {
 		    <div>
 	    		</br></br></br></br></br>
 	    		<button v-bind:hidden="isDisabled(o)" v-on:click="cancelOrder(o)"> Otkaži porudžbinu </button>
-					<button class="see-more"> <a :href="'#/addComment?name=' + o.restaurant" class="link"> Ostavi komentar </a> </button>
+					<button class="see-more" v-bind:hidden="o.status !== 'delivered'"> <a :href="'#/addComment?name=' + o.restaurant" class="link"> Ostavi komentar </a> </button>
 	    	</div>
 		  </div>
 		 </div>

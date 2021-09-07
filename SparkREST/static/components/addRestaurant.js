@@ -127,12 +127,13 @@ Vue.component("add_restaurant", {
       .then(response => {
         this.managers = response.data;
       });
-
+	
+	 this.$nextTick(function () {
       const map = new ol.Map({ target: "map" });
 
       map.setView(
         new ol.View({
-          center: ol.proj.fromLonLat([19.7245,45.2889]),
+          center: ol.proj.fromLonLat([19.833549,45.2889]),
           zoom: 12
         })
       );
@@ -171,7 +172,7 @@ Vue.component("add_restaurant", {
         popup.hide();
         console.error(error);
       })
-    });
+    }); })
 
   },
 

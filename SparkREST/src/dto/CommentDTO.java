@@ -8,18 +8,20 @@ public class CommentDTO {
 	private Restaurant restaurant;
 	private String text;
 	private int grade;
+	private boolean approved;
 	
 	public CommentDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommentDTO(String customerUsername, Restaurant restaurant, String text, int grade) {
+	public CommentDTO(String customerUsername, Restaurant restaurant, String text, int grade, boolean approved) {
 		super();
 		this.customerUsername = customerUsername;
 		this.restaurant = restaurant;
 		this.text = text;
 		this.grade = grade;
+		this.approved = approved;
 	}
 
 	public String getCustomerUsername() {
@@ -52,6 +54,14 @@ public class CommentDTO {
 
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 	

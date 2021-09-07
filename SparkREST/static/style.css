@@ -724,8 +724,10 @@ body {
 	font-size: 25px; 
 }
 
-.container {
+.container-frontpage {
 	width: 1450px;  
 	height: 200px; 
 	display: grid; 
 }
+
+

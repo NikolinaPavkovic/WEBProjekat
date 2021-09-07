@@ -66,7 +66,8 @@ Vue.component("addComment", {
         customerUsername: this.username,
         restaurant: this.restaurant,
         text: this.comment,
-        grade: this.grade
+        grade: this.grade,
+		approved: false
       }
 
       axios

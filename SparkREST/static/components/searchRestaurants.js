@@ -78,7 +78,7 @@ Vue.component("search-restaurant", {
           <button v-on:click="searchRestaurant" class="search-button"> <img class="search-image" src="./images/search.png"> </button>
         </div> </br>
 
-        <div class="map-div-search">
+        <div class="map-div">
           <div id="map"> </div>
         </div> <br>
 
@@ -215,11 +215,6 @@ Vue.component("search-restaurant", {
   },
 
   methods: {
-
-      reload() {
-        this.$forceUpdate();
-      },
-
       searchRestaurant: function() {
         let city = cyrilicToLatinic(document.querySelector('#city').value);
         let country = cyrilicToLatinic(document.querySelector('#country').value);

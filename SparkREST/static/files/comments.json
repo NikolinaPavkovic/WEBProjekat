@@ -51,7 +51,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 4
+  "grade" : 4,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "goran",
@@ -105,7 +106,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 2
+  "grade" : 2,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "goran",
@@ -159,7 +161,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 4
+  "grade" : 4,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "goran",
@@ -213,7 +216,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 2
+  "grade" : 2,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "goran",
@@ -267,7 +271,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 5
+  "grade" : 5,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "vanja",
@@ -558,5 +563,171 @@
     "averageGrade" : 0.0
   },
   "text" : "super",
-  "grade" : 5
+  "grade" : 5,
+  "approved" : true
+}, {
+  "customer" : {
+    "username" : "goran",
+    "password" : "goran",
+    "name" : "Goran",
+    "surname" : "Goranovic",
+    "gender" : "male",
+    "dateOfBirth" : 955749600000,
+    "role" : "customer",
+    "isBlocked" : false,
+    "deleted" : false,
+    "orders" : [ ],
+    "shoppingCart" : {
+      "items" : [ ],
+      "customer" : null,
+      "price" : 0.0
+    },
+    "points" : 0.0,
+    "customerType" : {
+      "typeName" : "steel",
+      "discount" : 0.0,
+      "requiredPoints" : 0.0
+    },
+    "startCheck" : null,
+    "endCheck" : null,
+    "actions" : 0
+  },
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  },
+  "text" : "sve je ok",
+  "grade" : 2,
+  "approved" : true
+}, {
+  "customer" : {
+    "username" : "goran",
+    "password" : "goran",
+    "name" : "Goran",
+    "surname" : "Goranovic",
+    "gender" : "male",
+    "dateOfBirth" : 955749600000,
+    "role" : "customer",
+    "isBlocked" : false,
+    "deleted" : false,
+    "orders" : [ ],
+    "shoppingCart" : {
+      "items" : [ ],
+      "customer" : null,
+      "price" : 0.0
+    },
+    "points" : 0.0,
+    "customerType" : {
+      "typeName" : "steel",
+      "discount" : 0.0,
+      "requiredPoints" : 0.0
+    },
+    "startCheck" : null,
+    "endCheck" : null,
+    "actions" : 0
+  },
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  },
+  "text" : "Sve pohvale",
+  "grade" : 5,
+  "approved" : true
+}, {
+  "customer" : {
+    "username" : "goran",
+    "password" : "goran",
+    "name" : "Goran",
+    "surname" : "Goranovic",
+    "gender" : "male",
+    "dateOfBirth" : 955749600000,
+    "role" : "customer",
+    "isBlocked" : false,
+    "deleted" : false,
+    "orders" : [ ],
+    "shoppingCart" : {
+      "items" : [ ],
+      "customer" : null,
+      "price" : 0.0
+    },
+    "points" : 0.0,
+    "customerType" : {
+      "typeName" : "steel",
+      "discount" : 0.0,
+      "requiredPoints" : 0.0
+    },
+    "startCheck" : null,
+    "endCheck" : null,
+    "actions" : 0
+  },
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  },
+  "text" : "Moze i bolje :)",
+  "grade" : 2,
+  "approved" : true
 } ]

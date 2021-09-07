@@ -21,7 +21,8 @@ Vue.component("add_item", {
       user: null,
       username: "",
       restaurant: null ,
-      managerRestaurant: ""
+      managerRestaurant: "",
+	  items: null
     }
   },
 
@@ -88,6 +89,8 @@ Vue.component("add_item", {
             .get('/rest/getManagerRestaurant/' + this.username)
             .then(response => {
               this.restaurant = response.data;
+			  this.items = response.data.items;
+	console.log(this.items)
             });
         } else {
           this.mode = "notLogged";
@@ -135,6 +138,13 @@ Vue.component("add_item", {
         this.errorDescription = "Opis je obavezno uneti!";
         return false;
       }
+	  
+	  for (let item of this.items) {
+		if (item.name == this.itemName) {
+			this.errorName = "Artikal sa datim nazivom već postoji!";
+			return false;
+		}
+	}
 
       return true;
     },

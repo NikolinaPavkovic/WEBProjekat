@@ -50,62 +50,9 @@
     "imgPath" : "./images/petrus.png",
     "averageGrade" : 0.0
   },
-  "text" : "sve je ok",
-  "grade" : 4
-}, {
-  "customer" : {
-    "username" : "goran",
-    "password" : "goran",
-    "name" : "Goran",
-    "surname" : "Goranovic",
-    "gender" : "male",
-    "dateOfBirth" : 955749600000,
-    "role" : "customer",
-    "isBlocked" : false,
-    "deleted" : false,
-    "orders" : [ ],
-    "shoppingCart" : {
-      "items" : null,
-      "customer" : null,
-      "price" : 0.0
-    },
-    "points" : 0.0,
-    "customerType" : {
-      "typeName" : null,
-      "discount" : 0.0,
-      "requiredPoints" : 0.0
-    },
-    "startCheck" : null,
-    "endCheck" : null,
-    "actions" : 0
-  },
-  "restaurant" : {
-    "name" : "Petrus",
-    "type" : "italian",
-    "items" : null,
-    "status" : "open",
-    "location" : {
-      "latitude" : 45.2544,
-      "longitude" : 19.8471,
-      "address" : {
-        "address" : "Modene",
-        "number" : 0,
-        "city" : {
-          "city" : "Novi Sad",
-          "state" : {
-            "state" : "Serbia",
-            "id" : 0
-          },
-          "id" : 0,
-          "zipCode" : 21000.0
-        }
-      }
-    },
-    "imgPath" : "./images/petrus.png",
-    "averageGrade" : 0.0
-  },
-  "text" : "sve je ok",
-  "grade" : 2
+  "text" : "Sve pohvale",
+  "grade" : 5,
+  "approved" : false
 }, {
   "customer" : {
     "username" : "goran",
@@ -158,8 +105,9 @@
     "imgPath" : "./images/kalem.png",
     "averageGrade" : 0.0
   },
-  "text" : "sve je ok",
-  "grade" : 4
+  "text" : "Super",
+  "grade" : 4,
+  "approved" : false
 }, {
   "customer" : {
     "username" : "goran",
@@ -213,7 +161,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 2
+  "grade" : 2,
+  "approved" : false
 }, {
   "customer" : {
     "username" : "goran",
@@ -267,7 +216,8 @@
     "averageGrade" : 0.0
   },
   "text" : "sve je ok",
-  "grade" : 5
+  "grade" : 5,
+  "approved" : false
 }, {
   "customer" : {
     "username" : "goran",
@@ -281,13 +231,13 @@
     "deleted" : false,
     "orders" : [ ],
     "shoppingCart" : {
-      "items" : null,
+      "items" : [ ],
       "customer" : null,
       "price" : 0.0
     },
     "points" : 0.0,
     "customerType" : {
-      "typeName" : null,
+      "typeName" : "steel",
       "discount" : 0.0,
       "requiredPoints" : 0.0
     },
@@ -320,8 +270,9 @@
     "imgPath" : "./images/petrus.png",
     "averageGrade" : 0.0
   },
-  "text" : "odlicna usluga",
-  "grade" : 5
+  "text" : "Moze i bolje :)",
+  "grade" : 2,
+  "approved" : true
 }, {
   "customer" : {
     "username" : "vanja",
@@ -525,7 +476,7 @@
       } ],
       "restaurant" : "Petrus",
       "restLogo" : "./images/petrus.png",
-      "dateAndTime" : 1626874936081,
+      "dateAndTime" : 1626874936000,
       "price" : 900.0,
       "customer" : "vanja",
       "status" : "processing"
@@ -582,8 +533,8 @@
       "discount" : 0.0,
       "requiredPoints" : 542.4
     },
-    "startCheck" : 1630438193251,
-    "endCheck" : 1633030193251,
+    "startCheck" : 1630438193000,
+    "endCheck" : 1633030193000,
     "actions" : 1
   },
   "restaurant" : {
@@ -612,5 +563,6 @@
     "averageGrade" : 0.0
   },
   "text" : "super",
-  "grade" : 5
+  "grade" : 5,
+  "approved" : false
 } ]

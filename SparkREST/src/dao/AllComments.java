@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.Comment;
+import beans.Item;
 
 public class AllComments {
 	private HashMap<String, Comment> comments = new HashMap<String, Comment>();
@@ -53,6 +54,12 @@ public class AllComments {
 		comments.forEach(c -> commentsFromFile.add(c));
 		
 		return commentsFromFile;
+	}
+	
+	public void emptyFile() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.writeValue(new File("./static/files/commentsForManagers.json"), new ArrayList<Comment>());
 	}
 
 }

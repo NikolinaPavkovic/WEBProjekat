@@ -432,7 +432,9 @@ public class SparkAppMain {
 		get("/rest/getManagerRestaurant/:username", (req, res) -> {
 			res.type("application/json");
 			String username = req.params("username");
-			return g.toJson(managerService.getManagerRestaurant(username));
+			Restaurant restaurant = managerService.getManagerRestaurant(username);
+			restaurant.setItems(itemService.getItemsForRestaurant(restaurant.getName()));
+			return g.toJson(restaurant);
 
 		});
 
@@ -589,7 +591,7 @@ public class SparkAppMain {
 			res.type("application/json");
 			CommentDTO fromJson = g.fromJson(req.body(), CommentDTO.class);
 			System.out.println(fromJson.getCustomerUsername());
-			Comment comment = new Comment(customerService.findCustomer(fromJson.getCustomerUsername()), fromJson.getRestaurant(), fromJson.getText(), fromJson.getGrade());
+			Comment comment = new Comment(customerService.findCustomer(fromJson.getCustomerUsername()), fromJson.getRestaurant(), fromJson.getText(), fromJson.getGrade(),fromJson.isApproved());
 			commentService.addComment(comment);
 			return "SUCCESS";
 		});
@@ -656,6 +658,13 @@ public class SparkAppMain {
 		get("/getCommentsForAdmin", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(commentService.getCommentsForAdmin());
+		});
+		
+		post("/disapproveComment", (req, res) ->{
+			res.type("application/json");
+			Comment comment = g.fromJson(req.body(), Comment.class);
+			commentService.disapproveComment(comment);
+			return "deleted successfully";
 		});
 
 	}

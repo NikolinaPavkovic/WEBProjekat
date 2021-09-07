@@ -42,6 +42,7 @@ Vue.component("registration", {
 			</form>
 		</div>
 	`,
+
 	methods: {
 		register : function() {
 			event.preventDefault();

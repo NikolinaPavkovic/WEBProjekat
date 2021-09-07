@@ -1,3 +1,62 @@
+function cyrilicToLatinic(string) {
+    var cyrillic = 'А_Б_В_Г_Д_Ђ_Е_Ё_Ж_З_И_Й_Ј_К_Л_Љ_М_Н_Њ_О_П_Р_С_Т_Ћ_У_Ф_Х_Ц_Ч_Џ_Ш_Щ_Ъ_Ы_Ь_Э_Ю_Я_а_б_в_г_д_ђ_е_ё_ж_з_и_й_ј_к_л_љ_м_н_њ_о_п_р_с_т_ћ_у_ф_х_ц_ч_џ_ш_щ_ъ_ы_ь_э_ю_я'.split('_')
+    var latin = 'A_B_V_G_D_Đ_E_Ë_Ž_Z_I_J_J_K_L_Lj_M_N_Nj_O_P_R_S_T_Ć_U_F_H_C_Č_Dž_Š_Ŝ_ʺ_Y_ʹ_È_Û_Â_a_b_v_g_d_đ_e_ë_ž_z_i_j_j_k_l_lj_m_n_nj_o_p_r_s_t_ć_u_f_h_c_č_dž_š_ŝ_ʺ_y_ʹ_è_û_â'.split('_')
+
+    return string.split('').map(function(char) {
+      var index = cyrillic.indexOf(char)
+      if (!~index)
+        return char
+      return latin[index]
+    }).join('')
+  }
+
+function getMap() {
+	  const map = new ol.Map({ target: "map" });
+
+      map.setView(
+        new ol.View({
+          center: ol.proj.fromLonLat([19.833549,45.2889]),
+          zoom: 12
+        })
+      );
+
+      const apiKey = "AAPK8cad6fdb843d461b83eff8dfd08b20dcBLf02R4yV5jXllwflSmWOdjsqUK-9v-etIhDJdP7et4xmJgOD9xBn2FDg-DOwbvs";
+      const basemapId = "ArcGIS:Navigation";
+      const basemapURL = "https://basemaps-api.arcgis.com/arcgis/rest/services/styles/" + basemapId + "?type=style&token=" + apiKey;
+
+      olms(map, basemapURL);
+
+      const popup = new Popup();
+      map.addOverlay(popup);
+
+      map.on("click", (e) => {
+        const coords = ol.proj.transform(e.coordinate, "EPSG:3857", "EPSG:4326");
+
+        const authentication = new arcgisRest.ApiKey({
+          key: apiKey
+        });
+
+      arcgisRest
+      .reverseGeocode(coords, { authentication })
+      .then((result) => {
+        const message = `${result.address.LongLabel}<br>` + `${result.location.x.toLocaleString()}, ${result.location.y.toLocaleString()}`;
+        /*document.querySelector('#address').value = cyrilicToLatinic(result.address.Address);
+        document.querySelector('#country').value = cyrilicToLatinic(result.address.CountryCode);
+        document.querySelector('#city').value = cyrilicToLatinic(result.address.City);
+        document.querySelector('#longitude').value = result.location.x.toLocaleString();
+        document.querySelector('#latitude').value = result.location.y.toLocaleString();
+        document.querySelector('#zipcode').value = result.address.Postal; */
+        popup.show(e.coordinate, message);
+
+      })
+
+      .catch((error) => {
+        popup.hide();
+        console.error(error);
+      })
+    });
+}
+
 Vue.component("restaurant_info", {
 
   data: function() {
@@ -35,13 +94,18 @@ Vue.component("restaurant_info", {
       commentMessage: ""
     }
   },
+	updated() {
+		getMap();
+	},
 
   template: `
+<div>
 
   <div>
     <img :src="restaurantImage" class="rest-image">
 	<button v-if="mode=='customer'" style="position: absolute; top: 10px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
 	<p style="color:red;text-transform:none;">{{emptyCartMessage}}</p>
+
     <div class="all">
     <div class="wrapper-restaurant">
       <div class="left">
@@ -52,7 +116,7 @@ Vue.component("restaurant_info", {
       <div class ="right">
         <div class="info">
           <h3> Informacije </h3>
-          <div class="info_data">
+          <div class="info_data">	
             <div class="data">
               <h4> Adresa: </h4>
               <p> {{restaurant.location.address.address + ", " + restaurant.location.address.city.city}} </p>
@@ -70,10 +134,23 @@ Vue.component("restaurant_info", {
       </div>
     </div>
   </div>
+	<div class="map-div">
+		<div id="map"> </div>
+	</div>
+
+
+      <input type="text" class="hidden" id="address" hidden/>
+      <input type="text" class="hidden" id="country" hidden/>
+      <input type="text" class="hidden" id="longitude" hidden/>
+      <input type="text" class="hidden" id="latitude" hidden/>
+      <input type="text" class="hidden" id="zipcode" hidden/>
+	  <input type="text" id="city" class="hidden" name="location"/>
+
 
   </br> </br> </br> </br> </br> </br> </br> </br> </br>
 
   <div v-bind:hidden="editMode==true">
+
     <div class="row-items" v-for="(i, index) in items">
       <div class="col-with-pic"> </br>
         <div class="col-picture">
@@ -103,36 +180,32 @@ Vue.component("restaurant_info", {
   </div>
 
   <div v-bind:hidden="editMode==false">
+		 
+
   <form class="add-form">
     <label> Naziv artikla: </label>
     <input type="text" v-model="itemName" name="name"/>
-    <p style="color: red;"> {{errorName}} </p>
 
     <label> Tip artikla: </label>
     <select v-model="itemType">
       <option value="food"> Food </option>
       <option value="drink"> Drink </option>
     </select>
-    <p style="color: red;"> {{errorType}} </p>
 
     <label> Cena: </label>
     <input type="number" v-model="itemPrice"/>
-    <p style="color: red;"> {{errorPrice}} </p>
 
     <label> Restoran: </label>
     <select id="selectRestaurant" v-model="restaurantName">
       <option value="" disabled selected> </option>
       <option :value="restaurant.name"> {{restaurant.name}} </option>
     </select>
-    <p style="color: red;"> {{errorRestaurant}} </p>
 
     <label> Količina: </label>
     <input type="number" v-model="itemAmount"/>
-    <p style="color: red;"> {{errorAmount}} </p>
 
     <label> Opis: </label>
     <input type="text" v-model="itemDescription"/> </br>
-    <p style="color: red;"> {{errorDescription}} </p>
 
     <div class="item-picture">
       <div>
@@ -158,15 +231,15 @@ Vue.component("restaurant_info", {
   </div>
 
   </div>
+</div>
   `,
 
   mounted() {
-
     axios
       .get('/rest/restaurants/' + this.$route.query.name)
       .then(response => {
         this.restaurant = response.data;
-		    this.name = response.data.name;
+		this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
         this.items = response.data.items;
         axios

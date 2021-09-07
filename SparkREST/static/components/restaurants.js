@@ -55,6 +55,7 @@ Vue.component("restaurants", {
       restaurantStatus: ""
 		}
 	},
+	
 	template: `
 	<div>
 		</br> </br> </br>
@@ -192,7 +193,6 @@ Vue.component("restaurants", {
 		<button v-if="mode=='deliverer'" v-on:click="viewNotifications">Obaveštenja</button>
 
     <button v-if="mode=='manager' || mode=='admin'" v-on:click="getAllComments"> Pregled komentara </button>
-
 	</div>
 	`,
 	mounted() {

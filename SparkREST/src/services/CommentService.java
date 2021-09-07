@@ -67,7 +67,20 @@ public class CommentService {
 	}
 	
 	public void approveComment(Comment comment) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Comment> allComments = this.allComments.load();
+		
+		for (int i = 0; i < allComments.size(); i++) {
+			if (allComments.get(i).getCustomer().getUsername().equals(comment.getCustomer().getUsername()) && allComments.get(i).getText().equals(comment.getText())
+					&& allComments.get(i).getGrade() == comment.getGrade()) {
+				allComments.remove(i);
+			}
+		}
 		comments.save(comment);
+		allComments.add(comment);
+		this.allComments.emptyFile();
+		for (Comment c : allComments) {
+			this.allComments.save(c);
+		}
 	}
 	
 	public ArrayList<Comment> getAllComments(User user) throws JsonGenerationException, JsonMappingException, IOException {
@@ -88,5 +101,22 @@ public class CommentService {
 			adminComments.add(c);
 		}
 		return adminComments;
+	}
+	
+	public void disapproveComment(Comment comment) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Comment> allComments = this.allComments.load();
+		
+		for (int i = 0; i < allComments.size(); i++) {
+			if (allComments.get(i).getCustomer().getUsername().equals(comment.getCustomer().getUsername()) && allComments.get(i).getText().equals(comment.getText())
+					&& allComments.get(i).getGrade() == comment.getGrade()) {
+				allComments.remove(i);
+			}
+		}
+		//comments.save(comment);
+		//allComments.add(comment);
+		this.allComments.emptyFile();
+		for (Comment c : allComments) {
+			this.allComments.save(c);
+		}
 	}
 }

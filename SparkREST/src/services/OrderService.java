@@ -569,7 +569,7 @@ public class OrderService {
 				}
 			}
 
-			if (fromJson.getStartPrice() != 0 && fromJson.getEndPrice() != 0) {
+			if (fromJson.getStartPrice() >= 0 && fromJson.getEndPrice() != 0) {
 				if (o.getPrice() <= fromJson.getEndPrice() && o.getPrice() >= fromJson.getStartPrice()) {
 					canAdd = true;
 				} else {

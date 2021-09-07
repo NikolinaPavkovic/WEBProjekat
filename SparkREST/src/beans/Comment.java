@@ -5,13 +5,15 @@ public class Comment {
 	private Restaurant restaurant;
 	private String text;
 	private int grade;
+	private boolean approved;
 	
-	public Comment(Customer customer, Restaurant restaurant, String text, int grade) {
+	public Comment(Customer customer, Restaurant restaurant, String text, int grade, boolean approved) {
 		super();
 		this.customer = customer;
 		this.restaurant = restaurant;
 		this.text = text;
 		this.grade = grade;
+		this.approved = approved;
 	}
 
 	public Comment() {
@@ -50,6 +52,13 @@ public class Comment {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
 	
 }

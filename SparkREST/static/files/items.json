@@ -19,6 +19,7 @@
             "state" : "Serbia",
             "id" : 0
           },
+          "id" : 0,
           "zipCode" : 21000.0
         }
       }
@@ -50,6 +51,7 @@
             "state" : "Serbia",
             "id" : 0
           },
+          "id" : 0,
           "zipCode" : 21000.0
         }
       }
