@@ -11,7 +11,7 @@ function cyrilicToLatinic(string) {
   }
 
 function getMap() {
-	  const map = new ol.Map({ target: "map" });
+		  const map = new ol.Map({ target: "map" });
 
       map.setView(
         new ol.View({
@@ -40,12 +40,6 @@ function getMap() {
       .reverseGeocode(coords, { authentication })
       .then((result) => {
         const message = `${result.address.LongLabel}<br>` + `${result.location.x.toLocaleString()}, ${result.location.y.toLocaleString()}`;
-        /*document.querySelector('#address').value = cyrilicToLatinic(result.address.Address);
-        document.querySelector('#country').value = cyrilicToLatinic(result.address.CountryCode);
-        document.querySelector('#city').value = cyrilicToLatinic(result.address.City);
-        document.querySelector('#longitude').value = result.location.x.toLocaleString();
-        document.querySelector('#latitude').value = result.location.y.toLocaleString();
-        document.querySelector('#zipcode').value = result.address.Postal; */
         popup.show(e.coordinate, message);
 
       })
@@ -55,6 +49,9 @@ function getMap() {
         console.error(error);
       })
     });
+
+console.log("ok");
+
 }
 
 Vue.component("restaurant_info", {
@@ -94,10 +91,6 @@ Vue.component("restaurant_info", {
       commentMessage: ""
     }
   },
-	updated() {
-		getMap();
-	},
-
   template: `
 <div>
 
@@ -134,23 +127,13 @@ Vue.component("restaurant_info", {
       </div>
     </div>
   </div>
-	<div class="map-div">
-		<div id="map"> </div>
+	<div class="map-div-info">
+		<div id="map"></div>
 	</div>
-
-
-      <input type="text" class="hidden" id="address" hidden/>
-      <input type="text" class="hidden" id="country" hidden/>
-      <input type="text" class="hidden" id="longitude" hidden/>
-      <input type="text" class="hidden" id="latitude" hidden/>
-      <input type="text" class="hidden" id="zipcode" hidden/>
-	  <input type="text" id="city" class="hidden" name="location"/>
-
 
   </br> </br> </br> </br> </br> </br> </br> </br> </br>
 
   <div v-bind:hidden="editMode==true">
-
     <div class="row-items" v-for="(i, index) in items">
       <div class="col-with-pic"> </br>
         <div class="col-picture">
@@ -242,6 +225,7 @@ Vue.component("restaurant_info", {
 		this.name = response.data.name;
         this.restaurantImage = response.data.imgPath;
         this.items = response.data.items;
+		//getMap(); //1
         axios
           .get('/rest/isLogged')
           .then(response => {
@@ -257,10 +241,12 @@ Vue.component("restaurant_info", {
                   } else {
                     this.canEdit = false;
                   }
+			//getMap();//2
                 });
             } else {
               this.mode = "notLogged";
             }
+			//getMap();//3
           });
           axios
             .get('/getRestaurantComments/' + this.name)
@@ -270,9 +256,11 @@ Vue.component("restaurant_info", {
               } else {
                 this.commentMessage = "Nema komentara.";
               }
+			//getMap();//4
             });
+		getMap();
       });
-
+	
     axios
       .get('/rest/getComments')
       .then(response => {
@@ -288,6 +276,7 @@ Vue.component("restaurant_info", {
         }
         avg = sum/cnt;
         this.avgGrade = avg;
+		getMap();//5
       });
 
   },
@@ -405,7 +394,11 @@ Vue.component("restaurant_info", {
       }
 
       console.log(this.open);
-    }
+    },
+
+	/*getMap : function() {
+
+	}*/
   }
 
 });

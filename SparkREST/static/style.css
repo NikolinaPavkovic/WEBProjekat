@@ -640,6 +640,15 @@ body {
   width: 420px;
 }
 
+.map-div-info {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top:34px;
+  right: 15px;
+  margin: auto;
+}
+
 .map-div-search {
   height: 420px;
   width: 660px;
