@@ -6,15 +6,16 @@ Vue.component("profile", {
 			nameInput: '',
 			surnameInput: '',
 			usernameInput: '',
-			passwordInput: ''
+			passwordInput: '',
+			mode: "notLogged"
 			
 		}
 	}, 
 	template: `
 	<div>
 		<div class="all" v-bind:hidden="editMode==true">
-			<button style="position: absolute; top: 10px; right: 200px;" v-on:click="changeMode">Izmeni profil</button>
-			<button style="position: absolute; top: 10px; right: 40px;" v-on:click="getUserOrders">Moje porudžbine</button>
+			<button style="position: absolute; top: 10px; right: 40px;" v-on:click="changeMode">Izmeni profil</button>
+			<button v-if="mode=='customer'" style="position: absolute; top: 10px; right: 200px;" v-on:click="getUserOrders">Moje porudžbine</button>
 			<div class="wrapper">
 				<div class="left">
 					<h4 key="user.name">{{user.name}} {{user.surname}}</h4>
@@ -71,6 +72,7 @@ Vue.component("profile", {
 				this.surnameInput= this.user.surname;
 				this.usernameInput= this.user.username;
 				this.passwordInput= this.user.password;
+				this.mode = response.data.role;
 				
 			});
 			

@@ -1,29 +1,4 @@
 [ {
-  "username" : "zoran",
-  "password" : "zoran",
-  "name" : "Zoran",
-  "surname" : "Zoric",
-  "gender" : "male",
-  "dateOfBirth" : 1625004000000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false,
-  "orders" : [ ],
-  "shoppingCart" : {
-    "items" : [ ],
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : -1256.85,
-  "customerType" : {
-    "typeName" : "steel",
-    "discount" : 0.0,
-    "requiredPoints" : 2756.85
-  },
-  "startCheck" : 1626785372701,
-  "endCheck" : 1629463772701,
-  "actions" : 1
-}, {
   "username" : "milka",
   "password" : "milka",
   "name" : "Milka",
@@ -563,4 +538,29 @@
   "startCheck" : 1630438193251,
   "endCheck" : 1633030193251,
   "actions" : 6
+}, {
+  "username" : "zoran",
+  "password" : "zoran",
+  "name" : "Zoran",
+  "surname" : "Zoric",
+  "gender" : "male",
+  "dateOfBirth" : 1625004000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : true,
+  "orders" : [ ],
+  "shoppingCart" : {
+    "items" : [ ],
+    "customer" : null,
+    "price" : 0.0
+  },
+  "points" : -1256.85,
+  "customerType" : {
+    "typeName" : "steel",
+    "discount" : 0.0,
+    "requiredPoints" : 2756.85
+  },
+  "startCheck" : 1626785372701,
+  "endCheck" : 1629463772701,
+  "actions" : 1
 } ]

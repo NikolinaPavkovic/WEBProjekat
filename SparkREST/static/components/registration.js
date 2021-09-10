@@ -9,7 +9,8 @@ Vue.component("registration", {
 			dateOfBirthInput: '',
 			passwordInput: '',
 			genderInput: '',
-			errorMessage: ''
+			errorMessage: '',
+			emptyMessage: ''
 		}
 	},
 	template: `
@@ -36,7 +37,9 @@ Vue.component("registration", {
 				<p style="color:red;text-transform:none;">{{errorMessage}}</p>
 
 				<label>Lozinka:</label>
-				<input type="password" v-model="passwordInput" name="password" required />
+				<input type="password" v-model="passwordInput" name="password" minlength="5" required />
+				
+				<p style="color:red;text-transform:none;">{{emptyMessage}}</p>
 
 				<input type="submit" v-on:click="register" value="Register"/>
 			</form>
@@ -61,6 +64,8 @@ Vue.component("registration", {
 			.then(response => {
 					if(response.data == 'USERNAME EXISTS') {
 						this.errorMessage = "Korisničko ime je već u upotrebi!";
+					} else if(response.data == 'EMPTY'){
+						this.emptyMessage = "Morate da popunite sva polja!"
 					} else {
 						router.push(`/`);
 					}

@@ -8,7 +8,8 @@ Vue.component("addEmployee", {
 			roleInput: '',
 			dateOfBirthInput: '',
 			passwordInput: '',
-			genderInput: ''
+			genderInput: '',
+			emptyMessage: ''
 		}
 	},
 	template: `
@@ -42,6 +43,8 @@ Vue.component("addEmployee", {
 				<label>Lozinka:</label>
 				<input type="password" v-model="passwordInput" name="password" required />
 				
+				<p style="color:red;text-transform:none;">{{emptyMessage}}</p>
+				
 				<input type="submit" v-on:click="addEmployee" value="Dodaj zaposlenog"/>
 			</form>
 		</div>
@@ -60,7 +63,13 @@ Vue.component("addEmployee", {
 			};
 			axios
 				.post('/rest/addEmployee', JSON.stringify(registrationParameters))
-				.then(response => (router.push(`/`)));
+				.then(response => {
+					if(response.data == 'EMPTY') {
+						this.emptyMessage = "Morate da popunite sva polja!";
+					} else {
+						router.push(`/`)
+					}
+				});
 		}
 	}
 });

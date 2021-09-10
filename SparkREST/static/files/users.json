@@ -9,16 +9,6 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "nina",
-  "password" : "nina",
-  "name" : "Nikolina",
-  "surname" : "Pavkovic",
-  "gender" : "male",
-  "dateOfBirth" : 1622844000000,
-  "role" : "admin",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
   "username" : "aco",
   "password" : "aco",
   "name" : "Aleksandar",
@@ -86,16 +76,6 @@
   "gender" : "female",
   "dateOfBirth" : 1624831200000,
   "role" : "manager",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
-  "username" : "zoran",
-  "password" : "zoran",
-  "name" : "Zoran",
-  "surname" : "Zoric",
-  "gender" : "male",
-  "dateOfBirth" : 1625004000000,
-  "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
 }, {
@@ -168,4 +148,24 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
+}, {
+  "username" : "nina",
+  "password" : "nina",
+  "name" : "Nikolina",
+  "surname" : "Pavkovic",
+  "gender" : "male",
+  "dateOfBirth" : 1622844000000,
+  "role" : "admin",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "zoran",
+  "password" : "zoran",
+  "name" : "Zoran",
+  "surname" : "Zoric",
+  "gender" : "male",
+  "dateOfBirth" : 1625004000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : true
 } ]

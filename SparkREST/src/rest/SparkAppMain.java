@@ -73,6 +73,14 @@ public class SparkAppMain {
 		post("/rest/register", (req, res) -> {
 			res.type("application/json");
 			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
+			if(userDTO.getDateOfBirth().equals("") ||
+					userDTO.getGender().equals("") ||
+					userDTO.getName().equals("") ||
+					userDTO.getPassword().equals("") ||
+					userDTO.getSurname().equals("") ||
+					userDTO.getUsername().equals("")) {
+				return "EMPTY";
+			}
 			Gender gender;
 			Date date;
 			if(userDTO.getGender().equals("male")) {
@@ -106,6 +114,15 @@ public class SparkAppMain {
 		post("/rest/addEmployee", (req, res) -> {
 			res.type("application/json");
 			UserDTO userDTO = g.fromJson(req.body(), UserDTO.class);
+			if(userDTO.getDateOfBirth().equals("") ||
+					userDTO.getGender().equals("") ||
+					userDTO.getName().equals("") ||
+					userDTO.getPassword().equals("") ||
+					userDTO.getSurname().equals("") ||
+					userDTO.getUsername().equals("") ||
+					userDTO.getRole().equals("")) {
+				return "EMPTY";
+			}
 			Gender gender;
 			Date date;
 			Role role;
