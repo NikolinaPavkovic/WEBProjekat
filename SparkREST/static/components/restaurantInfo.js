@@ -376,7 +376,10 @@ Vue.component("restaurant_info", {
       };
 
       axios
-        .put('/rest/editItem', JSON.stringify(itemParams));
+        .put('/rest/editItem', JSON.stringify(itemParams))
+        .then(response => {
+        	this.$router.go();
+        });
 
       this.editMode = false;
     },

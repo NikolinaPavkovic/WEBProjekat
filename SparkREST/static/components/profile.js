@@ -96,20 +96,10 @@ Vue.component("profile", {
 			};
 			
 			axios
-				.put('/rest/editProfile', JSON.stringify(editUserParameters));
-			
-			axios
-			.get('/rest/isLogged')
-			.then(response => {
-				this.user = response.data;
-			});
-			
-			axios
-			.get('/rest/isLogged')
-			.then(response => {
-				this.user = response.data;
-				
-			});
+				.put('/rest/editProfile', JSON.stringify(editUserParameters))
+				.then(response => {
+					this.$router.go();
+				});
 			
 			this.editMode = false;
 		},

@@ -32,7 +32,7 @@
   "imagePath" : "./images/items/pizza.jpg"
 }, {
   "name" : "Ham sandwich",
-  "price" : 300.0,
+  "price" : 350.0,
   "type" : "food",
   "restaurant" : {
     "name" : "Petrus",
@@ -61,5 +61,5 @@
   },
   "amount" : 0.0,
   "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
-  "imagePath" : "./images/items/sandwich.jpg"
+  "imagePath" : ""
 } ]

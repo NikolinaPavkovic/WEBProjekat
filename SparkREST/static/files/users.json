@@ -148,4 +148,24 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : false
+}, {
+  "username" : "nikolaa",
+  "password" : "nikola",
+  "name" : "Nikola",
+  "surname" : "Nikolić",
+  "gender" : "male",
+  "dateOfBirth" : 963180000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "nikola",
+  "password" : "nikola",
+  "name" : "Nikola",
+  "surname" : "Nikolić",
+  "gender" : "male",
+  "dateOfBirth" : 963180000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false
 } ]

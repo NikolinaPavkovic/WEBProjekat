@@ -101,6 +101,7 @@ Vue.component("shopping_cart", {
 				.put('/rest/editShoppingCart', JSON.stringify(editParameters))
 				.then(response => {
 					this.shoppingCart.price = response.data;
+					this.$router.go();
 			});
 		},
 		createOrder: function() {

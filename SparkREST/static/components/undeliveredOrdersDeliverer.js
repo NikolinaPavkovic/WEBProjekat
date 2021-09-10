@@ -6,6 +6,7 @@ Vue.component("undeliveredOrdersDeliverer", {
 	},
 	template: `
 		<div>
+		  <h1 v-if="orders == null || !orders.lenght">Nemate nedostavljenih porudžbina!</h1>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">

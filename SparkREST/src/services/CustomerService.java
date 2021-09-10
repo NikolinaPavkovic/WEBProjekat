@@ -32,7 +32,6 @@ public class CustomerService {
 		Customer oldCustomer = new Customer();
 		for (int i = 0; i < customerList.size(); i++) {
 			if(customerList.get(i).getUsername().equals(oldUser.getUsername())) {
-				customerList.remove(i);
 				oldCustomer = new Customer(customerList.get(i).getUsername(),
 						customerList.get(i).getPassword(),
 						customerList.get(i).getName(),
@@ -49,6 +48,7 @@ public class CustomerService {
 						customerList.get(i).getStartCheck(),
 						customerList.get(i).getEndCheck(),
 						customerList.get(i).getActions());
+				customerList.remove(i);
 				break;
 			}
 		}

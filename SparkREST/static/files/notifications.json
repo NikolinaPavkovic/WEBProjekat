@@ -13,4 +13,14 @@
   "orderId" : "Z17wkqchyt",
   "content" : "Vaš zahtev je prihvaćen!",
   "deleted" : false
+}, {
+  "deliverer" : "aco",
+  "orderId" : "vOunLUYnqD",
+  "content" : "Vaš zahtev je odbijen!",
+  "deleted" : false
+}, {
+  "deliverer" : "mitar",
+  "orderId" : "vOunLUYnqD",
+  "content" : "Vaš zahtev je prihvaćen!",
+  "deleted" : false
 } ]

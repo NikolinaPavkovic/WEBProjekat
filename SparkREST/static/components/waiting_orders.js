@@ -7,6 +7,7 @@ Vue.component("waiting_orders", {
 	},
 	template: `
 		<div>
+		  <h1 v-if="orders == null || !orders.lenght">Nema porudžbina na čekanju!</h1>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -26,6 +27,7 @@ Vue.component("waiting_orders", {
 		    <div>
 	    		</br></br></br></br></br>
 	    		<button v-bind:hidden="isDisabledRequest(o)" v-on:click="sendRequest(o)"> Pošalji zahtev za isporuku </button>
+	    		<p style="color:red;text-transform:none;">{{error}}</p>
 	    	</div>
 		  </div>		  
 		 </div>
@@ -59,7 +61,7 @@ Vue.component("waiting_orders", {
 				.then(response => 
 				{
 					if(response.data == 'OK') {
-						router.push(`/`);
+						this.$router.go();
 					} else {
 						this.error = "Već ste poslali zahtev";
 					}

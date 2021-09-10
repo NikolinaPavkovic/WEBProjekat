@@ -74,6 +74,161 @@
   "endCheck" : 1629474556727,
   "actions" : 0
 }, {
+  "username" : "sima",
+  "password" : "sima",
+  "name" : "Sima",
+  "surname" : "Simic",
+  "gender" : "male",
+  "dateOfBirth" : 1625090400000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false,
+  "orders" : [ {
+    "id" : "3BSOI4RzAa",
+    "orderedItems" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 2.0,
+      "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    }, {
+      "name" : "Ham sandwich",
+      "price" : 300.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 1.0,
+      "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
+      "imagePath" : "./images/items/sandwich.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1630693818871,
+    "price" : 1200.0,
+    "customer" : "sima",
+    "status" : "processing"
+  } ],
+  "shoppingCart" : {
+    "items" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 1.0,
+      "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    } ],
+    "customer" : null,
+    "price" : 450.0
+  },
+  "points" : 159.6,
+  "customerType" : {
+    "typeName" : "steel",
+    "discount" : 0.0,
+    "requiredPoints" : 1340.4
+  },
+  "startCheck" : 1630693786419,
+  "endCheck" : 1633285786419,
+  "actions" : 0
+}, {
+  "username" : "nikola",
+  "password" : "nikola",
+  "name" : "Nikola",
+  "surname" : "Nikolić",
+  "gender" : "male",
+  "dateOfBirth" : 963180000000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false,
+  "orders" : [ ],
+  "shoppingCart" : {
+    "items" : [ ],
+    "customer" : null,
+    "price" : 0.0
+  },
+  "points" : 0.0,
+  "customerType" : {
+    "typeName" : "steel",
+    "discount" : 0.0,
+    "requiredPoints" : 0.0
+  },
+  "startCheck" : 1631186481691,
+  "endCheck" : 1633778481691,
+  "actions" : 0
+}, {
   "username" : "vanja",
   "password" : "vanja",
   "name" : "Vanja",
@@ -320,36 +475,11 @@
     "price" : 1200.0,
     "customer" : "vanja",
     "status" : "delivered"
-  } ],
-  "shoppingCart" : {
-    "items" : [ ],
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : -1011.4649999999998,
-  "customerType" : {
-    "typeName" : "steel",
-    "discount" : 0.0,
-    "requiredPoints" : 2511.4649999999997
-  },
-  "startCheck" : 1630438193251,
-  "endCheck" : 1633030193251,
-  "actions" : 6
-}, {
-  "username" : "sima",
-  "password" : "sima",
-  "name" : "Sima",
-  "surname" : "Simic",
-  "gender" : "male",
-  "dateOfBirth" : 1625090400000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false,
-  "orders" : [ {
-    "id" : "3BSOI4RzAa",
+  }, {
+    "id" : "vOunLUYnqD",
     "orderedItems" : [ {
-      "name" : "Pizza",
-      "price" : 450.0,
+      "name" : "Ham sandwich",
+      "price" : 350.0,
       "type" : "food",
       "restaurant" : {
         "name" : "Petrus",
@@ -377,50 +507,9 @@
         "averageGrade" : 0.0
       },
       "amount" : 2.0,
-      "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    }, {
-      "name" : "Ham sandwich",
-      "price" : 300.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 1.0,
       "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
-      "imagePath" : "./images/items/sandwich.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1630693818871,
-    "price" : 1200.0,
-    "customer" : "sima",
-    "status" : "processing"
-  } ],
-  "shoppingCart" : {
-    "items" : [ {
+      "imagePath" : ""
+    }, {
       "name" : "Pizza",
       "price" : 450.0,
       "type" : "food",
@@ -449,20 +538,29 @@
         "imgPath" : "./images/petrus.png",
         "averageGrade" : 0.0
       },
-      "amount" : 1.0,
+      "amount" : 3.0,
       "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
       "imagePath" : "./images/items/pizza.jpg"
     } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1631214404000,
+    "price" : 2050.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  } ],
+  "shoppingCart" : {
+    "items" : [ ],
     "customer" : null,
-    "price" : 450.0
+    "price" : 0.0
   },
-  "points" : 159.6,
+  "points" : -738.8149999999998,
   "customerType" : {
     "typeName" : "steel",
     "discount" : 0.0,
-    "requiredPoints" : 1340.4
+    "requiredPoints" : 2238.8149999999996
   },
-  "startCheck" : 1630693786419,
-  "endCheck" : 1633285786419,
-  "actions" : 0
+  "startCheck" : 1630438193251,
+  "endCheck" : 1633030193251,
+  "actions" : 6
 } ]

@@ -43,12 +43,12 @@ Vue.component("requests", {
 		acceptRequest: function(requestDTO) {
 			axios
 				.put('/rest/acceptRequest', requestDTO)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		},
 		rejectRequest: function(requestDTO) {
 			axios
 				.put('/rest/rejectRequest', requestDTO)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		}
 	}
 });

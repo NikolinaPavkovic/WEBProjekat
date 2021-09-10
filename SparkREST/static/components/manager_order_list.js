@@ -137,12 +137,12 @@ Vue.component("manager_order_list", {
 		changeStatusToPreparing: function(order) {
 			axios
 				.post('/rest/changeStatusToPreparing', order.id)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		},
 		changeStatusToWaiting: function(order) {
 			axios
 				.post('/rest/changeStatusToWaiting', order.id)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		},
 		viewRequests: function() {
 			event.preventDefault();
