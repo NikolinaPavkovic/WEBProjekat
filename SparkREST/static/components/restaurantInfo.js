@@ -10,13 +10,13 @@ function cyrilicToLatinic(string) {
     }).join('')
   }
 
-function getMap() {
+function getMap(restaurant) {
 		  const map = new ol.Map({ target: "map" });
 
       map.setView(
         new ol.View({
-          center: ol.proj.fromLonLat([19.833549,45.2889]),
-          zoom: 12
+          center: ol.proj.fromLonLat([restaurant.location.longitude,restaurant.location.latitude]),
+          zoom: 16
         })
       );
 
@@ -28,6 +28,15 @@ function getMap() {
 
       const popup = new Popup();
       map.addOverlay(popup);
+	  const pos = ol.proj.fromLonLat([restaurant.location.longitude,restaurant.location.latitude]);
+
+	  const marker = new ol.Overlay({
+		  position: pos,
+		  positioning: 'center-center',
+		  element: document.getElementById('marker'),
+		  stopEvent: false,
+	  });
+	  map.addOverlay(marker);
 
       map.on("click", (e) => {
         const coords = ol.proj.transform(e.coordinate, "EPSG:3857", "EPSG:4326");
@@ -39,7 +48,7 @@ function getMap() {
       arcgisRest
       .reverseGeocode(coords, { authentication })
       .then((result) => {
-        const message = `${result.address.LongLabel}<br>` + `${result.location.x.toLocaleString()}, ${result.location.y.toLocaleString()}`;
+        const message = `${result.address.LongLabel}<br>` ;
         popup.show(e.coordinate, message);
 
       })
@@ -128,7 +137,9 @@ Vue.component("restaurant_info", {
     </div>
   </div>
 	<div class="map-div-info">
-		<div id="map"></div>
+		<div id="map"> </div>
+		<div id="marker" title="Marker"></div>
+		
 	</div>
 
   </br> </br> </br> </br> </br> </br> </br> </br> </br>
@@ -258,7 +269,7 @@ Vue.component("restaurant_info", {
               }
 			//getMap();//4
             });
-		getMap();
+		getMap(this.restaurant);
       });
 	
     axios
@@ -276,7 +287,7 @@ Vue.component("restaurant_info", {
         }
         avg = sum/cnt;
         this.avgGrade = avg;
-		getMap();//5
+		getMap(this.restaurant);//5
       });
 
   },
