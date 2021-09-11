@@ -158,7 +158,7 @@ Vue.component("customer_orders", {
 		cancelOrder: function(order) {
 			axios
 				.post('/rest/cancelOrder', order.id)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		},
 		getUndeliveredOrders: function() {
 			event.preventDefault();

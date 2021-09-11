@@ -10,7 +10,8 @@ Vue.component("add_manager", {
       gender: "",
       isBlocked: false,
       deleted: false,
-      restaurant: []
+      restaurant: [],
+      emptyMessage: ''
     }
   },
 
@@ -34,13 +35,10 @@ Vue.component("add_manager", {
       <option value="female">Žensko</option>
     </select>
 
-    <label>Uloga:</label>
-    <select v-model="role" required>
-      <option value="manager">Menadžer</option>
-    </select>
-
     <label>Korisničko ime:</label>
     <input type="text" v-model="username" name="username" required />
+    
+    <p style="color:red;text-transform:none;">{{emptyMessage}}</p>
 
     <label>Lozinka:</label>
     <input type="password" v-model="password" name="password" required />
@@ -54,7 +52,7 @@ Vue.component("add_manager", {
   methods: {
 
     add: function() {
-
+	  event.preventDefault();
       this.role = "menadžer";
 
       if (this.gender == 'male') {
@@ -77,7 +75,16 @@ Vue.component("add_manager", {
 
       axios
         .post('/rest/addNewManager', JSON.stringify(managerParams))
-        .then(response => (router.push(`/`)));
+        .then(response => {
+        	if(response.data == 'EMPTY') {
+        		this.emptyMessage = "Morate popuniti sva polja!";
+        	} else if(response.data == 'USERNAME EXISTS') {
+        		this.emptyMessage = "Username je već u upotrebi!";
+        	}
+        	 else {
+        		router.push(`/`);
+        	}
+        });
     }
   }
 

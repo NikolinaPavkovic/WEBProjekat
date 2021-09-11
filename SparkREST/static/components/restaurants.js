@@ -42,17 +42,17 @@ Vue.component("restaurants", {
 			allLocations: null,
 			autocompleteInstance: [],
 			message: "",
-      showSearch: false,
-      restaurantCity: "",
-      filters_show: false,
-      type: [],
-      avgGrade: "",
-      comments: null,
-      sortBy: "",
-      ascending: false,
-      openRestaurants: null,
-      closedRestaurants:null,
-      restaurantStatus: ""
+	      showSearch: false,
+	      restaurantCity: "",
+	      filters_show: false,
+	      type: [],
+	      avgGrade: "",
+	      comments: null,
+	      sortBy: "",
+	      ascending: false,
+	      openRestaurants: null,
+	      closedRestaurants:null,
+	      restaurantStatus: ""
 		}
 	},
 	
@@ -168,9 +168,10 @@ Vue.component("restaurants", {
 			<div class="col-information">
 			  <h1 class="restaurant-name"> {{r.name}} </h1>
 				<h1 class="info"> {{r.location.address.address + ", " + r.location.address.city.city}} </h1>
-				<h1 class="info"> Tip restorana: {{r.type}} </h1>
+				<h1 class="info"> {{r.type}} </h1>
 				<h1 class="info"> {{isOpen()}} </h1>
-        <h1 class="info"> {{getAvg(r.name)}} </h1>
+		        <h1 class="info" v-if="!isNaN(getAvg(r.name))"> {{getAvg(r.name)}} </h1>
+		        <h1 class="info" v-else> NEOCENJEN </h1>
 			</div>
 		</div>
 
@@ -184,7 +185,6 @@ Vue.component("restaurants", {
 		<button v-if="mode=='admin'" v-on:click="getDeliverers"> Pregled dostavljača </button>
 		<button v-if="mode=='admin'" v-on:click="getSuspiciousCustomers"> Pregled sumnjivih korisnika </button>
     	<button v-if="mode=='manager'" v-on:click="addItem"> Dodaj artikal </button>
-		<button v-on:click="goToSearch"> search </button>
 		<button v-if="mode=='manager'" v-on:click="getManagerOrders"> Pregled porudžbina </button>
 		<button v-if="mode=='manager'" v-on:click="getCustomersManager"> Pregled kupaca </button>
 		<button v-if="mode=='deliverer'" v-on:click="getWaitingOrders"> Porudžbine na čekanju </button>
@@ -321,10 +321,6 @@ Vue.component("restaurants", {
 		getDeliverers: function() {
 			event.preventDefault();
 			router.push(`/deliverers`);
-		},
-		goToSearch: function() {
-			event.preventDefault();
-			router.push(`/search_restaurant`);
 		},
 		searchRestaurant: function() {
 			this.locationSearch = cyrilicToLatinic(document.querySelector('#autocomplete-dataset').value);

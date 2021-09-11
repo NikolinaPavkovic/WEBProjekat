@@ -3,7 +3,8 @@ Vue.component("allComments", {
     return {
       comments: null,
       mode: "",
-	  isVisible: true
+	  isVisible: true,
+	  approved: true
     }
   },
 

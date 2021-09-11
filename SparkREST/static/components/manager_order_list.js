@@ -25,8 +25,8 @@ Vue.component("manager_order_list", {
 		<div class = "search-form">
 			<input type="date" v-model="startDate"/>
 			<input type="date" v-model="endDate"/>
-			<input type="number" placeholder="Cena (od)" v-model="startPrice"/>
-			<input type="number" placeholder="Cena (do)" v-model="endPrice"/>
+			<input type="number" placeholder="Cena (od)" min="0" v-model="startPrice"/>
+			<input type="number" placeholder="Cena (do)" min="0" v-model="endPrice"/>
 			<button v-on:click="searchOrders" class="search-button"> <img class="search-image" src="./images/search.png"> </button> <br>
 
 			<a href="#search_restaurant" @click="showFilters" style="margin-left: 41px;"> Filteri </a>

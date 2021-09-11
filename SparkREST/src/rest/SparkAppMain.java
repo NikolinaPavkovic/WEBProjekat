@@ -425,17 +425,28 @@ public class SparkAppMain {
 		post("/rest/addNewManager", (req, res) -> {
 			res.type("application/json");
 			ManagerDTO fromJson = g.fromJson(req.body(), ManagerDTO.class);
+			if(fromJson.getDateOfBirth().equals("") ||
+					fromJson.getGender().equals("") ||
+					fromJson.getName().equals("") ||
+					fromJson.getPassword().equals("") ||
+					fromJson.getSurname().equals("") ||
+					fromJson.getUsername().equals("")) {
+				return "EMPTY";
+			}
 			Date date;
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			date = (Date) format.parse(fromJson.getDateOfBirth());
-			Restaurant restaurant = new Restaurant();
-			Manager newManager = new Manager(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(),
-					date, fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted(), restaurant);
+			//Restaurant restaurant = new Restaurant();
+			//Manager newManager = new Manager(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(),
+				//	date, Role.manager, fromJson.isBlocked(), fromJson.isDeleted(), restaurant);
 			User user = new User(fromJson.getUsername(), fromJson.getPassword(), fromJson.getName(), fromJson.getSurname(), fromJson.getGender(), date,
-					fromJson.getRole(), fromJson.isBlocked(), fromJson.isDeleted());
-			managerService.addManager(newManager);
-			userService.addUser(user);
-			return "SUCCESS";
+					Role.manager, fromJson.isBlocked(), fromJson.isDeleted());
+			User u = userService.addUser(user);
+			if(u != null) {
+				return "SUCCESS";
+			} else {
+				return "USERNAME EXISTS";
+			}
 		});
 
 
@@ -501,7 +512,11 @@ public class SparkAppMain {
 
 		get("/rest/getWaitingOrders", (req, res) -> {
 			res.type("application/json");
-			return g.toJson(orderService.getWaitingOrders());
+			if(orderService.getWaitingOrders().isEmpty()) {
+				return "EMPTY";
+			} else {
+				return g.toJson(orderService.getWaitingOrders());
+			}
 		});
 
 		post("/rest/newRequest", (req, res) -> {
@@ -585,7 +600,11 @@ public class SparkAppMain {
 			res.type("application/json");
 			Session session = req.session(true);
 			User user = session.attribute("user");
-			return g.toJson(delivererService.getUndeliveredOrders(user));
+			if(delivererService.getUndeliveredOrders(user).isEmpty()) {
+				return "EMPTY";
+			} else {
+				return g.toJson(delivererService.getUndeliveredOrders(user));
+			}
 		});
 
 		get("/rest/getCustomersForManager", (req, res) -> {

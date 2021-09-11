@@ -94,4 +94,28 @@
   },
   "imgPath" : "./images/piatto.png",
   "averageGrade" : 0.0
+}, {
+  "name" : "Savoca",
+  "type" : "italian",
+  "items" : null,
+  "status" : "open",
+  "location" : {
+    "latitude" : 45.26,
+    "longitude" : 19.833,
+    "address" : {
+      "address" : "Bulevar Oslobođenja 35",
+      "number" : 0,
+      "city" : {
+        "city" : "Novi Sad",
+        "state" : {
+          "state" : "SRB",
+          "id" : 0
+        },
+        "id" : 0,
+        "zipCode" : 21101.0
+      }
+    }
+  },
+  "imgPath" : "./images/savoca.jpg",
+  "averageGrade" : 0.0
 } ]

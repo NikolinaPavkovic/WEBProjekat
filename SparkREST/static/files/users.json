@@ -139,16 +139,6 @@
   "isBlocked" : false,
   "deleted" : false
 }, {
-  "username" : "nikola",
-  "password" : "nikola",
-  "name" : "Nikola",
-  "surname" : "Nikolić",
-  "gender" : "male",
-  "dateOfBirth" : 963180000000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false
-}, {
   "username" : "nina",
   "password" : "nina",
   "name" : "Nikolina",
@@ -168,4 +158,54 @@
   "role" : "customer",
   "isBlocked" : false,
   "deleted" : true
+}, {
+  "username" : "sara",
+  "password" : "sara",
+  "name" : "Sara",
+  "surname" : "Poparić",
+  "gender" : "female",
+  "dateOfBirth" : 803080800000,
+  "role" : "deliverer",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "mara",
+  "password" : "mara",
+  "name" : "Mara",
+  "surname" : "Marić",
+  "gender" : "female",
+  "dateOfBirth" : 1630274400000,
+  "role" : null,
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "milos",
+  "password" : "milos",
+  "name" : "Milos",
+  "surname" : "Bogic",
+  "gender" : "male",
+  "dateOfBirth" : 1630360800000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "nika",
+  "password" : "nika",
+  "name" : "Nika",
+  "surname" : "Nikic",
+  "gender" : "female",
+  "dateOfBirth" : 1630533600000,
+  "role" : "manager",
+  "isBlocked" : false,
+  "deleted" : false
+}, {
+  "username" : "nikola",
+  "password" : "nikola",
+  "name" : "Nikola",
+  "surname" : "Nikolić",
+  "gender" : "male",
+  "dateOfBirth" : 963180000000,
+  "role" : "customer",
+  "isBlocked" : true,
+  "deleted" : false
 } ]

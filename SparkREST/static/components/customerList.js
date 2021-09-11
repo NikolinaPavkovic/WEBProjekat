@@ -77,7 +77,7 @@ Vue.component("customers", {
                         <th onclick="sortCustomerTable(0)">Ime</th>
                         <th onclick="sortCustomerTable(1)">Prezime</th>
                         <th onclick="sortCustomerTable(2)">Korisničko ime</th>
-                        <th>Poeni</th>
+                        <th onclick="sortCustomerTable(3)">Poeni</th>
                         <th>Tip kupca</th>
                         <th>Blokiran</th>
                         <th></th>

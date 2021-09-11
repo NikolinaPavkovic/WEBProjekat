@@ -77,6 +77,7 @@ public class RestaurantService {
 	public ArrayList<Restaurant> sortByGrade(FilterDTO fromJson) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Restaurant> found = fromJson.getRestaurants();
 		ArrayList<Restaurant> sorted = new ArrayList<Restaurant>();
+		ArrayList<Restaurant> unGraded = new ArrayList<Restaurant>();
 
 		for (Restaurant r : found) {
 			double avg;
@@ -88,15 +89,23 @@ public class RestaurantService {
 					cnt++;
 				} 
 			}
-			avg = sum/cnt;
-			r.setAverageGrade(avg);
-			sorted.add(r);
+			if(cnt == 0) {
+				unGraded.add(r);
+			} else {
+				avg = sum/cnt;
+				r.setAverageGrade(avg);
+				sorted.add(r);
+			}
 		}
 		
 		if (fromJson.isAscending()) {
 			Collections.sort(sorted, new SortByGradeAscending());
 		} else if (!fromJson.isAscending()) {
 			Collections.sort(sorted, new SortByGradeDescending());
+		}
+		
+		for (Restaurant restaurant : unGraded) {
+			sorted.add(restaurant);
 		}
 		
 		return sorted;

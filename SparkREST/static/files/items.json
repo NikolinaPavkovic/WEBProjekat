@@ -61,5 +61,197 @@
   },
   "amount" : 0.0,
   "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
-  "imagePath" : ""
+  "imagePath" : "./images/items/sandwich.jpg"
+}, {
+  "name" : "Carbonara",
+  "price" : 600.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: pančeta, jaje, pavlaka, parmezan",
+  "imagePath" : "./images/items/carbonara.jpg"
+}, {
+  "name" : "Avokado tost",
+  "price" : 500.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Kalem",
+    "type" : "chinese",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2539,
+      "longitude" : 19.8489,
+      "address" : {
+        "address" : "Bulevar Mihajla Pupina",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/kalem.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: avokado, dimljeni losos, limun, so",
+  "imagePath" : "./images/items/avocadoToast.jpg"
+}, {
+  "name" : "Biftek",
+  "price" : 1200.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Kalem",
+    "type" : "chinese",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2539,
+      "longitude" : 19.8489,
+      "address" : {
+        "address" : "Bulevar Mihajla Pupina",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/kalem.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: grilovano povrće",
+  "imagePath" : "./images/items/steak.jpg"
+}, {
+  "name" : "Palačinke",
+  "price" : 400.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Kalem",
+    "type" : "chinese",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2539,
+      "longitude" : 19.8489,
+      "address" : {
+        "address" : "Bulevar Mihajla Pupina",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/kalem.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: evrokrem, plazma, voće po izboru",
+  "imagePath" : "./images/items/crepes.jpg"
+}, {
+  "name" : "Bolognese",
+  "price" : 550.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Piatto",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2495,
+      "longitude" : 20.0191,
+      "address" : {
+        "address" : "Branka Bajica 9",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/piatto.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: juneće meso, paradajz sos, začini",
+  "imagePath" : "./images/items/bolognese.jpg"
+}, {
+  "name" : "Američke palačinkee",
+  "price" : 350.0,
+  "type" : "food",
+  "restaurant" : {
+    "name" : "Petrus",
+    "type" : "italian",
+    "items" : null,
+    "status" : "open",
+    "location" : {
+      "latitude" : 45.2544,
+      "longitude" : 19.8471,
+      "address" : {
+        "address" : "Modene",
+        "number" : 0,
+        "city" : {
+          "city" : "Novi Sad",
+          "state" : {
+            "state" : "Serbia",
+            "id" : 0
+          },
+          "id" : 0,
+          "zipCode" : 21000.0
+        }
+      }
+    },
+    "imgPath" : "./images/petrus.png",
+    "averageGrade" : 0.0
+  },
+  "amount" : 1.0,
+  "description" : "Sastojci: nutela, sezonsko voće",
+  "imagePath" : "./images/items/pancake.jpg"
 } ]

@@ -41,7 +41,7 @@ Vue.component("addEmployee", {
 				<input type="text" v-model="usernameInput" name="username" required />
 				
 				<label>Lozinka:</label>
-				<input type="password" v-model="passwordInput" name="password" required />
+				<input type="password" v-model="passwordInput" minlength="5" name="password" required />
 				
 				<p style="color:red;text-transform:none;">{{emptyMessage}}</p>
 				

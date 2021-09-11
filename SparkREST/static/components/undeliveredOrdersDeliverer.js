@@ -1,12 +1,15 @@
 Vue.component("undeliveredOrdersDeliverer", {
 	data: function() {
 		return {
-			orders: null
+			orders: null,
+			emptyList: ''
 		}
 	},
 	template: `
 		<div>
-		  <h1 v-if="orders == null || !orders.lenght">Nemate nedostavljenih porudžbina!</h1>
+		  <div class="row-items">
+		  	<h1>{{emptyList}}</h1>
+		  </div>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -35,7 +38,11 @@ Vue.component("undeliveredOrdersDeliverer", {
 		axios
 			.get('/rest/getUndeliveredOrdersDeliverer')
 			.then(response => {
-				this.orders = response.data;
+				if(response.data == 'EMPTY') {
+					this.emptyList = "Nemate nedostavljenih porudžbina!";
+				} else {
+					this.orders = response.data;
+				}
 			});
 	},
 	methods: {
@@ -49,7 +56,7 @@ Vue.component("undeliveredOrdersDeliverer", {
 		changeStatusToDelivered: function(order) {
 			axios
 				.post('/rest/changeStatusToDelivered', order)
-				.then(response => (router.push(`/`)));
+				.then(response => (this.$router.go()));
 		},
 		isVisible: function(order) {
 			if(order.status == 'transport') {

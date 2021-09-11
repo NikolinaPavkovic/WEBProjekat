@@ -137,7 +137,7 @@ public class DelivererService {
 		
 		ArrayList<Order> delivererOrders = deliverer.getOrders();
 		for(int i = 0; i < delivererOrders.size(); i++) {
-			if(delivererOrders.get(i).getStatus() != OrderStatus.delivered) {
+			if(delivererOrders.get(i).getStatus() == OrderStatus.transport) {
 				undeliveredOrders.add(delivererOrders.get(i));
 			}
 		}

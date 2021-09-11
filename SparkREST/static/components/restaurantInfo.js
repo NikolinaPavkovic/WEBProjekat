@@ -105,14 +105,15 @@ Vue.component("restaurant_info", {
 
   <div>
     <img :src="restaurantImage" class="rest-image">
-	<button v-if="mode=='customer'" style="position: absolute; top: 10px; right: 40px;" v-on:click="viewShoppingCart">Korpa</button>
-	<p style="color:red;text-transform:none;">{{emptyCartMessage}}</p>
-
+	<button v-if="mode=='customer'" style="position: absolute; top: 320px; right: 10px;" v-on:click="viewShoppingCart">Korpa</button>
+	<h1 style="color:red;text-transform:none;"><center>{{emptyCartMessage}}</center></h1>
+	
     <div class="all">
     <div class="wrapper-restaurant">
       <div class="left">
         <h4> {{restaurant.name}} </h4>
-        <p> Ocena: {{avgGrade}} </p>
+        <p v-if="!isNaN(avgGrade)"> Ocena: {{avgGrade}} </p>
+        <p v-else> Ocena: neocenjen </p>
       </div>
 
       <div class ="right">
@@ -162,12 +163,12 @@ Vue.component("restaurant_info", {
       <div>
       	</br></br></br></br></br>
       	<span>
+      		&nbsp &nbsp &nbsp &nbsp &nbsp 
   	    	<button v-if="mode=='customer' && open==true" v-on:click="increment(i.name)">+</button>
   	    	<label v-bind:id="i.name" v-if="mode=='customer' && open==true">0</label>
-  	    	<button v-if="mode=='customer' && open==true" v-on:click="decrement(i.name)">-</button>
+  	    	<button v-if="mode=='customer' && open==true" v-on:click="decrement(i.name)">-</button> </br>
   	    	<button v-if="mode=='customer' && open==true" class="see-more" v-on:click="addToCart(i, i.name)"> Dodaj u korpu </button>
-          <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button>
-  	    	<p style="color:red;text-transform:none;">{{errorMessage}}</p>
+          <button v-if="mode=='manager' && canEdit==true" class="see-more" v-on:click="changeMode(i)"> Izmeni artikal </button></br>
       	</span>
       </div>
     </div>

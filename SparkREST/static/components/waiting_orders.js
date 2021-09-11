@@ -2,12 +2,15 @@ Vue.component("waiting_orders", {
 	data: function() {
 		return {
 			orders: null,
-			error: ""
+			error: "",
+			emptyList: ''
 		}
 	},
 	template: `
 		<div>
-		  <h1 v-if="orders == null || !orders.lenght">Nema porudžbina na čekanju!</h1>
+		  <div class="row-items">
+		  	<h1>{{emptyList}}</h1>
+		  </div>
 		  <div class="row-items" v-for="(o, index) in orders">
 		    <div class="col-with-pic"> </br>
 	          <div class="col-picture">
@@ -36,7 +39,11 @@ Vue.component("waiting_orders", {
 		axios
 			.get('/rest/getWaitingOrders')
 			.then(response => {
-				this.orders = response.data;
+				if(response.data == 'EMPTY') {
+					this.emptyList = "Nema porudžbina na čekanju!";
+				} else {
+					this.orders = response.data;
+				}
 			});
 		
 	},
