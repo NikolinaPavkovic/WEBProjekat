@@ -627,7 +627,7 @@ public class SparkAppMain {
 			res.type("application/json");
 			CommentDTO fromJson = g.fromJson(req.body(), CommentDTO.class);
 			System.out.println(fromJson.getCustomerUsername());
-			Comment comment = new Comment(customerService.findCustomer(fromJson.getCustomerUsername()), fromJson.getRestaurant(), fromJson.getText(), fromJson.getGrade(),fromJson.isApproved());
+			Comment comment = new Comment(customerService.findCustomer(fromJson.getCustomerUsername()), fromJson.getRestaurant(), fromJson.getText(), fromJson.getGrade(),fromJson.isApproved(), false);
 			commentService.addComment(comment);
 			return "SUCCESS";
 		});
@@ -714,6 +714,14 @@ public class SparkAppMain {
 			res.type("application/json");
 			String name = req.params("name");
 			itemService.deleteItem(name);
+			return "";
+		});
+		
+		delete("rest/deleteComment/:text/:username", (req, res) -> {
+			res.type("application/json");
+			String text = req.params("text");
+			String username = req.params("username");
+			commentService.deleteComment(text, username);
 			return "";
 		});
 

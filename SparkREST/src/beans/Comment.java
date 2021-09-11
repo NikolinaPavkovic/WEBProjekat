@@ -6,15 +6,16 @@ public class Comment {
 	private String text;
 	private int grade;
 	private boolean approved;
+	private boolean deleted;
 	
-	public Comment(Customer customer, Restaurant restaurant, String text, int grade, boolean approved) {
+	public Comment(Customer customer, Restaurant restaurant, String text, int grade, boolean approved, boolean deleted) {
 		super();
 		this.customer = customer;
 		this.restaurant = restaurant;
 		this.text = text;
 		this.grade = grade;
 		this.approved = approved;
-	}
+		this.deleted = deleted;	}
 
 	public Comment() {
 		super();
@@ -59,6 +60,14 @@ public class Comment {
 
 	public void setApproved(boolean approved) {
 		this.approved = approved;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 }

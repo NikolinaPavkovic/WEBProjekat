@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import dao.AllComments;
@@ -20,15 +21,15 @@ public class CommentService {
 	private static ManagerService managerService = new ManagerService();
 	
 	public Collection<Comment> getComments() throws JsonGenerationException, JsonMappingException, IOException {
-		return this.comments.load();
+		return this.allComments.load();
 	}
 	
 	public double countAverageGrade(String restaurantName) throws JsonGenerationException, JsonMappingException, IOException{
 		double avg;
 		int cnt = 0;
 		int sum = 0;
-		for (Comment c : comments.load()) {
-			if (c.getRestaurant().getName().equals(restaurantName)) {
+		for (Comment c : allComments.load()) {
+			if (c.getRestaurant().getName().equals(restaurantName) && c.isApproved()) {
 				sum += c.getGrade();
 				cnt ++;
 			}
@@ -41,9 +42,11 @@ public class CommentService {
 	
 	public ArrayList<Comment> getRestaurantComments(String restaurantName) throws JsonMappingException, JsonGenerationException, IOException {
 		ArrayList<Comment> restaurantComments = new ArrayList<Comment>();
-		for (Comment c : comments.load()) {
+		for (Comment c : allComments.load()) {
 			if (c.getRestaurant().getName().equals(restaurantName)) {
-				restaurantComments.add(c);
+				if (!c.isDeleted() && c.isApproved()) {
+					restaurantComments.add(c);
+				}
 			} 
 		}
 		
@@ -53,7 +56,7 @@ public class CommentService {
 	public ArrayList<Restaurant> getRestaurantsByGrade(double grade) throws JsonGenerationException, JsonMappingException, IOException{
 		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 		
-		for (Comment c : comments.load()) {
+		for (Comment c : allComments.load()) {
 			if (grade == countAverageGrade(c.getRestaurant().getName())) {
 				restaurants.add(c.getRestaurant());
 			}
@@ -88,7 +91,9 @@ public class CommentService {
 		Manager manager = managerService.findManager(user);
 		for (Comment c : allComments.load()) {
 			if (c.getRestaurant().getName().equals(manager.getRestaurant().getName())) {
-				managerComments.add(c);
+				if (!c.isDeleted()) {
+					managerComments.add(c);
+				}
 			}
 		}
 		
@@ -98,7 +103,9 @@ public class CommentService {
 	public ArrayList<Comment> getCommentsForAdmin() throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Comment> adminComments = new ArrayList<Comment>();
 		for (Comment c : allComments.load()) {
-			adminComments.add(c);
+			if (!c.isDeleted()) {
+				adminComments.add(c);
+			}
 		}
 		return adminComments;
 	}
@@ -113,10 +120,24 @@ public class CommentService {
 			}
 		}
 		//comments.save(comment);
-		//allComments.add(comment);
+		allComments.add(comment);
 		this.allComments.emptyFile();
 		for (Comment c : allComments) {
 			this.allComments.save(c);
+		}
+	}
+	
+	public void deleteComment(String text, String username) throws JsonParseException, JsonMappingException, IOException {
+		ArrayList<Comment> allComments = this.allComments.load();
+		for(int i = 0; i < allComments.size(); i++) {
+			if(allComments.get(i).getText().equals(text) && allComments.get(i).getCustomer().getUsername().equals(username)) {
+				allComments.get(i).setDeleted(true);
+				break;
+			}
+		}
+		this.allComments.emptyFile();
+		for (Comment comment : allComments) {
+			this.allComments.save(comment);
 		}
 	}
 }

@@ -4,7 +4,7 @@ Vue.component("allComments", {
       comments: null,
       mode: "",
 	  isVisible: true,
-	  approved: true
+	  isApproved: true
     }
   },
 
@@ -19,6 +19,7 @@ Vue.component("allComments", {
         <h1 class="grade-comment"> {{c.grade}} </h1>
         <button v-if="mode=='manager'" v-on:click="approveComment(c)" v-bind:hidden="c.approved == true"> Odobri komentar </button>
 		<button v-if="mode=='manager'" v-on:click="disapproveComment(c)" v-bind:hidden="c.approved == true"> Odbij komentar </button>
+		<button v-if="mode=='admin'" style="background-color:red;" v-on:click="deleteComment(c)">delete</button>
       </div>
     </div>
 
@@ -69,16 +70,24 @@ Vue.component("allComments", {
     },
 	
 	disapproveComment: function(comment) {
+		this.isApproved = false;
+		//this.isVisible = false;
 		let params = {
 		customer: comment.customer,
 		restaurant: comment.restaurant,
 		text: comment.text,
 		grade: comment.grade,
-		approved: comment.approved
+		approved: false,
+		deleted: comment.deleted
 	  }
 		axios
 			.post('/disapproveComment', JSON.stringify(params))
-			.then(response => (router.push(`/`)));
-	}
+			.then(response => (router.push(`/`))); 
+	},
+    deleteComment: function(comment) {
+    	axios
+    		.delete('rest/deleteComment/' + comment.text + '/' + comment.customer.username)
+    		.then(response => (this.$router.go()));
+    }
   }
 });
