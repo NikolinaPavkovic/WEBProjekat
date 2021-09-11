@@ -172,6 +172,7 @@ Vue.component("restaurants", {
 				<h1 class="info"> {{isOpen()}} </h1>
 		        <h1 class="info" v-if="!isNaN(getAvg(r.name))"> {{getAvg(r.name)}} </h1>
 		        <h1 class="info" v-else> NEOCENJEN </h1>
+		        <button v-if="mode=='admin'" style="background-color:red;" v-on:click="deleteRestaurant(r)">delete</button>
 			</div>
 		</div>
 
@@ -582,6 +583,11 @@ Vue.component("restaurants", {
     getAllComments: function() {
       event.preventDefault();
       router.push(`/allComments`);
+    },
+    deleteRestaurant: function(restaurant) {
+    	axios
+    		.delete('rest/deleteRestaurant/' + restaurant.name)
+    		.then(response => (this.$router.go()));
     }
 
 	}

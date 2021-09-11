@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import beans.Comment;
@@ -28,7 +29,14 @@ public class RestaurantService {
 	private static ItemService itemService = new ItemService();
 	
 	public Collection<Restaurant> getRestaurants() throws JsonGenerationException, JsonMappingException, IOException{
-		return this.restaurants.load();
+		ArrayList<Restaurant> restaurantList = restaurants.load();
+		ArrayList<Restaurant> realRestaurants = new ArrayList<Restaurant>();
+		for (Restaurant restaurant : restaurantList) {
+			if(!restaurant.isDeleted()) {
+				realRestaurants.add(restaurant);
+			}
+		}
+		return realRestaurants;
 	}
 	
 	public Restaurant addRestaurant(Restaurant restaurant) throws JsonGenerationException, JsonMappingException, IOException {
@@ -244,7 +252,13 @@ public class RestaurantService {
 		ArrayList<Restaurant> allRestaurants = new ArrayList<Restaurant>();
 		allRestaurants.addAll(getOpenRestaurants());
 		allRestaurants.addAll(getClosedRestaurants());
-		return allRestaurants;
+		ArrayList<Restaurant> realRestaurants = new ArrayList<Restaurant>();
+		for (Restaurant restaurant : allRestaurants) {
+			if(!restaurant.isDeleted()) {
+				realRestaurants.add(restaurant);
+			}
+		}
+		return realRestaurants;
 	}
 	
 	public String getRestaurantType(String name) throws JsonGenerationException, JsonMappingException, IOException {
@@ -255,6 +269,20 @@ public class RestaurantService {
 			}
 		}
 		return type;
+	}
+	
+	public void deleteRestaurant(String name) throws JsonParseException, JsonMappingException, IOException {
+		ArrayList<Restaurant> allRestaurants = restaurants.load();
+		for(int i = 0; i < allRestaurants.size(); i++) {
+			if(allRestaurants.get(i).getName().equals(name)) {
+				allRestaurants.get(i).setDeleted(true);
+				break;
+			}
+		}
+		restaurants.emptyFile();
+		for (Restaurant restaurant : allRestaurants) {
+			restaurants.save(restaurant);
+		}
 	}
 	
 }

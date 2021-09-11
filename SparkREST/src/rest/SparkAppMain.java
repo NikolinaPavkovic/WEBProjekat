@@ -150,7 +150,7 @@ public class SparkAppMain {
 				res.type("application/json");
 				RestaurantDTO restaurantDTO = g.fromJson(req.body(), RestaurantDTO.class);
 				Restaurant restaurant = new Restaurant(restaurantDTO.getName(), restaurantDTO.getType(), restaurantDTO.getItems(), restaurantDTO.getStatus(),
-						restaurantDTO.getLocation(), restaurantDTO.getImgPath());
+						restaurantDTO.getLocation(), restaurantDTO.getImgPath(), false);
 				restaurantService.addRestaurant(restaurant);
 				return "SUCCESS";
 
@@ -222,7 +222,7 @@ public class SparkAppMain {
 				res.type("application/json");
 				ItemDTO itemDTO = g.fromJson(req.body(), ItemDTO.class);
 				Item item = new Item(itemDTO.getName(), itemDTO.getPrice(), itemDTO.getType(), restaurantService.getRestaurantByName(itemDTO.getRestaurant().getName()),
-						itemDTO.getAmount(), itemDTO.getDescription(), itemDTO.getImagePath());
+						itemDTO.getAmount(), itemDTO.getDescription(), itemDTO.getImagePath(), false);
 				itemService.addItem(item);
 				return "SUCCESS";
 			} catch (Exception e) {
@@ -471,7 +471,7 @@ public class SparkAppMain {
 			ItemDTO fromJson = g.fromJson(req.body(), ItemDTO.class);
 			Item oldItem = fromJson.getOldItem();
 			Item newItem = new Item(fromJson.getName(), fromJson.getPrice(), fromJson.getType(), restaurantService.getRestaurantByName(fromJson.getRestaurant().getName()), fromJson.getAmount(),
-					fromJson.getDescription(), fromJson.getImagePath());
+					fromJson.getDescription(), fromJson.getImagePath(), false);
 			itemService.editItem(oldItem, newItem);
 			return "";
 		});
@@ -701,6 +701,20 @@ public class SparkAppMain {
 			Comment comment = g.fromJson(req.body(), Comment.class);
 			commentService.disapproveComment(comment);
 			return "deleted successfully";
+		});
+		
+		delete("rest/deleteRestaurant/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			restaurantService.deleteRestaurant(name);
+			return "";
+		});
+		
+		delete("rest/deleteItem/:name", (req, res) -> {
+			res.type("application/json");
+			String name = req.params("name");
+			itemService.deleteItem(name);
+			return "";
 		});
 
 	}

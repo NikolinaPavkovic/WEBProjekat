@@ -25,11 +25,13 @@
       }
     },
     "imgPath" : "./images/petrus.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 0.0,
   "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
-  "imagePath" : "./images/items/pizza.jpg"
+  "imagePath" : "./images/items/pizza.jpg",
+  "deleted" : false
 }, {
   "name" : "Ham sandwich",
   "price" : 350.0,
@@ -57,11 +59,13 @@
       }
     },
     "imgPath" : "./images/petrus.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 0.0,
   "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
-  "imagePath" : "./images/items/sandwich.jpg"
+  "imagePath" : "./images/items/sandwich.jpg",
+  "deleted" : false
 }, {
   "name" : "Carbonara",
   "price" : 600.0,
@@ -89,11 +93,13 @@
       }
     },
     "imgPath" : "./images/petrus.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: pančeta, jaje, pavlaka, parmezan",
-  "imagePath" : "./images/items/carbonara.jpg"
+  "imagePath" : "./images/items/carbonara.jpg",
+  "deleted" : false
 }, {
   "name" : "Avokado tost",
   "price" : 500.0,
@@ -121,11 +127,13 @@
       }
     },
     "imgPath" : "./images/kalem.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: avokado, dimljeni losos, limun, so",
-  "imagePath" : "./images/items/avocadoToast.jpg"
+  "imagePath" : "./images/items/avocadoToast.jpg",
+  "deleted" : false
 }, {
   "name" : "Biftek",
   "price" : 1200.0,
@@ -153,11 +161,13 @@
       }
     },
     "imgPath" : "./images/kalem.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: grilovano povrće",
-  "imagePath" : "./images/items/steak.jpg"
+  "imagePath" : "./images/items/steak.jpg",
+  "deleted" : false
 }, {
   "name" : "Palačinke",
   "price" : 400.0,
@@ -185,11 +195,13 @@
       }
     },
     "imgPath" : "./images/kalem.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: evrokrem, plazma, voće po izboru",
-  "imagePath" : "./images/items/crepes.jpg"
+  "imagePath" : "./images/items/crepes.jpg",
+  "deleted" : false
 }, {
   "name" : "Bolognese",
   "price" : 550.0,
@@ -217,11 +229,13 @@
       }
     },
     "imgPath" : "./images/piatto.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: juneće meso, paradajz sos, začini",
-  "imagePath" : "./images/items/bolognese.jpg"
+  "imagePath" : "./images/items/bolognese.jpg",
+  "deleted" : false
 }, {
   "name" : "Američke palačinkee",
   "price" : 350.0,
@@ -249,9 +263,11 @@
       }
     },
     "imgPath" : "./images/petrus.png",
-    "averageGrade" : 0.0
+    "averageGrade" : 0.0,
+    "deleted" : false
   },
   "amount" : 1.0,
   "description" : "Sastojci: nutela, sezonsko voće",
-  "imagePath" : "./images/items/pancake.jpg"
+  "imagePath" : "./images/items/pancake.jpg",
+  "deleted" : true
 } ]

@@ -31,7 +31,7 @@ public class Restaurants {
 	}
 
     public ArrayList<Restaurant> getRestaurantList() {
-		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "");
+		Restaurant rest = new Restaurant("Petrus", RestaurantType.grill, new ArrayList<Item>(), RestaurantStatus.open, new Location(), "", false);
 		restaurantList.add(rest);
 		return restaurantList;
 	} 
@@ -75,6 +75,12 @@ public class Restaurants {
 		}
 
 		return restaurant;
+	}
+	
+	public void emptyFile() throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.writeValue(new File("./static/files/restaurants.json"), new ArrayList<Restaurant>());
 	}
 
 }

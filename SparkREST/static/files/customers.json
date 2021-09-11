@@ -154,341 +154,6 @@
   "endCheck" : 1633285786419,
   "actions" : 0
 }, {
-  "username" : "vanja",
-  "password" : "vanja",
-  "name" : "Vanja",
-  "surname" : "Veljic",
-  "gender" : "female",
-  "dateOfBirth" : 1625781600000,
-  "role" : "customer",
-  "isBlocked" : false,
-  "deleted" : false,
-  "orders" : [ {
-    "id" : "8hZHb9vKcw",
-    "orderedItems" : [ {
-      "name" : "Pizza",
-      "price" : 450.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 6.0,
-      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1626813142000,
-    "price" : 2700.0,
-    "customer" : "vanja",
-    "status" : "delivered"
-  }, {
-    "id" : "CdjMh3YAC0",
-    "orderedItems" : [ {
-      "name" : "Pizza",
-      "price" : 450.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 7.0,
-      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    }, {
-      "name" : "Ham sandwich",
-      "price" : 300.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 5.0,
-      "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
-      "imagePath" : "./images/items/sandwich.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1626813200000,
-    "price" : 4650.0,
-    "customer" : "vanja",
-    "status" : "delivered"
-  }, {
-    "id" : "3t8fIORdMM",
-    "orderedItems" : [ {
-      "name" : "Pizza",
-      "price" : 450.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 1.0,
-      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1626871253000,
-    "price" : 450.0,
-    "customer" : "vanja",
-    "status" : "delivered"
-  }, {
-    "id" : "WlgUYYiirl",
-    "orderedItems" : [ {
-      "name" : "Pizza",
-      "price" : 450.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 2.0,
-      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1626874936081,
-    "price" : 900.0,
-    "customer" : "vanja",
-    "status" : "processing"
-  }, {
-    "id" : "Z17wkqchyt",
-    "orderedItems" : [ {
-      "name" : "Ham sandwich",
-      "price" : 300.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 4.0,
-      "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
-      "imagePath" : "./images/items/sandwich.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1630438448000,
-    "price" : 1200.0,
-    "customer" : "vanja",
-    "status" : "delivered"
-  }, {
-    "id" : "vOunLUYnqD",
-    "orderedItems" : [ {
-      "name" : "Ham sandwich",
-      "price" : 350.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 2.0,
-      "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
-      "imagePath" : ""
-    }, {
-      "name" : "Pizza",
-      "price" : 450.0,
-      "type" : "food",
-      "restaurant" : {
-        "name" : "Petrus",
-        "type" : "italian",
-        "items" : null,
-        "status" : "open",
-        "location" : {
-          "latitude" : 45.2544,
-          "longitude" : 19.8471,
-          "address" : {
-            "address" : "Modene",
-            "number" : 0,
-            "city" : {
-              "city" : "Novi Sad",
-              "state" : {
-                "state" : "Serbia",
-                "id" : 0
-              },
-              "id" : 0,
-              "zipCode" : 21000.0
-            }
-          }
-        },
-        "imgPath" : "./images/petrus.png",
-        "averageGrade" : 0.0
-      },
-      "amount" : 3.0,
-      "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
-      "imagePath" : "./images/items/pizza.jpg"
-    } ],
-    "restaurant" : "Petrus",
-    "restLogo" : "./images/petrus.png",
-    "dateAndTime" : 1631214404000,
-    "price" : 2050.0,
-    "customer" : "vanja",
-    "status" : "delivered"
-  } ],
-  "shoppingCart" : {
-    "items" : [ ],
-    "customer" : null,
-    "price" : 0.0
-  },
-  "points" : -738.8149999999998,
-  "customerType" : {
-    "typeName" : "steel",
-    "discount" : 0.0,
-    "requiredPoints" : 2238.8149999999996
-  },
-  "startCheck" : 1630438193251,
-  "endCheck" : 1633030193251,
-  "actions" : 6
-}, {
   "username" : "zoran",
   "password" : "zoran",
   "name" : "Zoran",
@@ -863,5 +528,404 @@
   },
   "startCheck" : 1631186481691,
   "endCheck" : 1633778481691,
+  "actions" : 6
+}, {
+  "username" : "vanja",
+  "password" : "vanja",
+  "name" : "Vanja",
+  "surname" : "Veljic",
+  "gender" : "female",
+  "dateOfBirth" : 1625781600000,
+  "role" : "customer",
+  "isBlocked" : false,
+  "deleted" : false,
+  "orders" : [ {
+    "id" : "8hZHb9vKcw",
+    "orderedItems" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 6.0,
+      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1626813142000,
+    "price" : 2700.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  }, {
+    "id" : "CdjMh3YAC0",
+    "orderedItems" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 7.0,
+      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    }, {
+      "name" : "Ham sandwich",
+      "price" : 300.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 5.0,
+      "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
+      "imagePath" : "./images/items/sandwich.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1626813200000,
+    "price" : 4650.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  }, {
+    "id" : "3t8fIORdMM",
+    "orderedItems" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 1.0,
+      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1626871253000,
+    "price" : 450.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  }, {
+    "id" : "WlgUYYiirl",
+    "orderedItems" : [ {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 2.0,
+      "description" : "Sastojci: keÄ�ap, Å¡unka, sir, Å¡ampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1626874936081,
+    "price" : 900.0,
+    "customer" : "vanja",
+    "status" : "processing"
+  }, {
+    "id" : "Z17wkqchyt",
+    "orderedItems" : [ {
+      "name" : "Ham sandwich",
+      "price" : 300.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 4.0,
+      "description" : "Sastojci: hleb, premaz, Å¡unka, sir, zelena salata",
+      "imagePath" : "./images/items/sandwich.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1630438448000,
+    "price" : 1200.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  }, {
+    "id" : "vOunLUYnqD",
+    "orderedItems" : [ {
+      "name" : "Ham sandwich",
+      "price" : 350.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 2.0,
+      "description" : "Sastojci: hleb, premaz, šunka, sir, zelena salata",
+      "imagePath" : ""
+    }, {
+      "name" : "Pizza",
+      "price" : 450.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Petrus",
+        "type" : "italian",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2544,
+          "longitude" : 19.8471,
+          "address" : {
+            "address" : "Modene",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/petrus.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 3.0,
+      "description" : "Sastojci: kečap, šunka, sir, šampinjoni",
+      "imagePath" : "./images/items/pizza.jpg"
+    } ],
+    "restaurant" : "Petrus",
+    "restLogo" : "./images/petrus.png",
+    "dateAndTime" : 1631214404000,
+    "price" : 2050.0,
+    "customer" : "vanja",
+    "status" : "delivered"
+  } ],
+  "shoppingCart" : {
+    "items" : [ {
+      "name" : "Avokado tost",
+      "price" : 500.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Kalem",
+        "type" : "chinese",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2539,
+          "longitude" : 19.8489,
+          "address" : {
+            "address" : "Bulevar Mihajla Pupina",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/kalem.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 1.0,
+      "description" : "Sastojci: avokado, dimljeni losos, limun, so",
+      "imagePath" : "./images/items/avocadoToast.jpg"
+    }, {
+      "name" : "Biftek",
+      "price" : 1200.0,
+      "type" : "food",
+      "restaurant" : {
+        "name" : "Kalem",
+        "type" : "chinese",
+        "items" : null,
+        "status" : "open",
+        "location" : {
+          "latitude" : 45.2539,
+          "longitude" : 19.8489,
+          "address" : {
+            "address" : "Bulevar Mihajla Pupina",
+            "number" : 0,
+            "city" : {
+              "city" : "Novi Sad",
+              "state" : {
+                "state" : "Serbia",
+                "id" : 0
+              },
+              "id" : 0,
+              "zipCode" : 21000.0
+            }
+          }
+        },
+        "imgPath" : "./images/kalem.png",
+        "averageGrade" : 0.0
+      },
+      "amount" : 2.0,
+      "description" : "Sastojci: grilovano povrće",
+      "imagePath" : "./images/items/steak.jpg"
+    } ],
+    "customer" : null,
+    "price" : 2900.0
+  },
+  "points" : -738.8149999999998,
+  "customerType" : {
+    "typeName" : "steel",
+    "discount" : 0.0,
+    "requiredPoints" : 2238.8149999999996
+  },
+  "startCheck" : 1630438193251,
+  "endCheck" : 1633030193251,
   "actions" : 6
 } ]

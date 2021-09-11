@@ -8,12 +8,13 @@ public class Item {
 	private double amount;
 	private String description;
 	private String imagePath;
+	private boolean deleted;
 	
 	public Item() {
 		super();
 	}
 	
-	public Item(String name, double price, ItemType type, Restaurant restaurant, double amount, String description, String imagePath) {
+	public Item(String name, double price, ItemType type, Restaurant restaurant, double amount, String description, String imagePath, boolean deleted) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -22,6 +23,7 @@ public class Item {
 		this.amount = amount;
 		this.description = description;
 		this.imagePath = imagePath;
+		this.deleted = deleted;
 	}
 
 	public String getName() {
@@ -78,6 +80,14 @@ public class Item {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 	

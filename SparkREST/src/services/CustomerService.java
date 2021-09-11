@@ -89,6 +89,12 @@ public class CustomerService {
 					newCustomer.getShoppingCart().setItems(new ArrayList<Item>());
 				}
 				items = newCustomer.getShoppingCart().getItems();
+				for(int m = 0; m < items.size(); m++) {
+					if(!items.get(m).getRestaurant().getName().equals(item.getRestaurant().getName())) {
+						items = new ArrayList<Item>();
+						break;
+					}
+				}
 				for(int j = 0; j < items.size(); j++) {
 					if(items.get(j).getName().equals(item.getName())) {
 						brojac++;

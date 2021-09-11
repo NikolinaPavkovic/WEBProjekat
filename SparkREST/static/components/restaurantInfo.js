@@ -159,6 +159,8 @@ Vue.component("restaurant_info", {
         <h1 class="item-name"> {{i.name}} </h1>
         <h1 class="description"> {{i.description}} </h1>
         <h1 class="price"> {{i.price}},00 RSD </h1>
+        &nbsp &nbsp
+        <button v-if="mode=='admin'" style="background-color:red;" v-on:click="deleteItem(i)">delete</button>
       </div>
       <div>
       	</br></br></br></br></br>
@@ -367,6 +369,11 @@ Vue.component("restaurant_info", {
       this.itemAmount = item.amount;
       this.itemDescription = item.description;
       this.oldItem = item;
+    },
+    deleteItem: function(item) {
+    	axios
+    		.delete('rest/deleteItem/' + item.name)
+    		.then(response => (this.$router.go()));
     },
 
     editItem: function() {

@@ -11,13 +11,14 @@ public class Restaurant {
 	private Location location;
 	private String imgPath;
 	private double averageGrade;
+	private boolean deleted;
 	
 	public Restaurant() {
 		super();
 	}
 	
     public Restaurant(String name, RestaurantType type, ArrayList<Item> items, RestaurantStatus status,
-			Location location, String imgPath) {
+			Location location, String imgPath, boolean deleted) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -25,6 +26,7 @@ public class Restaurant {
 		this.status = status;
 		this.location = location;
 		this.imgPath = imgPath;
+		this.deleted = deleted;
 	} 
 
 	public String getName() {
@@ -82,6 +84,13 @@ public class Restaurant {
 	public void setAverageGrade(double averageGrade) {
 		this.averageGrade = averageGrade;
 	}
-	
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 }

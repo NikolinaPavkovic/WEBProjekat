@@ -27,7 +27,7 @@ public class ItemService {
 		ArrayList<Item> restaurantItems = new ArrayList<Item>();
 		
 		for (Item item : items.load()) {
-			if (item.getRestaurant().getName().equals(restaurantName)) {
+			if (item.getRestaurant().getName().equals(restaurantName) && !item.isDeleted()) {
 				restaurantItems.add(item);
 			}
 		}
@@ -47,6 +47,20 @@ public class ItemService {
 		itemsFromFile.add(newItem);
 		items.emptyFile();
 		for (Item item : itemsFromFile) {
+			items.save(item);
+		}
+	}
+	
+	public void deleteItem(String name) throws JsonGenerationException, JsonMappingException, IOException {
+		ArrayList<Item> allItems = items.load();
+		for (Item item : allItems) {
+			if(item.getName().equals(name)) {
+				item.setDeleted(true);
+			}
+		}
+		
+		items.emptyFile();
+		for (Item item : allItems) {
 			items.save(item);
 		}
 	}
