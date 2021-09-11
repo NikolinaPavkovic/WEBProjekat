@@ -308,7 +308,7 @@ Vue.component("add_restaurant", {
           items: this.items,
   		    status: this.restaurantStatus,
           location: locationCurr,
-  		    imgPath: this.restaurantImage
+  		    imgPath: this.restImageForBackend
         };
 
         let managerParams = {

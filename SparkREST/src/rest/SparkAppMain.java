@@ -37,6 +37,7 @@ import dto.RequestDTO;
 import dto.RestaurantDTO;
 import dto.SearchDTO;
 import dto.UserDTO;
+import services.Base64ToImage;
 import services.CommentService;
 import services.CustomerService;
 import services.DelivererService;
@@ -148,9 +149,14 @@ public class SparkAppMain {
 		post("/rest/addRestaurant", (req, res) -> {
 			try {
 				res.type("application/json");
+				
 				RestaurantDTO restaurantDTO = g.fromJson(req.body(), RestaurantDTO.class);
+				Base64ToImage decoder = new Base64ToImage();
+				String imagePath = "./images/" + restaurantDTO.getName().toLowerCase() + ".jpg";
+				System.out.println(imagePath);
+				decoder.Base64DecodeAndSave(restaurantDTO.getImgPath(), "./static/" + imagePath.substring(2));
 				Restaurant restaurant = new Restaurant(restaurantDTO.getName(), restaurantDTO.getType(), restaurantDTO.getItems(), restaurantDTO.getStatus(),
-						restaurantDTO.getLocation(), restaurantDTO.getImgPath(), false);
+						restaurantDTO.getLocation(), imagePath, false);
 				restaurantService.addRestaurant(restaurant);
 				return "SUCCESS";
 
