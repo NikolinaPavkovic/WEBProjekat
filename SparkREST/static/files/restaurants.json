@@ -20,7 +20,7 @@
       }
     }
   },
-  "imgPath" : "./images/kalem.png",
+  "imgPath" : "./images/kalem.jpg",
   "averageGrade" : 0.0,
   "deleted" : false
 }, {
@@ -45,7 +45,7 @@
       }
     }
   },
-  "imgPath" : "./images/petrus.png",
+  "imgPath" : "./images/petrus.jpg",
   "averageGrade" : 0.0,
   "deleted" : false
 }, {
@@ -70,7 +70,7 @@
       }
     }
   },
-  "imgPath" : "./images/masa.png",
+  "imgPath" : "./images/masa.jpg",
   "averageGrade" : 0.0,
   "deleted" : false
 }, {
@@ -95,7 +95,7 @@
       }
     }
   },
-  "imgPath" : "./images/piatto.png",
+  "imgPath" : "./images/piatto.jpg",
   "averageGrade" : 0.0,
   "deleted" : false
 }, {
@@ -121,6 +121,31 @@
     }
   },
   "imgPath" : "./images/savoca.jpg",
+  "averageGrade" : 0.0,
+  "deleted" : false
+}, {
+  "name" : "Gentleman",
+  "type" : "pizza",
+  "items" : null,
+  "status" : "open",
+  "location" : {
+    "latitude" : 45.272,
+    "longitude" : 19.828,
+    "address" : {
+      "address" : "Put Novosadskog partizanskog odreda",
+      "number" : 0,
+      "city" : {
+        "city" : "Novi Sad",
+        "state" : {
+          "state" : "SRB",
+          "id" : 0
+        },
+        "id" : 0,
+        "zipCode" : 21101.0
+      }
+    }
+  },
+  "imgPath" : "./images/gentleman.jpg",
   "averageGrade" : 0.0,
   "deleted" : false
 } ]

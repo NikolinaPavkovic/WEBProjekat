@@ -171,7 +171,7 @@ Vue.component("add_item", {
           restaurant: restaurantCurr,
           amount: this.itemAmount,
           description: this.itemDescription,
-          imagePath: this.itemImage
+          imagePath: this.itemImageForBackend
         };
 
         axios
